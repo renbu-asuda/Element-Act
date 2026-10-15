@@ -17,11 +17,11 @@
 
 ## はじめて遊ぶ方へ
 
-まずはルールブックの **[基本ルール](https://renbu-asuda.github.io/Element-Act/rules/#chapter-1)** をご覧ください。デッキの組み方、ゲームの準備、ターンの流れ、カードを置く場所を確認できます。
+まずはルールブックの **[基本ルール](https://renbu-asuda.github.io/Element-Act/rules/basics/index.html)** をご覧ください。デッキの組み方、ゲームの準備、ターンの流れ、カードを置く場所を確認できます。
 
 - メインデッキは **40〜60枚**、エクストラデッキは **0〜16枚**。
 - 初期ライフは **30000**、最初の手札とシールドはそれぞれ **5枚**。
-- カードの使い方は **[実行とセット](https://renbu-asuda.github.io/Element-Act/rules/#chapter-2)**、攻撃の進め方は **[攻撃とパワー](https://renbu-asuda.github.io/Element-Act/rules/#chapter-3)** で調べられます。
+- カードの使い方は **[実行とセット](https://renbu-asuda.github.io/Element-Act/rules/execution/index.html)**、攻撃の進め方は **[攻撃とパワー](https://renbu-asuda.github.io/Element-Act/rules/combat/index.html)** で調べられます。
 
 ## カードを作る
 
@@ -45,18 +45,18 @@
 
 **[ルール＆裁定ブックを開く](https://renbu-asuda.github.io/Element-Act/rules/)**
 
-基本ルールから能力辞典、具体的な裁定事例まで、全12分野を収録しています。
+基本ルールから能力辞典、具体的な裁定事例までを10の分類に整理しています。分類ごとの目次から、読みたい項目の独立ページへ進めます。各ページには現在位置・章内目次・前後のページへの案内があります。
 
 | 調べたいこと | おすすめの章 |
 | --- | --- |
-| 能力名の意味を知りたい | [能力辞典](https://renbu-asuda.github.io/Element-Act/rules/#chapter-8) |
-| 能力の解決順や、破壊・移動の処理を確認したい | [能力処理と移動](https://renbu-asuda.github.io/Element-Act/rules/#chapter-4) |
-| フラッグやバイチュイの使い方を知りたい | [フラッグ](https://renbu-asuda.github.io/Element-Act/rules/#chapter-6) ／ [バイチュイ](https://renbu-asuda.github.io/Element-Act/rules/#chapter-7) |
-| カードの能力文を書くときに確認したい | [能力文と制作](https://renbu-asuda.github.io/Element-Act/rules/#chapter-9) |
-| 具体的なケースの裁定を読みたい | [裁定事例](https://renbu-asuda.github.io/Element-Act/rules/#chapter-10) |
-| まだ決まっていない範囲を確認したい | [未確定・暫定事項](https://renbu-asuda.github.io/Element-Act/rules/#chapter-12) |
+| 能力名の意味を知りたい | [能力辞典](https://renbu-asuda.github.io/Element-Act/rules/keywords/index.html) |
+| 能力の解決順や、破壊・移動の処理を確認したい | [能力処理と移動](https://renbu-asuda.github.io/Element-Act/rules/effects/index.html) |
+| フラッグやバイチュイの使い方を知りたい | [フラッグ](https://renbu-asuda.github.io/Element-Act/rules/types/flag.html) ／ [バイチュイ](https://renbu-asuda.github.io/Element-Act/rules/zones/baichui.html) |
+| カードの能力文を書くときに確認したい | [能力文と制作](https://renbu-asuda.github.io/Element-Act/rules/writing/index.html) |
+| 具体的なケースの裁定を読みたい | [裁定事例](https://renbu-asuda.github.io/Element-Act/rules/rulings/index.html) |
+| まだ決まっていない範囲を確認したい | [未確定・暫定事項](https://renbu-asuda.github.io/Element-Act/rules/guide/unsettled.html) |
 
-検索欄に能力名や用語を入力すると、該当する項目を探せます。複数の言葉を空白で区切ると、すべての言葉を含む項目に絞り込めます。章ごとの絞り込みや、項目へのリンクの共有、全章の印刷・PDF保存もできます。
+検索欄に能力名や用語を入力すると、該当する項目を探せます。複数の言葉を空白で区切ると、すべての言葉を含む項目に絞り込めます。章ごとの絞り込みや、項目へのリンクの共有、表示中のページの印刷・PDF保存もできます。
 
 **収録基準：2026年10月15日。** 確定裁定と暫定解釈・未確定事項を区別して掲載しています。各章に記載した出典や日付も併せて確認してください。
 
@@ -64,4 +64,4 @@
 
 エレメント・アクトは、プレイヤーそれぞれの創作を大切にするゲームです。強すぎるカードや処理が分かりにくいカードは、一緒に遊ぶ人と相談して調整できます。独自のカードやローカルルールを作って遊ぶことも歓迎しています。
 
-掲載ルールは、提案者・明日田錬武による推奨基準です。創作物を公開・共有する際の方針や、他の作品を題材にしたカードについては、**[理念・利用方針](https://renbu-asuda.github.io/Element-Act/rules/#chapter-11)** をご覧ください。
+掲載ルールは、提案者・明日田錬武による推奨基準です。創作物を公開・共有する際の方針や、他の作品を題材にしたカードについては、**[理念・利用方針](https://renbu-asuda.github.io/Element-Act/rules/guide/index.html)** をご覧ください。

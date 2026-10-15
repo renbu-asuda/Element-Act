@@ -1,0 +1,1281 @@
+{
+  "pages": [
+    {
+      "title": "デッキの組み方",
+      "url": "basics/decks.html",
+      "group": "basics",
+      "sections": [
+        "chapter-1-section-1",
+        "chapter-1-section-2",
+        "chapter-1-section-3"
+      ]
+    },
+    {
+      "title": "ライフと勝敗",
+      "url": "basics/life-and-victory.html",
+      "group": "basics",
+      "sections": [
+        "chapter-1-section-4",
+        "chapter-1-section-5"
+      ]
+    },
+    {
+      "title": "ゲーム開始の準備",
+      "url": "basics/setup.html",
+      "group": "basics",
+      "sections": [
+        "chapter-1-section-6"
+      ]
+    },
+    {
+      "title": "ターンとフェイズ",
+      "url": "basics/turn.html",
+      "group": "basics",
+      "sections": [
+        "chapter-1-section-7",
+        "chapter-1-section-8",
+        "chapter-1-section-9",
+        "chapter-1-section-10",
+        "chapter-1-section-11"
+      ]
+    },
+    {
+      "title": "ゾーン一覧と「場」",
+      "url": "zones/overview.html",
+      "group": "zones",
+      "sections": [
+        "chapter-1-section-12"
+      ]
+    },
+    {
+      "title": "バイチュイゾーン",
+      "url": "zones/baichui.html",
+      "group": "zones",
+      "sections": [
+        "chapter-7-section-1",
+        "chapter-7-section-2",
+        "chapter-7-section-3",
+        "chapter-7-section-4",
+        "chapter-7-section-5",
+        "chapter-7-section-6",
+        "chapter-7-section-7",
+        "chapter-7-section-8"
+      ]
+    },
+    {
+      "title": "カードタイプの一覧",
+      "url": "types/overview.html",
+      "group": "types",
+      "sections": []
+    },
+    {
+      "title": "エレメントとカードの違い",
+      "url": "types/elements-and-cards.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-1"
+      ]
+    },
+    {
+      "title": "クロスギアとウェポン",
+      "url": "types/equipment.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-2"
+      ]
+    },
+    {
+      "title": "フィールドとDスイッチ",
+      "url": "types/field.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-3"
+      ]
+    },
+    {
+      "title": "オーラ",
+      "url": "types/aura.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-4"
+      ]
+    },
+    {
+      "title": "城とフォートレス",
+      "url": "types/castle-fortress.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-5"
+      ]
+    },
+    {
+      "title": "NEOと進化素材のコスト",
+      "url": "types/evolution.html",
+      "group": "types",
+      "sections": [
+        "chapter-5-section-8"
+      ]
+    },
+    {
+      "title": "フラッグ",
+      "url": "types/flag.html",
+      "group": "types",
+      "sections": [
+        "chapter-6-section-1",
+        "chapter-6-section-2",
+        "chapter-6-section-3",
+        "chapter-6-section-4",
+        "chapter-6-section-5",
+        "chapter-6-section-6",
+        "chapter-6-section-7"
+      ]
+    },
+    {
+      "title": "実行の基本と通常実行",
+      "url": "execution/overview.html",
+      "group": "execution",
+      "sections": [
+        "chapter-2-section-1",
+        "chapter-2-section-4"
+      ]
+    },
+    {
+      "title": "マナとコストの支払い",
+      "url": "execution/mana.html",
+      "group": "execution",
+      "sections": [
+        "chapter-2-section-2",
+        "chapter-2-section-3"
+      ]
+    },
+    {
+      "title": "特殊実行と特殊実行権",
+      "url": "execution/special.html",
+      "group": "execution",
+      "sections": [
+        "chapter-2-section-5",
+        "chapter-2-section-6",
+        "chapter-2-section-7",
+        "chapter-2-section-13",
+        "chapter-2-section-15"
+      ]
+    },
+    {
+      "title": "セットと表向きの実行",
+      "url": "execution/set.html",
+      "group": "execution",
+      "sections": [
+        "chapter-2-section-8",
+        "chapter-2-section-9",
+        "chapter-2-section-10",
+        "chapter-2-section-11"
+      ]
+    },
+    {
+      "title": "「実行する」と「出す」の違い",
+      "url": "execution/events.html",
+      "group": "execution",
+      "sections": [
+        "chapter-2-section-12",
+        "chapter-2-section-14"
+      ]
+    },
+    {
+      "title": "攻撃の手順と攻撃先",
+      "url": "combat/attack.html",
+      "group": "combat",
+      "sections": [
+        "chapter-3-section-1",
+        "chapter-3-section-2",
+        "chapter-3-section-8",
+        "chapter-3-section-9"
+      ]
+    },
+    {
+      "title": "シールド・ブレイク・ダメージ",
+      "url": "combat/shields.html",
+      "group": "combat",
+      "sections": [
+        "chapter-3-section-3",
+        "chapter-3-section-4",
+        "chapter-3-section-6"
+      ]
+    },
+    {
+      "title": "パワーとバトル",
+      "url": "combat/power.html",
+      "group": "combat",
+      "sections": [
+        "chapter-3-section-5",
+        "chapter-3-section-7",
+        "chapter-3-section-10",
+        "chapter-3-section-11"
+      ]
+    },
+    {
+      "title": "待機の優先順と能力喪失",
+      "url": "effects/waiting.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-1",
+        "chapter-4-section-2",
+        "chapter-4-section-12"
+      ]
+    },
+    {
+      "title": "手札上限と調整",
+      "url": "effects/hand-limit.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-3"
+      ]
+    },
+    {
+      "title": "行動と結果の区別",
+      "url": "effects/actions.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-4",
+        "chapter-4-section-5",
+        "chapter-4-section-7",
+        "chapter-4-section-8"
+      ]
+    },
+    {
+      "title": "置き換えの適用と競合",
+      "url": "effects/replacement.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-6"
+      ]
+    },
+    {
+      "title": "深淵送り・特殊帰還・トークン",
+      "url": "effects/movement.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-9"
+      ]
+    },
+    {
+      "title": "状況起因処理・再構築・ミスセット",
+      "url": "effects/state.html",
+      "group": "effects",
+      "sections": [
+        "chapter-4-section-10",
+        "chapter-4-section-11"
+      ]
+    },
+    {
+      "title": "封印と封印解除",
+      "url": "effects/seal.html",
+      "group": "effects",
+      "sections": [
+        "chapter-5-section-6"
+      ]
+    },
+    {
+      "title": "屍武装化",
+      "url": "keywords/corpse-armament.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-5-section-7"
+      ]
+    },
+    {
+      "title": "エクシーズ進化",
+      "url": "keywords/ability-01.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-1"
+      ]
+    },
+    {
+      "title": "クロス移動",
+      "url": "keywords/ability-02.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-2"
+      ]
+    },
+    {
+      "title": "サモン・トークン",
+      "url": "keywords/ability-03.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-3"
+      ]
+    },
+    {
+      "title": "シンクロ進化",
+      "url": "keywords/ability-04.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-4"
+      ]
+    },
+    {
+      "title": "リバイブ",
+      "url": "keywords/ability-05.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-5"
+      ]
+    },
+    {
+      "title": "リプレイ",
+      "url": "keywords/ability-06.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-6"
+      ]
+    },
+    {
+      "title": "NEOエクシーズ進化",
+      "url": "keywords/ability-07.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-7"
+      ]
+    },
+    {
+      "title": "NEOシンクロ進化",
+      "url": "keywords/ability-08.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-8"
+      ]
+    },
+    {
+      "title": "アンタッチャブル・Ω",
+      "url": "keywords/ability-09.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-9"
+      ]
+    },
+    {
+      "title": "アンタッチャブル",
+      "url": "keywords/ability-10.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-10"
+      ]
+    },
+    {
+      "title": "アンブロッカブル",
+      "url": "keywords/ability-11.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-11"
+      ]
+    },
+    {
+      "title": "エターナル・Ω",
+      "url": "keywords/ability-12.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-12"
+      ]
+    },
+    {
+      "title": "エターナル",
+      "url": "keywords/ability-13.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-13"
+      ]
+    },
+    {
+      "title": "スピードアタッカー",
+      "url": "keywords/ability-14.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-14"
+      ]
+    },
+    {
+      "title": "ダイレクトアタッカー",
+      "url": "keywords/ability-15.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-15"
+      ]
+    },
+    {
+      "title": "ノン・ブレイカー",
+      "url": "keywords/ability-16.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-16"
+      ]
+    },
+    {
+      "title": "パワーアタッカー",
+      "url": "keywords/ability-17.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-17"
+      ]
+    },
+    {
+      "title": "パワード・ブレイカー",
+      "url": "keywords/ability-18.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-18"
+      ]
+    },
+    {
+      "title": "ピアシング",
+      "url": "keywords/ability-19.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-19"
+      ]
+    },
+    {
+      "title": "ブロッカー",
+      "url": "keywords/ability-20.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-20"
+      ]
+    },
+    {
+      "title": "ワールド・ブレイカー",
+      "url": "keywords/ability-21.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-21"
+      ]
+    },
+    {
+      "title": "融合進化",
+      "url": "keywords/ability-22.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-22"
+      ]
+    },
+    {
+      "title": "NEO融合進化",
+      "url": "keywords/ability-23.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-23"
+      ]
+    },
+    {
+      "title": "Q・ブレイカー",
+      "url": "keywords/ability-24.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-24"
+      ]
+    },
+    {
+      "title": "T・ブレイカー",
+      "url": "keywords/ability-25.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-25"
+      ]
+    },
+    {
+      "title": "W・ブレイカー",
+      "url": "keywords/ability-26.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-26"
+      ]
+    },
+    {
+      "title": "ウルトラ・A・トリガー",
+      "url": "keywords/ability-27.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-27"
+      ]
+    },
+    {
+      "title": "リバース",
+      "url": "keywords/ability-28.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-28"
+      ]
+    },
+    {
+      "title": "返霊",
+      "url": "keywords/ability-29.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-29"
+      ]
+    },
+    {
+      "title": "融合",
+      "url": "keywords/ability-30.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-30"
+      ]
+    },
+    {
+      "title": "A・トリガー",
+      "url": "keywords/ability-31.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-31"
+      ]
+    },
+    {
+      "title": "G・ストライク",
+      "url": "keywords/ability-32.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-32"
+      ]
+    },
+    {
+      "title": "S・トリガー",
+      "url": "keywords/ability-33.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-33"
+      ]
+    },
+    {
+      "title": "S・バック",
+      "url": "keywords/ability-34.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-34"
+      ]
+    },
+    {
+      "title": "オーバークラッシャー",
+      "url": "keywords/ability-35.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-35"
+      ]
+    },
+    {
+      "title": "スレイヤー",
+      "url": "keywords/ability-36.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-36"
+      ]
+    },
+    {
+      "title": "ゾーン・対象・カードの指定",
+      "url": "writing/targets.html",
+      "group": "writing",
+      "sections": [
+        "chapter-9-section-1",
+        "chapter-9-section-2",
+        "chapter-9-section-3",
+        "chapter-9-section-9",
+        "chapter-9-section-10"
+      ]
+    },
+    {
+      "title": "能力文の読み方",
+      "url": "writing/wording.html",
+      "group": "writing",
+      "sections": [
+        "chapter-9-section-4",
+        "chapter-9-section-5",
+        "chapter-9-section-6",
+        "chapter-9-section-7",
+        "chapter-9-section-8",
+        "chapter-9-section-13",
+        "chapter-9-section-14"
+      ]
+    },
+    {
+      "title": "命名条件・能力指定・制作",
+      "url": "writing/design.html",
+      "group": "writing",
+      "sections": [
+        "chapter-9-section-11",
+        "chapter-9-section-12"
+      ]
+    },
+    {
+      "title": "カードタイプと配置",
+      "url": "rulings/cards.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-1",
+        "chapter-10-section-2",
+        "chapter-10-section-3",
+        "chapter-10-section-12",
+        "chapter-10-section-13",
+        "chapter-10-section-14",
+        "chapter-10-section-15",
+        "chapter-10-section-16",
+        "chapter-10-section-97",
+        "chapter-10-section-100"
+      ]
+    },
+    {
+      "title": "置換の競合",
+      "url": "rulings/replacement.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-4",
+        "chapter-10-section-5",
+        "chapter-10-section-6"
+      ]
+    },
+    {
+      "title": "封印・解除と能力",
+      "url": "rulings/seal.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-7",
+        "chapter-10-section-8",
+        "chapter-10-section-9",
+        "chapter-10-section-10",
+        "chapter-10-section-11",
+        "chapter-10-section-17",
+        "chapter-10-section-18",
+        "chapter-10-section-23",
+        "chapter-10-section-24",
+        "chapter-10-section-25",
+        "chapter-10-section-26",
+        "chapter-10-section-27",
+        "chapter-10-section-28",
+        "chapter-10-section-29",
+        "chapter-10-section-30"
+      ]
+    },
+    {
+      "title": "オーラの破壊と追従",
+      "url": "rulings/aura.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-19",
+        "chapter-10-section-20",
+        "chapter-10-section-21",
+        "chapter-10-section-22"
+      ]
+    },
+    {
+      "title": "加護・パワー・同時破壊",
+      "url": "rulings/power.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-31",
+        "chapter-10-section-32",
+        "chapter-10-section-33",
+        "chapter-10-section-34",
+        "chapter-10-section-35",
+        "chapter-10-section-36",
+        "chapter-10-section-37",
+        "chapter-10-section-38",
+        "chapter-10-section-39",
+        "chapter-10-section-40"
+      ]
+    },
+    {
+      "title": "装備・クロスの成立",
+      "url": "rulings/equipment.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-41",
+        "chapter-10-section-42",
+        "chapter-10-section-43",
+        "chapter-10-section-44",
+        "chapter-10-section-45",
+        "chapter-10-section-103"
+      ]
+    },
+    {
+      "title": "能力固有の処理",
+      "url": "rulings/keywords.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-46",
+        "chapter-10-section-47",
+        "chapter-10-section-48",
+        "chapter-10-section-49",
+        "chapter-10-section-50",
+        "chapter-10-section-51",
+        "chapter-10-section-52",
+        "chapter-10-section-53",
+        "chapter-10-section-54",
+        "chapter-10-section-55",
+        "chapter-10-section-56",
+        "chapter-10-section-58",
+        "chapter-10-section-59",
+        "chapter-10-section-60",
+        "chapter-10-section-61",
+        "chapter-10-section-62",
+        "chapter-10-section-63",
+        "chapter-10-section-64",
+        "chapter-10-section-65",
+        "chapter-10-section-66",
+        "chapter-10-section-67"
+      ]
+    },
+    {
+      "title": "攻撃先・ブロック・攻撃終了",
+      "url": "rulings/combat.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-57",
+        "chapter-10-section-68",
+        "chapter-10-section-69",
+        "chapter-10-section-70",
+        "chapter-10-section-71",
+        "chapter-10-section-72",
+        "chapter-10-section-73",
+        "chapter-10-section-79",
+        "chapter-10-section-80",
+        "chapter-10-section-81",
+        "chapter-10-section-92",
+        "chapter-10-section-98"
+      ]
+    },
+    {
+      "title": "即時勝敗・トークン・手順",
+      "url": "rulings/state.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-74",
+        "chapter-10-section-75",
+        "chapter-10-section-76",
+        "chapter-10-section-77",
+        "chapter-10-section-78",
+        "chapter-10-section-82",
+        "chapter-10-section-83"
+      ]
+    },
+    {
+      "title": "待機・能力消去・不発",
+      "url": "rulings/waiting.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-84",
+        "chapter-10-section-85",
+        "chapter-10-section-93",
+        "chapter-10-section-94",
+        "chapter-10-section-95"
+      ]
+    },
+    {
+      "title": "実行・支払い・登場",
+      "url": "rulings/execution.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-86",
+        "chapter-10-section-87",
+        "chapter-10-section-88",
+        "chapter-10-section-89",
+        "chapter-10-section-90",
+        "chapter-10-section-91",
+        "chapter-10-section-96",
+        "chapter-10-section-101",
+        "chapter-10-section-102",
+        "chapter-10-section-104",
+        "chapter-10-section-105"
+      ]
+    },
+    {
+      "title": "特殊カードの帰還",
+      "url": "rulings/movement.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-99"
+      ]
+    },
+    {
+      "title": "置換・配置・初期配置などの追加25問",
+      "url": "rulings/additional.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-106"
+      ]
+    },
+    {
+      "title": "D2-I 禁断のネヘトロン",
+      "url": "rulings/nehetron.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-107"
+      ]
+    },
+    {
+      "title": "ピンチ・チュリス／チューバイ・トラップ",
+      "url": "rulings/churis.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-108"
+      ]
+    },
+    {
+      "title": "アンタッチャブル／Ωの対象範囲",
+      "url": "rulings/untouchable.html",
+      "group": "rulings",
+      "sections": [
+        "chapter-10-section-109"
+      ]
+    },
+    {
+      "title": "エレメント・アクトと創作の方針",
+      "url": "guide/about.html",
+      "group": "guide",
+      "sections": [
+        "chapter-11-section-1",
+        "chapter-11-section-3"
+      ]
+    },
+    {
+      "title": "利用上の注意と共有方針",
+      "url": "guide/usage.html",
+      "group": "guide",
+      "sections": [
+        "chapter-11-section-2",
+        "chapter-11-section-4",
+        "chapter-11-section-5",
+        "chapter-11-section-6",
+        "chapter-11-section-7",
+        "chapter-11-section-8",
+        "chapter-11-section-9",
+        "chapter-11-section-10",
+        "chapter-11-section-11",
+        "chapter-11-section-12",
+        "chapter-11-section-13"
+      ]
+    },
+    {
+      "title": "未確定・暫定事項",
+      "url": "guide/unsettled.html",
+      "group": "guide",
+      "sections": [
+        "chapter-12-section-1",
+        "chapter-12-section-2",
+        "chapter-12-section-3",
+        "chapter-12-section-4"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "basics",
+      "title": "基本ルール",
+      "pages": [
+        "basics/decks.html",
+        "basics/life-and-victory.html",
+        "basics/setup.html",
+        "basics/turn.html"
+      ]
+    },
+    {
+      "id": "zones",
+      "title": "ゾーンと配置",
+      "pages": [
+        "zones/overview.html",
+        "zones/baichui.html"
+      ]
+    },
+    {
+      "id": "types",
+      "title": "カードタイプ",
+      "pages": [
+        "types/overview.html",
+        "types/elements-and-cards.html",
+        "types/equipment.html",
+        "types/field.html",
+        "types/aura.html",
+        "types/castle-fortress.html",
+        "types/evolution.html",
+        "types/flag.html"
+      ]
+    },
+    {
+      "id": "execution",
+      "title": "実行とコスト",
+      "pages": [
+        "execution/overview.html",
+        "execution/mana.html",
+        "execution/special.html",
+        "execution/set.html",
+        "execution/events.html"
+      ]
+    },
+    {
+      "id": "combat",
+      "title": "攻撃とバトル",
+      "pages": [
+        "combat/attack.html",
+        "combat/shields.html",
+        "combat/power.html"
+      ]
+    },
+    {
+      "id": "effects",
+      "title": "能力処理と状態",
+      "pages": [
+        "effects/waiting.html",
+        "effects/hand-limit.html",
+        "effects/actions.html",
+        "effects/replacement.html",
+        "effects/movement.html",
+        "effects/state.html",
+        "effects/seal.html"
+      ]
+    },
+    {
+      "id": "keywords",
+      "title": "能力辞典",
+      "pages": [
+        "keywords/corpse-armament.html",
+        "keywords/ability-01.html",
+        "keywords/ability-02.html",
+        "keywords/ability-03.html",
+        "keywords/ability-04.html",
+        "keywords/ability-05.html",
+        "keywords/ability-06.html",
+        "keywords/ability-07.html",
+        "keywords/ability-08.html",
+        "keywords/ability-09.html",
+        "keywords/ability-10.html",
+        "keywords/ability-11.html",
+        "keywords/ability-12.html",
+        "keywords/ability-13.html",
+        "keywords/ability-14.html",
+        "keywords/ability-15.html",
+        "keywords/ability-16.html",
+        "keywords/ability-17.html",
+        "keywords/ability-18.html",
+        "keywords/ability-19.html",
+        "keywords/ability-20.html",
+        "keywords/ability-21.html",
+        "keywords/ability-22.html",
+        "keywords/ability-23.html",
+        "keywords/ability-24.html",
+        "keywords/ability-25.html",
+        "keywords/ability-26.html",
+        "keywords/ability-27.html",
+        "keywords/ability-28.html",
+        "keywords/ability-29.html",
+        "keywords/ability-30.html",
+        "keywords/ability-31.html",
+        "keywords/ability-32.html",
+        "keywords/ability-33.html",
+        "keywords/ability-34.html",
+        "keywords/ability-35.html",
+        "keywords/ability-36.html"
+      ]
+    },
+    {
+      "id": "writing",
+      "title": "能力文と制作",
+      "pages": [
+        "writing/targets.html",
+        "writing/wording.html",
+        "writing/design.html"
+      ]
+    },
+    {
+      "id": "rulings",
+      "title": "裁定事例",
+      "pages": [
+        "rulings/cards.html",
+        "rulings/replacement.html",
+        "rulings/seal.html",
+        "rulings/aura.html",
+        "rulings/power.html",
+        "rulings/equipment.html",
+        "rulings/keywords.html",
+        "rulings/combat.html",
+        "rulings/state.html",
+        "rulings/waiting.html",
+        "rulings/execution.html",
+        "rulings/movement.html",
+        "rulings/additional.html",
+        "rulings/nehetron.html",
+        "rulings/churis.html",
+        "rulings/untouchable.html"
+      ]
+    },
+    {
+      "id": "guide",
+      "title": "利用方針と未確定事項",
+      "pages": [
+        "guide/about.html",
+        "guide/usage.html",
+        "guide/unsettled.html"
+      ]
+    }
+  ],
+  "legacy": {
+    "chapter-1-section-1": "basics/decks.html#chapter-1-section-1",
+    "chapter-1-section-2": "basics/decks.html#chapter-1-section-2",
+    "chapter-1-section-3": "basics/decks.html#chapter-1-section-3",
+    "chapter-1-section-4": "basics/life-and-victory.html#chapter-1-section-4",
+    "chapter-1-section-5": "basics/life-and-victory.html#chapter-1-section-5",
+    "chapter-1-section-6": "basics/setup.html#chapter-1-section-6",
+    "chapter-1-section-7": "basics/turn.html#chapter-1-section-7",
+    "chapter-1-section-8": "basics/turn.html#chapter-1-section-8",
+    "chapter-1-section-9": "basics/turn.html#chapter-1-section-9",
+    "chapter-1-section-10": "basics/turn.html#chapter-1-section-10",
+    "chapter-1-section-11": "basics/turn.html#chapter-1-section-11",
+    "chapter-1-section-12": "zones/overview.html#chapter-1-section-12",
+    "chapter-7-section-1": "zones/baichui.html#chapter-7-section-1",
+    "chapter-7-section-2": "zones/baichui.html#chapter-7-section-2",
+    "chapter-7-section-3": "zones/baichui.html#chapter-7-section-3",
+    "chapter-7-section-4": "zones/baichui.html#chapter-7-section-4",
+    "chapter-7-section-5": "zones/baichui.html#chapter-7-section-5",
+    "chapter-7-section-6": "zones/baichui.html#chapter-7-section-6",
+    "chapter-7-section-7": "zones/baichui.html#chapter-7-section-7",
+    "chapter-7-section-8": "zones/baichui.html#chapter-7-section-8",
+    "chapter-5-section-1": "types/elements-and-cards.html#chapter-5-section-1",
+    "chapter-5-section-2": "types/equipment.html#chapter-5-section-2",
+    "chapter-5-section-3": "types/field.html#chapter-5-section-3",
+    "chapter-5-section-4": "types/aura.html#chapter-5-section-4",
+    "chapter-5-section-5": "types/castle-fortress.html#chapter-5-section-5",
+    "chapter-5-section-8": "types/evolution.html#chapter-5-section-8",
+    "chapter-6-section-1": "types/flag.html#chapter-6-section-1",
+    "chapter-6-section-2": "types/flag.html#chapter-6-section-2",
+    "chapter-6-section-3": "types/flag.html#chapter-6-section-3",
+    "chapter-6-section-4": "types/flag.html#chapter-6-section-4",
+    "chapter-6-section-5": "types/flag.html#chapter-6-section-5",
+    "chapter-6-section-6": "types/flag.html#chapter-6-section-6",
+    "chapter-6-section-7": "types/flag.html#chapter-6-section-7",
+    "chapter-2-section-1": "execution/overview.html#chapter-2-section-1",
+    "chapter-2-section-4": "execution/overview.html#chapter-2-section-4",
+    "chapter-2-section-2": "execution/mana.html#chapter-2-section-2",
+    "chapter-2-section-3": "execution/mana.html#chapter-2-section-3",
+    "chapter-2-section-5": "execution/special.html#chapter-2-section-5",
+    "chapter-2-section-6": "execution/special.html#chapter-2-section-6",
+    "chapter-2-section-7": "execution/special.html#chapter-2-section-7",
+    "chapter-2-section-13": "execution/special.html#chapter-2-section-13",
+    "chapter-2-section-15": "execution/special.html#chapter-2-section-15",
+    "chapter-2-section-8": "execution/set.html#chapter-2-section-8",
+    "chapter-2-section-9": "execution/set.html#chapter-2-section-9",
+    "chapter-2-section-10": "execution/set.html#chapter-2-section-10",
+    "chapter-2-section-11": "execution/set.html#chapter-2-section-11",
+    "chapter-2-section-12": "execution/events.html#chapter-2-section-12",
+    "chapter-2-section-14": "execution/events.html#chapter-2-section-14",
+    "chapter-3-section-1": "combat/attack.html#chapter-3-section-1",
+    "chapter-3-section-2": "combat/attack.html#chapter-3-section-2",
+    "chapter-3-section-8": "combat/attack.html#chapter-3-section-8",
+    "chapter-3-section-9": "combat/attack.html#chapter-3-section-9",
+    "chapter-3-section-3": "combat/shields.html#chapter-3-section-3",
+    "chapter-3-section-4": "combat/shields.html#chapter-3-section-4",
+    "chapter-3-section-6": "combat/shields.html#chapter-3-section-6",
+    "chapter-3-section-5": "combat/power.html#chapter-3-section-5",
+    "chapter-3-section-7": "combat/power.html#chapter-3-section-7",
+    "chapter-3-section-10": "combat/power.html#chapter-3-section-10",
+    "chapter-3-section-11": "combat/power.html#chapter-3-section-11",
+    "chapter-4-section-1": "effects/waiting.html#chapter-4-section-1",
+    "chapter-4-section-2": "effects/waiting.html#chapter-4-section-2",
+    "chapter-4-section-12": "effects/waiting.html#chapter-4-section-12",
+    "chapter-4-section-3": "effects/hand-limit.html#chapter-4-section-3",
+    "chapter-4-section-4": "effects/actions.html#chapter-4-section-4",
+    "chapter-4-section-5": "effects/actions.html#chapter-4-section-5",
+    "chapter-4-section-7": "effects/actions.html#chapter-4-section-7",
+    "chapter-4-section-8": "effects/actions.html#chapter-4-section-8",
+    "chapter-4-section-6": "effects/replacement.html#chapter-4-section-6",
+    "chapter-4-section-9": "effects/movement.html#chapter-4-section-9",
+    "chapter-4-section-10": "effects/state.html#chapter-4-section-10",
+    "chapter-4-section-11": "effects/state.html#chapter-4-section-11",
+    "chapter-5-section-6": "effects/seal.html#chapter-5-section-6",
+    "chapter-5-section-7": "keywords/corpse-armament.html#chapter-5-section-7",
+    "chapter-8-section-1": "keywords/ability-01.html#chapter-8-section-1",
+    "chapter-8-section-2": "keywords/ability-02.html#chapter-8-section-2",
+    "chapter-8-section-3": "keywords/ability-03.html#chapter-8-section-3",
+    "chapter-8-section-4": "keywords/ability-04.html#chapter-8-section-4",
+    "chapter-8-section-5": "keywords/ability-05.html#chapter-8-section-5",
+    "chapter-8-section-6": "keywords/ability-06.html#chapter-8-section-6",
+    "chapter-8-section-7": "keywords/ability-07.html#chapter-8-section-7",
+    "chapter-8-section-8": "keywords/ability-08.html#chapter-8-section-8",
+    "chapter-8-section-9": "keywords/ability-09.html#chapter-8-section-9",
+    "chapter-8-section-10": "keywords/ability-10.html#chapter-8-section-10",
+    "chapter-8-section-11": "keywords/ability-11.html#chapter-8-section-11",
+    "chapter-8-section-12": "keywords/ability-12.html#chapter-8-section-12",
+    "chapter-8-section-13": "keywords/ability-13.html#chapter-8-section-13",
+    "chapter-8-section-14": "keywords/ability-14.html#chapter-8-section-14",
+    "chapter-8-section-15": "keywords/ability-15.html#chapter-8-section-15",
+    "chapter-8-section-16": "keywords/ability-16.html#chapter-8-section-16",
+    "chapter-8-section-17": "keywords/ability-17.html#chapter-8-section-17",
+    "chapter-8-section-18": "keywords/ability-18.html#chapter-8-section-18",
+    "chapter-8-section-19": "keywords/ability-19.html#chapter-8-section-19",
+    "chapter-8-section-20": "keywords/ability-20.html#chapter-8-section-20",
+    "chapter-8-section-21": "keywords/ability-21.html#chapter-8-section-21",
+    "chapter-8-section-22": "keywords/ability-22.html#chapter-8-section-22",
+    "chapter-8-section-23": "keywords/ability-23.html#chapter-8-section-23",
+    "chapter-8-section-24": "keywords/ability-24.html#chapter-8-section-24",
+    "chapter-8-section-25": "keywords/ability-25.html#chapter-8-section-25",
+    "chapter-8-section-26": "keywords/ability-26.html#chapter-8-section-26",
+    "chapter-8-section-27": "keywords/ability-27.html#chapter-8-section-27",
+    "chapter-8-section-28": "keywords/ability-28.html#chapter-8-section-28",
+    "chapter-8-section-29": "keywords/ability-29.html#chapter-8-section-29",
+    "chapter-8-section-30": "keywords/ability-30.html#chapter-8-section-30",
+    "chapter-8-section-31": "keywords/ability-31.html#chapter-8-section-31",
+    "chapter-8-section-32": "keywords/ability-32.html#chapter-8-section-32",
+    "chapter-8-section-33": "keywords/ability-33.html#chapter-8-section-33",
+    "chapter-8-section-34": "keywords/ability-34.html#chapter-8-section-34",
+    "chapter-8-section-35": "keywords/ability-35.html#chapter-8-section-35",
+    "chapter-8-section-36": "keywords/ability-36.html#chapter-8-section-36",
+    "chapter-9-section-1": "writing/targets.html#chapter-9-section-1",
+    "chapter-9-section-2": "writing/targets.html#chapter-9-section-2",
+    "chapter-9-section-3": "writing/targets.html#chapter-9-section-3",
+    "chapter-9-section-9": "writing/targets.html#chapter-9-section-9",
+    "chapter-9-section-10": "writing/targets.html#chapter-9-section-10",
+    "chapter-9-section-4": "writing/wording.html#chapter-9-section-4",
+    "chapter-9-section-5": "writing/wording.html#chapter-9-section-5",
+    "chapter-9-section-6": "writing/wording.html#chapter-9-section-6",
+    "chapter-9-section-7": "writing/wording.html#chapter-9-section-7",
+    "chapter-9-section-8": "writing/wording.html#chapter-9-section-8",
+    "chapter-9-section-13": "writing/wording.html#chapter-9-section-13",
+    "chapter-9-section-14": "writing/wording.html#chapter-9-section-14",
+    "chapter-9-section-11": "writing/design.html#chapter-9-section-11",
+    "chapter-9-section-12": "writing/design.html#chapter-9-section-12",
+    "chapter-10-section-1": "rulings/cards.html#chapter-10-section-1",
+    "chapter-10-section-2": "rulings/cards.html#chapter-10-section-2",
+    "chapter-10-section-3": "rulings/cards.html#chapter-10-section-3",
+    "chapter-10-section-12": "rulings/cards.html#chapter-10-section-12",
+    "chapter-10-section-13": "rulings/cards.html#chapter-10-section-13",
+    "chapter-10-section-14": "rulings/cards.html#chapter-10-section-14",
+    "chapter-10-section-15": "rulings/cards.html#chapter-10-section-15",
+    "chapter-10-section-16": "rulings/cards.html#chapter-10-section-16",
+    "chapter-10-section-97": "rulings/cards.html#chapter-10-section-97",
+    "chapter-10-section-100": "rulings/cards.html#chapter-10-section-100",
+    "chapter-10-section-4": "rulings/replacement.html#chapter-10-section-4",
+    "chapter-10-section-5": "rulings/replacement.html#chapter-10-section-5",
+    "chapter-10-section-6": "rulings/replacement.html#chapter-10-section-6",
+    "chapter-10-section-7": "rulings/seal.html#chapter-10-section-7",
+    "chapter-10-section-8": "rulings/seal.html#chapter-10-section-8",
+    "chapter-10-section-9": "rulings/seal.html#chapter-10-section-9",
+    "chapter-10-section-10": "rulings/seal.html#chapter-10-section-10",
+    "chapter-10-section-11": "rulings/seal.html#chapter-10-section-11",
+    "chapter-10-section-17": "rulings/seal.html#chapter-10-section-17",
+    "chapter-10-section-18": "rulings/seal.html#chapter-10-section-18",
+    "chapter-10-section-23": "rulings/seal.html#chapter-10-section-23",
+    "chapter-10-section-24": "rulings/seal.html#chapter-10-section-24",
+    "chapter-10-section-25": "rulings/seal.html#chapter-10-section-25",
+    "chapter-10-section-26": "rulings/seal.html#chapter-10-section-26",
+    "chapter-10-section-27": "rulings/seal.html#chapter-10-section-27",
+    "chapter-10-section-28": "rulings/seal.html#chapter-10-section-28",
+    "chapter-10-section-29": "rulings/seal.html#chapter-10-section-29",
+    "chapter-10-section-30": "rulings/seal.html#chapter-10-section-30",
+    "chapter-10-section-19": "rulings/aura.html#chapter-10-section-19",
+    "chapter-10-section-20": "rulings/aura.html#chapter-10-section-20",
+    "chapter-10-section-21": "rulings/aura.html#chapter-10-section-21",
+    "chapter-10-section-22": "rulings/aura.html#chapter-10-section-22",
+    "chapter-10-section-31": "rulings/power.html#chapter-10-section-31",
+    "chapter-10-section-32": "rulings/power.html#chapter-10-section-32",
+    "chapter-10-section-33": "rulings/power.html#chapter-10-section-33",
+    "chapter-10-section-34": "rulings/power.html#chapter-10-section-34",
+    "chapter-10-section-35": "rulings/power.html#chapter-10-section-35",
+    "chapter-10-section-36": "rulings/power.html#chapter-10-section-36",
+    "chapter-10-section-37": "rulings/power.html#chapter-10-section-37",
+    "chapter-10-section-38": "rulings/power.html#chapter-10-section-38",
+    "chapter-10-section-39": "rulings/power.html#chapter-10-section-39",
+    "chapter-10-section-40": "rulings/power.html#chapter-10-section-40",
+    "chapter-10-section-41": "rulings/equipment.html#chapter-10-section-41",
+    "chapter-10-section-42": "rulings/equipment.html#chapter-10-section-42",
+    "chapter-10-section-43": "rulings/equipment.html#chapter-10-section-43",
+    "chapter-10-section-44": "rulings/equipment.html#chapter-10-section-44",
+    "chapter-10-section-45": "rulings/equipment.html#chapter-10-section-45",
+    "chapter-10-section-103": "rulings/equipment.html#chapter-10-section-103",
+    "chapter-10-section-46": "rulings/keywords.html#chapter-10-section-46",
+    "chapter-10-section-47": "rulings/keywords.html#chapter-10-section-47",
+    "chapter-10-section-48": "rulings/keywords.html#chapter-10-section-48",
+    "chapter-10-section-49": "rulings/keywords.html#chapter-10-section-49",
+    "chapter-10-section-50": "rulings/keywords.html#chapter-10-section-50",
+    "chapter-10-section-51": "rulings/keywords.html#chapter-10-section-51",
+    "chapter-10-section-52": "rulings/keywords.html#chapter-10-section-52",
+    "chapter-10-section-53": "rulings/keywords.html#chapter-10-section-53",
+    "chapter-10-section-54": "rulings/keywords.html#chapter-10-section-54",
+    "chapter-10-section-55": "rulings/keywords.html#chapter-10-section-55",
+    "chapter-10-section-56": "rulings/keywords.html#chapter-10-section-56",
+    "chapter-10-section-58": "rulings/keywords.html#chapter-10-section-58",
+    "chapter-10-section-59": "rulings/keywords.html#chapter-10-section-59",
+    "chapter-10-section-60": "rulings/keywords.html#chapter-10-section-60",
+    "chapter-10-section-61": "rulings/keywords.html#chapter-10-section-61",
+    "chapter-10-section-62": "rulings/keywords.html#chapter-10-section-62",
+    "chapter-10-section-63": "rulings/keywords.html#chapter-10-section-63",
+    "chapter-10-section-64": "rulings/keywords.html#chapter-10-section-64",
+    "chapter-10-section-65": "rulings/keywords.html#chapter-10-section-65",
+    "chapter-10-section-66": "rulings/keywords.html#chapter-10-section-66",
+    "chapter-10-section-67": "rulings/keywords.html#chapter-10-section-67",
+    "chapter-10-section-57": "rulings/combat.html#chapter-10-section-57",
+    "chapter-10-section-68": "rulings/combat.html#chapter-10-section-68",
+    "chapter-10-section-69": "rulings/combat.html#chapter-10-section-69",
+    "chapter-10-section-70": "rulings/combat.html#chapter-10-section-70",
+    "chapter-10-section-71": "rulings/combat.html#chapter-10-section-71",
+    "chapter-10-section-72": "rulings/combat.html#chapter-10-section-72",
+    "chapter-10-section-73": "rulings/combat.html#chapter-10-section-73",
+    "chapter-10-section-79": "rulings/combat.html#chapter-10-section-79",
+    "chapter-10-section-80": "rulings/combat.html#chapter-10-section-80",
+    "chapter-10-section-81": "rulings/combat.html#chapter-10-section-81",
+    "chapter-10-section-92": "rulings/combat.html#chapter-10-section-92",
+    "chapter-10-section-98": "rulings/combat.html#chapter-10-section-98",
+    "chapter-10-section-74": "rulings/state.html#chapter-10-section-74",
+    "chapter-10-section-75": "rulings/state.html#chapter-10-section-75",
+    "chapter-10-section-76": "rulings/state.html#chapter-10-section-76",
+    "chapter-10-section-77": "rulings/state.html#chapter-10-section-77",
+    "chapter-10-section-78": "rulings/state.html#chapter-10-section-78",
+    "chapter-10-section-82": "rulings/state.html#chapter-10-section-82",
+    "chapter-10-section-83": "rulings/state.html#chapter-10-section-83",
+    "chapter-10-section-84": "rulings/waiting.html#chapter-10-section-84",
+    "chapter-10-section-85": "rulings/waiting.html#chapter-10-section-85",
+    "chapter-10-section-93": "rulings/waiting.html#chapter-10-section-93",
+    "chapter-10-section-94": "rulings/waiting.html#chapter-10-section-94",
+    "chapter-10-section-95": "rulings/waiting.html#chapter-10-section-95",
+    "chapter-10-section-86": "rulings/execution.html#chapter-10-section-86",
+    "chapter-10-section-87": "rulings/execution.html#chapter-10-section-87",
+    "chapter-10-section-88": "rulings/execution.html#chapter-10-section-88",
+    "chapter-10-section-89": "rulings/execution.html#chapter-10-section-89",
+    "chapter-10-section-90": "rulings/execution.html#chapter-10-section-90",
+    "chapter-10-section-91": "rulings/execution.html#chapter-10-section-91",
+    "chapter-10-section-96": "rulings/execution.html#chapter-10-section-96",
+    "chapter-10-section-101": "rulings/execution.html#chapter-10-section-101",
+    "chapter-10-section-102": "rulings/execution.html#chapter-10-section-102",
+    "chapter-10-section-104": "rulings/execution.html#chapter-10-section-104",
+    "chapter-10-section-105": "rulings/execution.html#chapter-10-section-105",
+    "chapter-10-section-99": "rulings/movement.html#chapter-10-section-99",
+    "chapter-10-section-106": "rulings/additional.html#chapter-10-section-106",
+    "chapter-10-section-107": "rulings/nehetron.html#chapter-10-section-107",
+    "chapter-10-section-108": "rulings/churis.html#chapter-10-section-108",
+    "chapter-10-section-109": "rulings/untouchable.html#chapter-10-section-109",
+    "chapter-11-section-1": "guide/about.html#chapter-11-section-1",
+    "chapter-11-section-3": "guide/about.html#chapter-11-section-3",
+    "chapter-11-section-2": "guide/usage.html#chapter-11-section-2",
+    "chapter-11-section-4": "guide/usage.html#chapter-11-section-4",
+    "chapter-11-section-5": "guide/usage.html#chapter-11-section-5",
+    "chapter-11-section-6": "guide/usage.html#chapter-11-section-6",
+    "chapter-11-section-7": "guide/usage.html#chapter-11-section-7",
+    "chapter-11-section-8": "guide/usage.html#chapter-11-section-8",
+    "chapter-11-section-9": "guide/usage.html#chapter-11-section-9",
+    "chapter-11-section-10": "guide/usage.html#chapter-11-section-10",
+    "chapter-11-section-11": "guide/usage.html#chapter-11-section-11",
+    "chapter-11-section-12": "guide/usage.html#chapter-11-section-12",
+    "chapter-11-section-13": "guide/usage.html#chapter-11-section-13",
+    "chapter-12-section-1": "guide/unsettled.html#chapter-12-section-1",
+    "chapter-12-section-2": "guide/unsettled.html#chapter-12-section-2",
+    "chapter-12-section-3": "guide/unsettled.html#chapter-12-section-3",
+    "chapter-12-section-4": "guide/unsettled.html#chapter-12-section-4",
+    "chapter-1": "basics/index.html",
+    "chapter-2": "execution/index.html",
+    "chapter-3": "combat/index.html",
+    "chapter-4": "effects/index.html",
+    "chapter-5": "types/index.html",
+    "chapter-6": "types/flag.html",
+    "chapter-7": "zones/baichui.html",
+    "chapter-8": "keywords/index.html",
+    "chapter-9": "writing/index.html",
+    "chapter-10": "rulings/index.html",
+    "chapter-11": "guide/index.html",
+    "chapter-12": "guide/unsettled.html"
+  }
+}
