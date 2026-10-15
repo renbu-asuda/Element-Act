@@ -1,0 +1,6 @@
+{
+  "name": "element-act-reference",
+  "private": true,
+  "scripts": { "build:rules": "node scripts/build-rules.mjs" },
+  "devDependencies": { "marked": "17.0.5" }
+}
