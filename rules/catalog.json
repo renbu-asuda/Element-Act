@@ -181,6 +181,22 @@
       ]
     },
     {
+      "title": "コスト・ジャッジ",
+      "url": "actions/cost-judge.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-13"
+      ]
+    },
+    {
+      "title": "ルーティングX&Y",
+      "url": "actions/routing.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-14"
+      ]
+    },
+    {
       "title": "攻撃の手順と攻撃先",
       "url": "combat/attack.html",
       "group": "combat",
@@ -910,6 +926,14 @@
       ]
     },
     {
+      "id": "actions",
+      "title": "行動",
+      "pages": [
+        "actions/cost-judge.html",
+        "actions/routing.html"
+      ]
+    },
+    {
       "id": "combat",
       "title": "攻撃とバトル",
       "pages": [
@@ -1064,6 +1088,8 @@
     "chapter-2-section-11": "execution/set.html#chapter-2-section-11",
     "chapter-2-section-12": "execution/events.html#chapter-2-section-12",
     "chapter-2-section-14": "execution/events.html#chapter-2-section-14",
+    "chapter-4-section-13": "actions/cost-judge.html#chapter-4-section-13",
+    "chapter-4-section-14": "actions/routing.html#chapter-4-section-14",
     "chapter-3-section-1": "combat/attack.html#chapter-3-section-1",
     "chapter-3-section-2": "combat/attack.html#chapter-3-section-2",
     "chapter-3-section-8": "combat/attack.html#chapter-3-section-8",
