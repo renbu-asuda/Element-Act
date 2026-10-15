@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EAカードメーカー v57 — Card Studio</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+  background: #111;
+  color: #f3f3f3;
+}
+.wrap {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 390px 1fr;
+  gap: 20px;
+}
+.panel, .preview {
+  background: #1b1b1b;
+  border: 1px solid #333;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+h1 { margin: 0 0 12px; font-size: 24px; }
+.desc, .note { color: #bbb; font-size: 13px; line-height: 1.7; }
+.note { margin-top: 12px; color: #aaa; font-size: 12px; }
+.field { margin-bottom: 12px; }
+label { display: block; font-size: 13px; color: #ddd; margin-bottom: 5px; }
+code { background: #333; color: #fff; padding: 1px 6px; border-radius: 6px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+input[type="text"], textarea, input[type="file"] {
+  width: 100%;
+  border: 1px solid #555;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+input[type="range"] { width: 100%; }
+textarea { min-height: 170px; resize: vertical; line-height: 1.5; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check-row { display: flex; align-items: center; gap: 8px; color: #ddd; font-size: 13px; }
+.check-row input { width: auto; }
+.buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #f0f0f0;
+  color: #111;
+}
+button:hover { opacity: .9; }
+.primary { background: #4ad1ff; }
+.danger { background: #ffb0b0; }
+.control-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  gap: 14px;
+  align-items: center;
+  margin-top: 8px;
+}
+.control-row button {
+  padding: 12px 0;
+  min-height: 48px;
+  font-size: 22px;
+  line-height: 1;
+}
+.control-row input[type="range"] {
+  width: 100%;
+}
+.part-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.part-row button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #333;
+  color: #9ee7ff;
+  font-size: 12px;
+  margin-left: 6px;
+}
+.canvas-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  background: #0d0d0d;
+  border-radius: 16px;
+  padding: 12px;
+}
+canvas {
+  width: min(100%, 650px);
+  height: auto;
+  background: #000;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 6px 25px rgba(0,0,0,.4);
+}
+@media (max-width: 980px) {
+  .wrap { grid-template-columns: 1fr; padding: 12px; }
+  canvas { width: 100%; }
+}
+
+/* v56 — EA studio */
+:root{color-scheme:dark;--bg:#0c1119;--panel:#141d29;--line:#2a3746;--muted:#a5b2c1;--gold:#e5c481;--text:#edf2f7}
+body{background:radial-gradient(ellipse at 85% 0%,#223044 0,transparent 50%),var(--bg);color:var(--text);font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif}
+button,input,textarea{font:inherit}button,input[type="range"],input[type="checkbox"]{touch-action:manipulation}button{transition:background .15s,color .15s,box-shadow .15s}button:hover{opacity:1;background:#344458}button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.studio-header{max-width:1440px;margin:0 auto;padding:26px 28px 22px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--line)}.brand-mark{width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--gold);border-radius:12px;font:800 20px Georgia,serif;color:var(--gold);background:#e5c48109}.brand-title{font-size:18px;font-weight:800;letter-spacing:.06em}.brand-sub{margin-top:4px;font-size:10px;letter-spacing:.2em;color:var(--muted)}.version{margin-left:auto;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:11px;color:var(--muted)}
+.wrap{max-width:1440px;padding:24px 28px;grid-template-columns:minmax(350px,430px) minmax(0,1fr);gap:24px;align-items:start}.panel,.preview{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 18px 50px #0003}.panel h1{font-size:21px;margin:0 0 8px}.desc{font-size:12px;color:var(--muted);margin-bottom:22px}.note{font-size:11px;color:var(--muted);line-height:1.8}.field{margin-bottom:20px}label{font-size:12px;font-weight:600;color:#d1dbe7;margin-bottom:8px}label span{color:var(--gold);font-variant-numeric:tabular-nums}input[type="text"],textarea,input[type="file"]{min-width:0;border:1px solid #37465a;border-radius:9px;background:#0e1621;color:var(--text);padding:12px;font-size:16px;line-height:1.5}input[type="text"]:hover,textarea:hover{border-color:#647388}textarea{min-height:180px}input[type="file"]{font-size:11px;padding:6px;width:100%}input::file-selector-button{background:#263649;color:#e5c481;border:0;border-radius:6px;padding:10px 8px;margin-right:8px;cursor:pointer}input[type="range"]{accent-color:var(--gold);min-height:26px}input[type="checkbox"]{accent-color:var(--gold);width:18px;height:18px}.two>*{min-width:0}.control-row{grid-template-columns:44px 1fr 44px;gap:12px}.control-row button{min-height:44px;border-radius:9px;font-size:19px;padding:8px}button{background:#233144;color:#e4edf7;border:1px solid #354458;border-radius:9px;min-height:44px;font-size:12px;padding:10px 14px}.part-row{grid-template-columns:minmax(0,1fr) auto}.part-row button{font-size:11px;padding:8px 10px}.buttons{border-top:1px solid var(--line);padding-top:18px;margin-top:22px;display:grid;grid-template-columns:1fr auto}.primary{background:var(--gold);border-color:var(--gold);color:#1b2028;font-weight:800}.primary:hover{background:#f2d69f}.danger{background:transparent;color:#b7a3a7;border-color:#53424b}.danger:hover{background:#3a2730}.badge,code{background:#28374a;color:#e5c481}.check-row{font-size:12px;font-weight:400}.status-box{border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.6;margin-top:12px}.status-box.ok{color:#a7ddc0;background:#1a342d;border:1px solid #315d4a}.status-box.warn{color:#ffce9a;background:#3d2c20;border:1px solid #845c34}
+.editor-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;background:#0b131e;border-radius:11px;margin-bottom:24px}.editor-tabs button{padding:10px 2px;min-height:44px;border:0;background:transparent;color:var(--muted);font-size:12px}.editor-tabs button[aria-selected="true"]{background:#2a3748;color:var(--gold);box-shadow:0 2px 8px #0003}[hidden]{display:none!important}.section-caption{font-size:10px;letter-spacing:.14em;color:var(--gold);margin:0 0 18px}.syntax-help{margin-top:12px;border:1px solid var(--line);border-radius:9px;padding:12px}.syntax-help summary{cursor:pointer;font-size:11px;color:var(--muted)}.syntax-help .note{margin-top:10px}.preview{position:sticky;top:20px;background:#111a26}.preview-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.preview h2{font-size:15px;margin:0}.live-tag{font-size:10px;color:#a7ddc0;letter-spacing:.1em}.live-tag::before{content:"";display:inline-block;width:6px;height:6px;background:#83cba7;border-radius:50%;margin-right:7px}.canvas-wrap{padding:24px;background:radial-gradient(ellipse at center,#2b394b,#0b121c);border:1px solid #2a3746;border-radius:12px;overflow:hidden}canvas{width:auto;max-width:100%;max-height:calc(100dvh - 245px);height:auto;object-fit:contain;border-radius:12px;box-shadow:0 16px 32px #0008}.preview-footer{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:10px;color:var(--muted)}.jump-preview{display:none}
+@media(max-width:980px){.wrap{grid-template-columns:minmax(300px,390px) minmax(0,1fr);gap:16px;padding:18px}.panel,.preview{padding:18px}.canvas-wrap{padding:14px}.studio-header{padding:20px 18px}.preview-footer{flex-wrap:wrap}}
+@media(max-width:720px){.studio-header{padding:16px;gap:12px}.brand-title{font-size:16px}.brand-sub{font-size:8px}.brand-mark{width:40px;height:40px}.wrap{grid-template-columns:minmax(0,1fr);padding:14px;gap:16px}.panel,.preview{padding:18px;border-radius:16px}.preview{position:static;scroll-margin-top:14px}.canvas-wrap{padding:18px}canvas{width:100%;max-height:none}.jump-preview{display:block;color:var(--gold);font-size:12px;text-align:center;margin-top:16px;text-decoration:none;padding:10px}.version{padding:5px 9px}.panel h1{font-size:19px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#1a2635;color:var(--text);font:inherit} .v56-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.v56-row button{font-size:12px;min-height:40px;padding:8px 12px}.visibility-toggle{margin-top:8px}.project-tools{border-top:1px solid var(--line);margin-top:18px;padding-top:12px}.project-tools .buttons{margin-top:8px}#projectStatus{white-space:pre-line}#preview .canvas-wrap{overflow:auto}#layoutStatus{font-size:12px}#previewScale{max-width:180px}.disabled{opacity:.5}
+.civilization-options{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}.civilization-option{display:flex;align-items:center;gap:6px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;min-height:44px}.civilization-option input{width:auto}#insertEvolutionBtn{margin-top:8px;font-size:12px}#typeGuide{font-size:12px}
+.vector-frame-settings{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:20px}.vector-frame-settings select{margin-bottom:6px}
+
+:root{--gold:#8ed9f2}.studio-header .brand-mark{border-color:#8ed9f2}.mobile-workbar{display:none}.art-number-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}.art-number-grid input{width:100%;background:#17293a;border:1px solid #416078;color:#edf6fb;padding:10px;border-radius:8px;font:inherit}.art-drag-toggle{margin-bottom:8px}.art-drag-toggle+ .note{margin-bottom:12px}#centerArtBtn{margin-top:10px;font-size:12px}
+@media(max-width:720px){.studio-header{padding:12px 14px}.mobile-workbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;position:sticky;top:0;z-index:20;padding:8px 14px;background:#0c1725;border-bottom:1px solid #31465c}.mobile-workbar button{padding:10px 4px;min-height:44px;border-radius:8px;background:#1c3043;color:#bfd0de;font-size:13px}.mobile-workbar button[aria-pressed="true"]{background:#314c62;color:#b0edff}.mobile-workbar #mobilePngBtn{background:#2e6173;color:#effbff}.view-edit .preview{display:none}.view-preview .panel{display:none}.wrap{padding:10px}.preview{padding:12px}.canvas-wrap{padding:8px}input[type="text"],textarea{font-size:16px}.jump-preview{margin-bottom:0}}
+
+
+.card-shelf{border:1px solid #39576b;border-radius:12px;background:#102233;padding:14px;margin-bottom:20px}.card-shelf>summary{cursor:pointer;font-weight:700;color:#a3e6fb;min-height:32px}.card-shelf>summary span{font-size:12px;color:#9bb0c0;margin-left:8px}.card-shelf>label{margin-top:14px}.shelf-list{display:grid;gap:10px;max-height:460px;overflow:auto;margin-top:14px}.shelf-card{display:flex;align-items:start;gap:12px;background:#162e41;border:1px solid #355166;border-radius:9px;padding:10px;min-width:0}.shelf-card img{width:65px;height:91px;object-fit:contain;flex-shrink:0;border-radius:4px}.shelf-card-body{min-width:0;flex:1}.shelf-card strong{font-size:13px;overflow-wrap:anywhere}.shelf-card .note{margin-top:5px;overflow-wrap:anywhere}.shelf-card .v56-row{margin-bottom:0}.shelf-card button{min-height:40px;padding:8px 12px}.card-shelf .status-box{overflow-wrap:anywhere}
+
+.batch-settings{border-top:1px solid #416174;margin-top:16px;padding-top:18px}.batch-settings input[type="number"]{width:100%;padding:10px;border-radius:8px;border:1px solid #416174;background:#142d40;color:#edf6fb;font:inherit}.shelf-select{margin:0;flex-shrink:0;display:flex;align-items:center;min-height:44px}.shelf-card{gap:8px}.shelf-card img{width:55px;height:77px;object-fit:contain}#batchProgress{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:100;background:#123047;border:1px solid #86d3ed;box-shadow:0 10px 40px #0008;color:#eaf8fc;border-radius:12px;padding:16px;display:flex;gap:18px;align-items:center;max-width:calc(100vw - 24px);width:380px}#batchProgressText{flex:1;font-size:14px}
+
+.history-bar{position:sticky;top:0;z-index:18;max-width:1440px;margin:0 auto;display:flex;gap:8px;align-items:center;padding:8px 28px;background:#0c1725;border-bottom:1px solid #31465c}.history-bar button{min-height:40px;padding:8px 12px;font-size:12px}.history-bar button:disabled{opacity:.45;cursor:default}.history-bar span{font-size:11px;color:#a6c0d1}.history-shortcuts{margin-left:auto}@media(max-width:720px){.history-bar{top:61px;padding:7px 14px;gap:6px}.history-bar .history-shortcuts{display:none}.history-bar span{font-size:10px}.history-bar button{padding:8px 10px;font-size:12px}}
+
+.part-settings{border:1px solid #3b596d;border-radius:10px;padding:14px;margin-bottom:20px}.part-settings input[type="color"],#typeBarTextColor{width:100%;height:44px;background:#132a3c;border:1px solid #416174;border-radius:8px;padding:4px}.part-settings .field{margin-bottom:12px}
+</style>
+</head>
+<body>
+<header class="studio-header"><div class="brand-mark" aria-hidden="true">EA</div><div><div class="brand-title">ELEMENT ACT</div><div class="brand-sub">CARD DESIGN STUDIO · VECTOR FRAME</div></div><span class="version">v57</span></header>
+<div class="wrap">
+  <div class="panel">
+    <h1>カードをつくる</h1>
+    <div class="desc">
+      カード情報と画像を入力して、<b>縦1300×1816px／横1816×1300px</b> のPNG画像を作成できます。
+    </div>
+
+    <div class="field">
+      <label for="cardName">カード名</label>
+      <input type="text" id="cardName" value="カード名">
+    </div>
+
+    <div class="field">
+      <label for="cardNameFontSize">カード名サイズ：<span id="cardNameFontSizeValue">80</span></label>
+      <div class="control-row">
+        <button type="button" id="cardNameMinusBtn">－</button>
+        <input type="range" id="cardNameFontSize" min="34" max="100" value="80">
+        <button type="button" id="cardNamePlusBtn">＋</button>
+      </div>
+      <div class="note">スライダーと－/＋ボタンでカード名の文字サイズを調整できます。長いカード名は枠内に収まるよう自動縮小されます。</div>
+    </div>
+
+    <div class="field two">
+      <div>
+        <label for="costText">左上円テキスト</label>
+        <input type="text" id="costText" value="X">
+      </div>
+      <div>
+        <label for="bottomIconText">下中央円テキスト</label>
+        <input type="text" id="bottomIconText" value="L">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="species">種族名</label>
+      <input type="text" id="species" value="種族名">
+    </div>
+
+    <div class="field">
+      <label for="typeLabel">カードタイプ欄</label>
+      <input type="text" id="typeLabel" value="カードタイプ">
+    </div>
+
+    <div class="field">
+      <label for="abilityText">能力テキスト</label>
+      <textarea id="abilityText">■能力テキスト</textarea>
+      <div class="note">
+        <code>*太字*</code> で囲んだ部分は太字になります。<br>
+        <code>{火}</code> <code>{水}</code> <code>{自然}</code> <code>{光}</code> <code>{闇}</code> <code>{無}</code> は文明円として表示されます。<br>
+        <code>{火&1}</code> のように書くと、火文明色の円に「1」を表示できます。<br>
+        <code>{ブロッカー}</code> <code>{G・ストライク}</code> <code>{S・トリガー}</code> <code>{S・バック}</code> と書くと、それぞれ図形アイコン＋太字の能力名を表示します。アイコンは文字高さに合わせて自動調整されます。
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="flavorText">フレーバーテキスト</label>
+      <textarea id="flavorText" style="min-height: 80px;">フレーバーテキスト</textarea>
+    </div>
+
+    <div class="field">
+      <label>カード情報欄 タップパワー上</label>
+      <div class="two">
+        <div>
+          <label for="rarityText">レアリティ</label>
+          <input type="text" id="rarityText" value="R">
+        </div>
+        <div>
+          <label for="expansionText">エキスパンション</label>
+          <input type="text" id="expansionText" value="EA-01">
+        </div>
+      </div>
+      <div class="two" style="margin-top: 8px;">
+        <div>
+          <label for="cardNumberText">カード番号</label>
+          <input type="text" id="cardNumberText" value="001/100">
+        </div>
+        <div>
+          <label for="authorText">作者名</label>
+          <input type="text" id="authorText" value="名無し">
+        </div>
+      </div>
+      <label class="check-row" style="margin-top: 8px;"><input type="checkbox" id="showCardInfo" checked>カード情報欄を表示</label>
+    </div>
+
+    <div class="field two">
+      <div>
+        <label for="leftPower">アンタップパワー 左下</label>
+        <input type="text" id="leftPower" value="4000">
+      </div>
+      <div>
+        <label for="rightPower">タップパワー 右下縦</label>
+        <input type="text" id="rightPower" value="4000">
+      </div>
+    </div>
+    <div class="field">
+      <label for="abilityFontSize">能力テキストサイズ：<span id="abilityFontSizeValue">48</span></label>
+      <div class="control-row">
+        <button type="button" id="abilityMinusBtn">－</button>
+        <input type="range" id="abilityFontSize" min="22" max="64" value="48">
+        <button type="button" id="abilityPlusBtn">＋</button>
+      </div>
+      <label class="check-row" style="margin-top: 8px;"><input type="checkbox" id="autoFitAbility" checked>能力欄からはみ出す場合は自動縮小</label>
+      <div class="note">指定サイズを上限として、必要なときだけ縮小します。実際の描画サイズ：<b><span id="abilityActualFontSizeValue">48</span>px</b></div>
+      <div id="abilityFitStatus" class="status-box ok" role="status" aria-live="polite">能力テキストは枠内に収まっています。</div>
+    </div>
+
+    <div class="field">
+      <label for="artUpload">イラスト画像</label>
+      <div class="part-row">
+        <input type="file" id="artUpload" accept="image/*">
+        <button type="button" id="artResetBtn">解除</button>
+      </div>
+      <div class="two" style="margin-top: 8px;">
+        <div>
+          <label for="artZoom">拡大：<span id="artZoomValue">100</span>%</label>
+          <input type="range" id="artZoom" min="100" max="400" value="100">
+        </div>
+        <div>
+          <label for="artOffsetX">左右：<span id="artOffsetXValue">0</span></label>
+          <input type="range" id="artOffsetX" min="-100" max="100" value="0">
+        </div>
+      </div>
+      <div class="field" style="margin-top: 8px; margin-bottom: 0;">
+        <label for="artOffsetY">上下：<span id="artOffsetYValue">0</span></label>
+        <input type="range" id="artOffsetY" min="-100" max="100" value="0">
+      </div>
+      <div class="note">中央トリミングを基準に、拡大と位置調整ができます。画像外の余白が出ない範囲で自動制限されます。</div>
+    </div>
+
+    <div class="field">
+      <label for="costCircleUpload">コスト円 / マナ円 共通画像 差し替えPNG</label>
+      <div class="part-row">
+        <input type="file" id="costCircleUpload" accept="image/*">
+        <button type="button" id="costCircleResetBtn">解除</button>
+      </div>
+      <div class="note">同じ画像をコスト円とマナ円に使用します。マナ円は自動で180度回転します。</div>
+    </div>
+
+    <div class="field">
+      <label for="typeBarUpload">カードタイプバー画像 差し替えPNG</label>
+      <div class="part-row">
+        <input type="file" id="typeBarUpload" accept="image/*">
+        <button type="button" id="typeBarResetBtn">解除</button>
+      </div>
+      <div class="note">カードタイプバー画像は、文字数に合わせて横方向に伸縮します。</div>
+    </div>
+
+    <div class="buttons">
+      <button class="primary" id="downloadBtn">PNGで保存</button>
+      <button class="danger" id="resetBtn">入力を初期化</button>
+    </div>
+
+  </div>
+
+  <div class="preview" id="preview">
+    <div class="preview-heading"><h2>カードプレビュー</h2><span class="live-tag">LIVE PREVIEW</span></div>
+    <div class="canvas-wrap">
+      <canvas id="cardCanvas" width="1300" height="1816"></canvas>
+    </div>
+    <div id="layoutStatus" class="status-box ok" role="status" aria-live="polite">文字の収まりを確認しています。</div>
+    <div class="preview-footer"><span id="pngOutputSize">1300 × 1816 px · PNG</span><span>入力内容をリアルタイム反映</span></div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById("cardCanvas");
+const ctx = canvas.getContext("2d");
+const PROJECT_IMAGE_KEYS=["art","costCircle","manaCircle","typeBar"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+const inputs = {
+  cardName: document.getElementById("cardName"),
+  cardNameFontSize: document.getElementById("cardNameFontSize"),
+  costText: document.getElementById("costText"),
+  bottomIconText: document.getElementById("bottomIconText"),
+  species: document.getElementById("species"),
+  typeLabel: document.getElementById("typeLabel"),
+  abilityText: document.getElementById("abilityText"),
+  flavorText: document.getElementById("flavorText"),
+  rarityText: document.getElementById("rarityText"),
+  expansionText: document.getElementById("expansionText"),
+  cardNumberText: document.getElementById("cardNumberText"),
+  authorText: document.getElementById("authorText"),
+  showCardInfo: document.getElementById("showCardInfo"),
+  leftPower: document.getElementById("leftPower"),
+  rightPower: document.getElementById("rightPower"),
+  abilityFontSize: document.getElementById("abilityFontSize"),
+  autoFitAbility: document.getElementById("autoFitAbility"),
+  artUpload: document.getElementById("artUpload"),
+  artZoom: document.getElementById("artZoom"),
+  artOffsetX: document.getElementById("artOffsetX"),
+  artOffsetY: document.getElementById("artOffsetY"),
+  costCircleUpload: document.getElementById("costCircleUpload"),
+  typeBarUpload: document.getElementById("typeBarUpload")
+};
+
+const cardNameFontSizeValue = document.getElementById("cardNameFontSizeValue");
+const cardNameMinusBtn = document.getElementById("cardNameMinusBtn");
+const cardNamePlusBtn = document.getElementById("cardNamePlusBtn");
+const abilityFontSizeValue = document.getElementById("abilityFontSizeValue");
+const abilityActualFontSizeValue = document.getElementById("abilityActualFontSizeValue");
+const abilityFitStatus = document.getElementById("abilityFitStatus");
+const abilityMinusBtn = document.getElementById("abilityMinusBtn");
+const abilityPlusBtn = document.getElementById("abilityPlusBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const resetBtn = document.getElementById("resetBtn");
+const artResetBtn = document.getElementById("artResetBtn");
+const artZoomValue = document.getElementById("artZoomValue");
+const artOffsetXValue = document.getElementById("artOffsetXValue");
+const artOffsetYValue = document.getElementById("artOffsetYValue");
+const costCircleResetBtn = document.getElementById("costCircleResetBtn");
+const typeBarResetBtn = document.getElementById("typeBarResetBtn");
+
+let artImage = null;
+let costCircleImage = null;
+let manaCircleImage = null;
+let typeBarImage = null;
+const FLAVOR_BOX = { x: 329, y: 1608, w: 790, h: 76 };
+
+const BODY_TEXT_COLOR = "#000";
+const TOKEN_STYLES = {
+  "火": { fill: "#E6191E", text: "#FFFFFF" },
+  "水": { fill: "#3BB9EB", text: "#000000" },
+  "自然": { fill: "#36B42D", text: "#FFFFFF" },
+  "光": { fill: "#FFEB64", text: "#000000" },
+  "闇": { fill: "#8C8C8C", text: "#FFFFFF" },
+  "無": { fill: "#FFFFFF", text: "#000000" }
+};
+
+const TOKEN_SIZE_SCALE = 0.88;
+const TOKEN_VERTICAL_OFFSET = -4;
+const TOKEN_TEXT_SCALE = 1.14;
+const SPECIAL_ICON_GAP = 10;
+const SPECIAL_TEXT_OFFSET_Y = 0;
+const SPECIAL_KEYWORDS = {
+  "ブロッカー": { label: "ブロッカー", image: null, scale: 0.92 },
+  "G・ストライク": { label: "G・ストライク", image: null, scale: 0.88 },
+  "S・トリガー": { label: "S・トリガー", image: null, scale: 0.86 },
+  "S・バック": { label: "S・バック", image: null, scale: 0.82 }
+};
+
+
+
+// All built-in frame and icon artwork is drawn with Canvas paths. No bitmap assets.
+const FRAME_DEFAULTS={frameStyle:'classic',layoutPreset:'standard',frameLineWidth:'10',showFrameLabels:true,fullArtAbilityOutline:'18',fullArtAbilityBackdrop:true,fullArtAbilityOpacity:'22'};
+
+function isFullArt(){return inputs.layoutPreset?.value==='full';}
+function fullArtText(text,x,y,size,ability=false,pass='both'){
+  ctx.save();ctx.lineJoin='round';ctx.lineCap='round';ctx.miterLimit=2;
+  const strength=ability?Number(inputs.fullArtAbilityOutline?.value??18)/100:.12;
+  ctx.strokeStyle='#05090e';ctx.lineWidth=Math.max(3,size*strength);
+  if(pass!=='fill'){
+    if(ability){ctx.shadowColor='rgba(0,0,0,.65)';ctx.shadowBlur=Math.max(1.5,size*.045);ctx.shadowOffsetX=0;ctx.shadowOffsetY=1;}
+    ctx.strokeText(text,x,y);
+  }
+  if(pass!=='stroke'){ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.fillStyle='#fff';ctx.fillText(text,x,y);}
+  ctx.restore();
+}
+function drawFullArtAbilityBackdrop(text,x,y,w,h){
+  if(!isFullArt()||!text.trim()||!inputs.fullArtAbilityBackdrop?.checked)return;
+  const opacity=clamp(Number(inputs.fullArtAbilityOpacity?.value??22),0,65)/100;
+  if(!opacity)return;ctx.save();ctx.fillStyle=`rgba(10,18,28,${opacity})`;
+  roundRectRaw(ctx,x-14,y-10,w+28,h+20,14,true,false);ctx.restore();
+}
+function syncFullArtReadabilityControls(){
+  const panel=document.getElementById('fullArtReadability');if(!panel)return;
+  panel.hidden=!isFullArt();
+  document.getElementById('fullArtAbilityOutlineValue').textContent=inputs.fullArtAbilityOutline.value+'%';
+  document.getElementById('fullArtAbilityOpacityValue').textContent=inputs.fullArtAbilityOpacity.value+'%';
+  inputs.fullArtAbilityOpacity.disabled=!inputs.fullArtAbilityBackdrop.checked;
+}
+function drawFullArtBackground(g){ctx.save();ctx.beginPath();ctx.rect(g.x,g.y,g.w,g.h);ctx.clip();if(artImage)drawCoverImage(artImage,g.x,g.y,g.w,g.h,Number(inputs.artZoom.value)/100,Number(inputs.artOffsetX.value),Number(inputs.artOffsetY.value));else{ctx.fillStyle='#203342';ctx.fillRect(g.x,g.y,g.w,g.h);ctx.strokeStyle='#2d475a';ctx.lineWidth=2;for(let i=-g.h;i<g.w;i+=180){ctx.beginPath();ctx.moveTo(g.x+i,g.y);ctx.lineTo(g.x+i+g.h,g.y+g.h);ctx.stroke();}drawCenterText('A / E',g.x+g.w/2,g.y+g.h/2,g.w*.7,110,30,'#58798e');}ctx.restore();}
+function drawFullSingleFrame(){const p=framePalette();ctx.fillStyle=p.base;ctx.fillRect(0,0,1300,1816);drawFullArtBackground(getFrameGeometry().art);cutPanel(20,20,1260,1776,p.style==='flat'?12:38,'#00000000',p.edge,Number(inputs.frameLineWidth.value));ctx.fillStyle='#13263799';ctx.fillRect(49,70,1188,201);ctx.fillStyle='#223b4e66';ctx.fillRect(230,196,1007,75);ctx.fillStyle=p.accent;ctx.fillRect(232,184,727,4);ctx.fillStyle='#101d2a99';ctx.fillRect(50,1718,1186,78);const left=visibleValue('leftPower'),right=visibleValue('rightPower');if(left){cutPanel(48,1618,260,102,18,'#153345cc',null);ctx.fillStyle=p.accent;ctx.fillRect(48,1636,5,64);}if(right){cutPanel(1123,1477,113,241,17,'#27324bcc',null);ctx.fillStyle=p.secondary;ctx.fillRect(1231,1494,5,207);}if(inputs.showFrameLabels.checked){ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#eaf5ff';if(left)fullArtText('UNTAP POWER',178,1638,15);if(right){ctx.save();ctx.translate(1210,1602);ctx.rotate(Math.PI/2);fullArtText('TAP POWER',0,0,15);ctx.restore();}}}
+
+function getFrameGeometry(){
+  const layout=inputs.layoutPreset?.value||'standard';
+  if(layout==='full')return {art:{x:64,y:64,w:1172,h:1688},type:{x:50,y:1196,h:49},ability:{x:80,y:1262,w:1000,h:326},flavor:{x:329,y:1608,w:761,h:76},cost:{x:48,y:76,w:164,h:164},mana:{x:587,y:1688,w:126,h:126}};
+  const artHeight=layout==='text'?742:layout==='art'?1002:902;
+  const typeY=296+artHeight-2,abilityY=typeY+66;
+  return {art:{x:65,y:296,w:1170,h:artHeight},type:{x:50,y:typeY,h:49},ability:{x:80,y:abilityY,w:1000,h:1588-abilityY},flavor:{x:329,y:1608,w:761,h:76},info:{x:1093,y:Math.min(abilityY-14,1323),w:137},power:{leftX:178,leftY:1678,rightX:1162,rightY:1602},cost:{x:48,y:76,w:164,h:164},mana:{x:587,y:1688,w:126,h:126}};
+}
+function framePalette(){
+  const style=inputs.frameStyle?.value||'classic';
+  const civs=(typeof selectedCivilizations==='function'&&inputs.civ_火)?selectedCivilizations():[];
+  const colors=inputs.colorCivilizations?.checked&&civs.length?civs.map(c=>TOKEN_STYLES[c].fill):['#68d4e8','#b3bcf6'];
+  return {style,colors,base:style==='flat'?'#182532':'#101d2a',edge:style==='metal'?'#819aaf':'#486578',paper:style==='flat'?'#ffffff':'#f3f7fa',header:'#132637',ink:'#172b3a',accent:colors[0],secondary:colors.at(-1)};
+}
+
+
+function cutPanel(x,y,w,h,cut,fill,stroke,line=2){
+  ctx.save();ctx.beginPath();ctx.moveTo(x+cut,y);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+h-cut);ctx.lineTo(x+w-cut,y+h);ctx.lineTo(x,y+h);ctx.lineTo(x,y+cut);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=line;ctx.stroke();}ctx.restore();
+}
+
+function getArtPlacement(img,x,y,w,h,zoom=1,offsetX=0,offsetY=0){
+  const base=Math.max(w/img.width,h/img.height),safeZoom=Math.max(1,zoom),drawW=img.width*base*safeZoom,drawH=img.height*base*safeZoom;
+  const travelX=(drawW-w)/2,travelY=(drawH-h)/2;
+  return {drawX:x+(w-drawW)/2+clamp(offsetX,-100,100)/100*travelX,drawY:y+(h-drawH)/2+clamp(offsetY,-100,100)/100*travelY,drawW,drawH,travelX,travelY};
+}
+
+function framePanel(x,y,w,h,r,fill,stroke,line=3){ctx.save();ctx.fillStyle=fill;ctx.strokeStyle=stroke;ctx.lineWidth=line;roundRectRaw(ctx,x,y,w,h,r,true,true);ctx.restore();}
+function drawVectorFrame(){
+  if(isFullArt()){drawFullSingleFrame();return;}
+  const g=getFrameGeometry(),p=framePalette(),line=Number(inputs.frameLineWidth?.value||10);
+  ctx.save();ctx.fillStyle=p.base;ctx.fillRect(0,0,1300,1816);
+  cutPanel(20,20,1260,1776,p.style==='flat'?12:38,p.base,p.edge,line);
+  // Two diagonal strokes form the A/E signature and repeat at opposite corners.
+  ctx.lineWidth=7;ctx.strokeStyle=p.accent;ctx.beginPath();ctx.moveTo(53,85);ctx.lineTo(90,49);ctx.lineTo(233,49);ctx.stroke();
+  ctx.strokeStyle=p.secondary;ctx.beginPath();ctx.moveTo(1067,1767);ctx.lineTo(1211,1767);ctx.lineTo(1247,1731);ctx.stroke();
+  if(p.style==='metal'){for(const [x,y]of [[55,175],[1193,50],[55,1530]]){ctx.strokeStyle='#3a586e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+42,y-42);ctx.lineTo(x+90,y-42);ctx.stroke();}}
+  // The name is printed directly on the header: no input-like rectangle.
+  ctx.fillStyle=p.header;ctx.fillRect(49,70,1188,201);
+  ctx.fillStyle='#223b4e';ctx.fillRect(230,196,1007,75);
+  ctx.fillStyle=p.accent;ctx.fillRect(232,184,727,4);
+  ctx.strokeStyle='#45677d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(50,272);ctx.lineTo(1214,272);ctx.lineTo(1237,249);ctx.stroke();
+  cutPanel(54,286,1192,g.art.h+20,17,'#213445',p.edge,4);
+  cutPanel(50,g.type.y+24,1186,1718-g.type.y-24,18,p.paper,p.edge,3);
+  // Power plates emphasize the game's two power values without boxing every field.
+  const showLeft=inputs.show_leftPower?.checked!==false&&inputs.leftPower.value;
+  const showRight=inputs.show_rightPower?.checked!==false&&inputs.rightPower.value;
+  if(showLeft){cutPanel(48,1618,260,102,18,'#153345',null);ctx.fillStyle=p.accent;ctx.fillRect(48,1636,5,64);}
+  if(showRight){cutPanel(1123,1477,113,241,17,'#27324b',null);ctx.fillStyle=p.secondary;ctx.fillRect(1231,1494,5,207);}
+  ctx.strokeStyle='#bdccd6';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(329,1595);ctx.lineTo(1090,1595);ctx.stroke();
+  if(inputs.showFrameLabels?.checked!==false){
+    ctx.font='bold 15px "Yu Gothic", sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#b1d4e3';
+    if(showLeft)ctx.fillText('UNTAP POWER',178,1638);
+    if(showRight){ctx.save();ctx.translate(1210,1602);ctx.rotate(Math.PI/2);ctx.fillText('TAP POWER',0,0);ctx.restore();}
+    ctx.font='bold 20px sans-serif';ctx.fillStyle='#89aabd';ctx.fillText('A / E',1140,91);
+  }
+  ctx.restore();
+}
+
+
+function drawVectorArt(){
+  if(isFullArt())return;
+  const g=getFrameGeometry().art,p=framePalette();
+  ctx.save();ctx.beginPath();ctx.rect(g.x,g.y,g.w,g.h);ctx.clip();
+  if(artImage){drawCoverImage(artImage,g.x,g.y,g.w,g.h,Number(inputs.artZoom.value)/100,Number(inputs.artOffsetX.value),Number(inputs.artOffsetY.value));}
+  else{
+    ctx.fillStyle='#203342';ctx.fillRect(g.x,g.y,g.w,g.h);
+    ctx.strokeStyle='#2d475a';ctx.lineWidth=2;
+    for(let i=-g.h;i<g.w;i+=180){ctx.beginPath();ctx.moveTo(g.x+i,g.y);ctx.lineTo(g.x+i+g.h,g.y+g.h);ctx.stroke();}
+    const cx=g.x+g.w/2,cy=g.y+g.h/2;
+    ctx.strokeStyle='#3e6075';ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(cx-120,cy+65);ctx.lineTo(cx-20,cy-85);ctx.lineTo(cx+55,cy+30);ctx.moveTo(cx-80,cy+10);ctx.lineTo(cx+90,cy+10);ctx.moveTo(cx+50,cy-85);ctx.lineTo(cx+130,cy-85);ctx.moveTo(cx+90,cy-85);ctx.lineTo(cx-10,cy+65);ctx.lineTo(cx+70,cy+65);ctx.stroke();
+    ctx.font='23px "Yu Gothic", sans-serif';ctx.fillStyle='#90acbd';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('イラスト画像を選択',cx,cy+140);
+  }
+  ctx.restore();ctx.save();ctx.strokeStyle=p.edge;ctx.lineWidth=3;ctx.strokeRect(g.x-2,g.y-2,g.w+4,g.h+4);ctx.restore();
+}
+
+
+function drawVectorAbilityIcon(keyword,x,y,w,h){
+  ctx.save();ctx.translate(x,y);ctx.scale(w/100,h/100);ctx.lineWidth=7;ctx.lineJoin='round';ctx.strokeStyle='#172333';ctx.fillStyle='#edf4f6';
+  if(keyword==='ブロッカー'){
+    ctx.beginPath();ctx.moveTo(12,12);ctx.lineTo(88,12);ctx.lineTo(84,62);ctx.quadraticCurveTo(78,85,50,96);ctx.quadraticCurveTo(22,85,16,62);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(28,44);ctx.lineTo(43,62);ctx.lineTo(75,30);ctx.stroke();
+  }else if(keyword==='G・ストライク'){
+    ctx.fillStyle='#dcefe5';ctx.beginPath();ctx.arc(50,50,43,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#172333';ctx.beginPath();ctx.moveTo(57,9);ctx.lineTo(26,53);ctx.lineTo(47,53);ctx.lineTo(40,92);ctx.lineTo(76,43);ctx.lineTo(54,43);ctx.closePath();ctx.fill();
+  }else if(keyword==='S・トリガー'){
+    ctx.fillStyle='#f7eaca';ctx.beginPath();for(let i=0;i<12;i++){const a=-Math.PI/2+i*Math.PI/6,r=i%2?29:47;const px=50+Math.cos(a)*r,py=50+Math.sin(a)*r;if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#172333';ctx.font='bold 46px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('S',50,53);
+  }else{
+    ctx.fillStyle='#e5e1f2';ctx.beginPath();ctx.moveTo(50,5);ctx.lineTo(94,50);ctx.lineTo(50,95);ctx.lineTo(6,50);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(72,65);ctx.quadraticCurveTo(75,32,37,34);ctx.lineTo(27,34);ctx.moveTo(42,19);ctx.lineTo(27,34);ctx.lineTo(42,49);ctx.stroke();
+  }
+  ctx.restore();
+}
+function resetVectorFrameFields(){if(inputs.dragArtEnabled)inputs.dragArtEnabled.checked=false;for(const [key,value]of Object.entries(FRAME_DEFAULTS)){const input=inputs[key];if(!input)continue;if(input.type==='checkbox')input.checked=value;else input.value=value;}}
+function validateVectorFrameFields(project){
+  const f=project.fields;
+  if(f.frameStyle!==undefined&&!['classic','flat','metal'].includes(f.frameStyle))throw Error('フレームのスタイルが不正です。');
+  if(f.layoutPreset!==undefined&&!['standard','text','art','full'].includes(f.layoutPreset))throw Error('カードのレイアウトが不正です。');
+}
+
+function roundRectRaw(ctx, x, y, w, h, r, fill = true, stroke = true) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if (fill) ctx.fill();
+  if (stroke) ctx.stroke();
+}
+
+function fitSingleLineText(text, maxWidth, startSize, minSize, fontWeight = "bold") {
+  let size = startSize;
+  while (size > minSize) {
+    ctx.font = `${fontWeight} ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+    if (ctx.measureText(text).width <= maxWidth) return size;
+    size -= 1;
+  }
+  ctx.font = `${fontWeight} ${minSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  if (text && ctx.measureText(text).width > maxWidth) renderWarnings.push(`「${String(text).slice(0,24)}」が横幅を超えています。`);
+  return minSize;
+}
+
+function drawCenterText(text, x, y, maxWidth, startSize, minSize, color = "#000", weight = "bold") {
+  const size = fitSingleLineText(text, maxWidth, startSize, minSize, weight);
+  ctx.font = `${weight} ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = color;
+  ctx.fillText(text, x, y);
+}
+
+
+function drawDynamicTypePill(text, x, y, minW = 224, maxW = 620, h = 49, padding = 28) {
+  const probeSize = 31;
+  ctx.font = `bold ${probeSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  const measured = ctx.measureText(text).width;
+  const width = Math.min(maxW, Math.max(minW, Math.ceil(measured + padding * 2)));
+  const textMaxWidth = width - padding * 2;
+
+  ctx.fillStyle = "#fff";
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = 5;
+  roundRectRaw(ctx, x, y, width, h, 24, true, true);
+
+  drawCenterText(text, x + width / 2, y + h / 2, textMaxWidth, 31, 12, "#000", "bold");
+}
+
+
+function drawOutlinedCenterText(text, x, y, maxWidth, startSize, minSize, fillColor = "#fff", strokeColor = "#000", weight = "bold", lineWidth = 7) {
+  const size = fitSingleLineText(text, maxWidth, startSize, minSize, weight);
+  ctx.font = `${weight} ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.lineJoin = "round";
+  ctx.miterLimit = 2;
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = strokeColor;
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = fillColor;
+  ctx.fillText(text, x, y);
+}
+
+function drawOutlinedRotatedCenterText(text, x, y, maxWidth, startSize, minSize, angle, fillColor = "#fff", strokeColor = "#000", weight = "bold", lineWidth = 7) {
+  const size = fitSingleLineText(text, maxWidth, startSize, minSize, weight);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.font = `${weight} ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.lineJoin = "round";
+  ctx.miterLimit = 2;
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = strokeColor;
+  ctx.strokeText(text, 0, 0);
+  ctx.fillStyle = fillColor;
+  ctx.fillText(text, 0, 0);
+  ctx.restore();
+}
+
+function drawRotatedCenterText(text, x, y, maxWidth, startSize, minSize, angle, color = "#000", weight = "bold") {
+  const size = fitSingleLineText(text, maxWidth, startSize, minSize, weight);
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.font = `${weight} ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = color;
+  ctx.fillText(text, 0, 0);
+  ctx.restore();
+}
+
+// Japanese line breaking keeps closing punctuation off line starts and opening brackets off line ends.
+function textUnits(text){return typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('ja',{granularity:'grapheme'}).segment(text)].map(s=>s.segment):Array.from(text);}
+function legalTextBreak(items,index){
+  const previous=items[index-1]?.char||'',next=items[index]?.char||'';
+  return !/[（「『【〈《〔［｛(\[{]$/u.test(previous)&&! /^[、。，．？！：；）」。』】〉》〕］｝)\]}ーぁぃぅぇぉっゃゅょァィゥェォッャュョヮゎ々]/u.test(next);
+}
+function breakTextItems(items,maxWidth,indent=0){
+  const lines=[];let start=0;
+  while(start<items.length){
+    const inset=lines.length?indent:0;let end=start,width=inset;
+    while(end<items.length&&(width+items[end].width<=maxWidth||end===start)){width+=items[end].width;end++;}
+    if(end<items.length){let legal=end;while(legal>start&&!legalTextBreak(items,legal))legal--;if(legal>start)end=legal;}
+    const line=items.slice(start,end);line.indent=inset;lines.push(line);start=end;
+  }
+  return lines.length?lines:[[]];
+}
+function wrapTextLines(text,maxWidth,font){
+  ctx.font=font;
+  return text.replace(/\r/g,'').split('\n').flatMap(line=>breakTextItems(textUnits(line).map(char=>({char,width:ctx.measureText(char).width})),maxWidth).map(items=>items.map(i=>i.char).join('')));
+}
+function getCardNameLayout(text,preferredSize,mode='auto',width=750,height=94){
+  const min=24,font=size=>`bold ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  let single=Math.min(preferredSize,80);while(single>min){ctx.font=font(single);if(ctx.measureText(text).width<=width)break;single--;}
+  const two=mode==='two'||(mode==='auto'&&single<preferredSize*.7);
+  let size=two?Math.min(preferredSize,42):single,lines=[text];
+  if(two){while(size>=min){ctx.font=font(size);const divisions=textUnits(text).map((char,i)=>/[／/]/u.test(char)&&i>0?i:-1).filter(i=>i>0).map(i=>{const units=textUnits(text);return [units.slice(0,i).join(''),units.slice(i).join('')];}).filter(parts=>parts.every(part=>ctx.measureText(part).width<=width)).sort((a,b)=>Math.abs(ctx.measureText(a[0]).width-ctx.measureText(a[1]).width)-Math.abs(ctx.measureText(b[0]).width-ctx.measureText(b[1]).width));lines=divisions[0]||wrapTextLines(text,width,font(size));if(lines.length<=2&&lines.length*size*1.1<=height)break;if(size===min)break;size--;}}
+  ctx.font=font(size);const fits=lines.length<=2&&lines.every(line=>ctx.measureText(line).width<=width)&&lines.length*size*1.1<=height;
+  return {size,lines,fits,font:font(size),lineHeight:size*1.1};
+}
+function drawCardName(text,preferredSize){
+  const layout=getCardNameLayout(text,preferredSize,inputs.cardNameLayout?.value||'auto');
+  ctx.save();ctx.beginPath();ctx.rect(250,86,750,94);ctx.clip();ctx.font=layout.font;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f1f8fb';
+  const top=134-(layout.lines.length-1)*layout.lineHeight/2;
+  layout.lines.forEach((line,i)=>{if(isFullArt())fullArtText(line,625,top+i*layout.lineHeight,layout.size);else ctx.fillText(line,625,top+i*layout.lineHeight);});ctx.restore();
+  if(!layout.fits)renderWarnings.push('カード名が枠を超えています。文字サイズや2行表示を調整してください。');
+  if(document.getElementById('cardNameActual'))document.getElementById('cardNameActual').textContent=`${layout.size}px・${layout.lines.length}行`;
+}
+
+function drawFittedParagraph(text, x, y, w, h, startSize = 48, minSize = 22, lineHeightRatio = 1.35) {
+  let size = startSize;
+  let lines = [];
+  let lineHeight = 0;
+
+  while (size >= minSize) {
+    ctx.font = `${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+    lines = wrapTextLines(text, w, ctx.font);
+    lineHeight = size * lineHeightRatio;
+    if (lines.length * lineHeight <= h) break;
+    size -= 1;
+  }
+
+  ctx.font = `${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.fillStyle = "#000";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  lines.forEach((line, i) => ctx.fillText(line, x, y + i * lineHeight));
+}
+
+
+
+function drawFlavorText(text, x, y, w, h, fontSize = 26, minSize = 16, lineHeightRatio = 1.25, color = BODY_TEXT_COLOR) {
+  if (!text) return;
+  let size = fontSize, lines, lineHeight;
+  do {
+    const font = `italic ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+    lines = wrapTextLines(text, w, font); lineHeight = size * lineHeightRatio;
+    if (lines.length * lineHeight <= h || size === minSize) break;
+    size = Math.max(minSize, size - 1);
+  } while (true);
+  if (lines.length * lineHeight > h) renderWarnings.push(`フレーバーが枠を超えています（${size}px）。末尾が切れます。`);
+  ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+  ctx.font = `italic ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign="left"; ctx.textBaseline="top"; ctx.fillStyle=color;
+  lines.forEach((line,i)=>{if(isFullArt())fullArtText(line,x,y+i*lineHeight,size);else ctx.fillText(line,x,y+i*lineHeight);}); ctx.restore();
+}
+
+function getAbilityTextFont(fontSize, bold = false) {
+  return `${bold ? "bold " : ""}${fontSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+}
+
+function getTokenDiameter(fontSize) {
+  return Math.max(22, Math.round(fontSize * TOKEN_SIZE_SCALE));
+}
+
+function getTokenWidth(fontSize) {
+  return getTokenDiameter(fontSize) + Math.max(4, Math.round(fontSize * 0.12));
+}
+
+function measureTokenLabelSize(label, diameter) {
+  if (label.length >= 3) return Math.max(10, Math.floor(diameter * 0.26 * TOKEN_TEXT_SCALE));
+  if (label.length >= 2) return Math.max(11, Math.floor(diameter * 0.34 * TOKEN_TEXT_SCALE));
+  return Math.max(13, Math.floor(diameter * 0.54 * TOKEN_TEXT_SCALE));
+}
+
+function getSpecialIconBox(keyword, fontSize) {
+  const entry = SPECIAL_KEYWORDS[keyword] || { image: null, scale: 0.9 };
+  const height = Math.max(24, Math.round(fontSize * (entry.scale || 0.9)));
+  let width = height;
+  if (entry.image && entry.image.naturalWidth > 0 && entry.image.naturalHeight > 0) {
+    width = Math.max(20, Math.round(height * (entry.image.naturalWidth / entry.image.naturalHeight)));
+  }
+  return { width, height };
+}
+
+function getSpecialKeywordFont(fontSize) {
+  return `bold ${fontSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+}
+
+function getSpecialInlineWidth(keyword, fontSize) {
+  const box = getSpecialIconBox(keyword, fontSize);
+  const label = SPECIAL_KEYWORDS[keyword]?.label || keyword;
+  ctx.font = getSpecialKeywordFont(fontSize);
+  const textWidth = ctx.measureText(label).width;
+  return box.width + SPECIAL_ICON_GAP + textWidth;
+}
+
+function parseAbilityItems(rawLine, fontSize) {
+  const items = [];
+  const graphemes=new Map();let unitOffset=0;for(const unit of textUnits(rawLine)){graphemes.set(unitOffset,unit);unitOffset+=unit.length;}
+  let bold = false;
+  let i = 0;
+
+  while (i < rawLine.length) {
+    const ch = graphemes.get(i)||Array.from(rawLine.slice(i))[0];
+
+    if (ch === "*") {
+      bold = !bold;
+      i += 1;
+      continue;
+    }
+
+    if (ch === "{") {
+      const closeIndex = rawLine.indexOf("}", i + 1);
+      if (closeIndex !== -1) {
+        const tokenBody = rawLine.slice(i + 1, closeIndex);
+        const ampIndex = tokenBody.indexOf("&");
+        const tokenLabel = (ampIndex === -1 ? tokenBody : tokenBody.slice(0, ampIndex)).trim();
+        const tokenDisplay = (ampIndex === -1 ? tokenLabel : tokenBody.slice(ampIndex + 1)).trim();
+
+        if (SPECIAL_KEYWORDS[tokenLabel]) {
+          items.push({
+            type: "specialKeyword",
+            keyword: tokenLabel,
+            bold: true,
+            width: getSpecialInlineWidth(tokenLabel, fontSize)
+          });
+          i = closeIndex + 1;
+          continue;
+        }
+
+        if (TOKEN_STYLES[tokenLabel]) {
+          items.push({
+            type: "token",
+            label: tokenLabel,
+            display: tokenDisplay || tokenLabel,
+            bold,
+            width: getTokenWidth(fontSize)
+          });
+          i = closeIndex + 1;
+          continue;
+        }
+      }
+    }
+
+    ctx.font = getAbilityTextFont(fontSize, bold);
+    items.push({
+      type: "char",
+      char: ch,
+      bold,
+      width: ctx.measureText(ch).width
+    });
+    i += ch.length;
+  }
+
+  return items;
+}
+
+function wrapAbilityLines(text,maxWidth,fontSize){
+  return text.replace(/\r/g,'').split('\n').flatMap(rawLine=>{
+    const items=parseAbilityItems(rawLine,fontSize),indent=/^[■▶]/u.test(rawLine)?(items[0]?.width||0):0;
+    return breakTextItems(items,maxWidth,indent);
+  });
+}
+
+function drawAbilityToken(label, display, x, yTop, fontSize, lineHeight) {
+  const style = TOKEN_STYLES[label] || { fill: "#D9D9D9", text: "#000000" };
+  const diameter = getTokenDiameter(fontSize);
+  const drawY = yTop + Math.max(0, (lineHeight - diameter) / 2) + TOKEN_VERTICAL_OFFSET;
+  const centerX = x + diameter / 2;
+  const centerY = drawY + diameter / 2;
+  const shownText = display || label;
+  const labelSize = measureTokenLabelSize(shownText, diameter);
+
+  ctx.save();
+  ctx.fillStyle = style.fill;
+  ctx.strokeStyle = "#000000";
+  ctx.lineWidth = Math.max(1.5, diameter * 0.03);
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = style.text;
+  ctx.font = `bold ${labelSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(shownText, centerX, centerY);
+  ctx.restore();
+}
+
+function drawSpecialKeyword(keyword, x, yTop, fontSize, lineHeight, pass = 'both') {
+  const entry = SPECIAL_KEYWORDS[keyword] || { label: keyword, image: null, scale: 0.9 };
+  const box = getSpecialIconBox(keyword, fontSize);
+  const iconY = yTop + Math.max(0, (lineHeight - box.height) / 2) + TOKEN_VERTICAL_OFFSET;
+  const textX = x + box.width + SPECIAL_ICON_GAP;
+
+  ctx.save();
+  if(pass!=='stroke')drawVectorAbilityIcon(keyword, x, iconY, box.width, box.height);
+
+  ctx.font = getSpecialKeywordFont(fontSize);
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillStyle = BODY_TEXT_COLOR;
+  if(isFullArt())fullArtText(entry.label,textX,yTop+SPECIAL_TEXT_OFFSET_Y,fontSize,true,pass);else ctx.fillText(entry.label, textX, yTop + SPECIAL_TEXT_OFFSET_Y);
+  ctx.restore();
+}
+
+function getAbilityLayout(text, maxWidth, maxHeight, preferredSize, minSize, lineHeightRatio, autoFit) {
+  let fontSize = preferredSize;
+  let lines = wrapAbilityLines(text, maxWidth, fontSize);
+  let lineHeight = fontSize * lineHeightRatio;
+  let totalHeight = lines.length * lineHeight;
+
+  const widthFits = () => lines.every(line => (line.indent||0) + line.reduce((sum,item)=>sum+item.width,0) <= maxWidth);
+  if (autoFit) {
+    while (fontSize > minSize && (totalHeight > maxHeight || !widthFits())) {
+      fontSize -= 1;
+      lines = wrapAbilityLines(text, maxWidth, fontSize);
+      lineHeight = fontSize * lineHeightRatio;
+      totalHeight = lines.length * lineHeight;
+    }
+  }
+
+  return { fontSize, lines, lineHeight, totalHeight, fits: totalHeight <= maxHeight && widthFits() };
+}
+
+function drawParagraphExact(text, x, y, w, h, fontSize = 48, lineHeightRatio = 1.35, color = BODY_TEXT_COLOR, autoFit = false, minSize = 22) {
+  const layout = getAbilityLayout(text, w, h, fontSize, minSize, lineHeightRatio, autoFit);
+  const full=isFullArt();
+  drawFullArtAbilityBackdrop(text,x,y,w,h);
+  ctx.save();ctx.beginPath();
+  // Space for the outer stroke and inline icons, while keeping text wrapping unchanged.
+  const bleed=full?Math.max(5,layout.fontSize*Number(inputs.fullArtAbilityOutline?.value??18)/200+2):0;
+  if(full)ctx.rect(x-bleed,y-bleed-6,w+2*bleed,h+bleed+6);else ctx.rect(x,y,w,h);ctx.clip();
+  ctx.fillStyle=full?'#fff':color;ctx.textAlign='left';ctx.textBaseline='top';
+  // Stroke all glyphs before filling any: adjacent outlines cannot eat into white glyphs.
+  for(const pass of (full?['stroke','fill']:['both'])){
+    layout.lines.forEach((line,i)=>{
+      let cursorX=x+(line.indent||0);const cursorY=y+i*layout.lineHeight;
+      for(const item of line){
+        if(item.type==='token'){
+          if(pass!=='stroke')drawAbilityToken(item.label,item.display,cursorX,cursorY,layout.fontSize,layout.lineHeight);
+        }else if(item.type==='specialKeyword'){
+          drawSpecialKeyword(item.keyword,cursorX,cursorY,layout.fontSize,layout.lineHeight,pass);
+        }else{
+          ctx.font=getAbilityTextFont(layout.fontSize,item.bold);
+          if(full)fullArtText(item.char,cursorX,cursorY,layout.fontSize,true,pass);else ctx.fillText(item.char,cursorX,cursorY);
+        }
+        cursorX+=item.width;
+      }
+    });
+  }
+  ctx.restore();return layout;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function drawCoverImage(img,x,y,w,h,zoom=1,offsetX=0,offsetY=0){
+  if(!img)return;const p=getArtPlacement(img,x,y,w,h,zoom,offsetX,offsetY);
+  ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();ctx.drawImage(img,p.drawX,p.drawY,p.drawW,p.drawH);ctx.restore();
+}
+
+
+function drawStretchImage(img, x, y, w, h) {
+  if (!img) return;
+  ctx.drawImage(img, x, y, w, h);
+}
+
+function drawStretchImageRotated(img, x, y, w, h, angle) {
+  if (!img) return;
+  ctx.save();
+  ctx.translate(x + w / 2, y + h / 2);
+  ctx.rotate(angle);
+  ctx.drawImage(img, -w / 2, -h / 2, w, h);
+  ctx.restore();
+}
+
+function drawFallbackCircle(x,y,w,h,shape="octagon",fallback="#e6f1f6",useCivilizations=true,civilizations=null){
+  const civs=typeof selectedCivilizations==='function'&&inputs.colorCivilizationCircles?.checked&&useCivilizations?(civilizations??selectedCivilizations()):[];
+  ctx.save();const cut=Math.min(w,h)*0.21;
+  ctx.beginPath();if(shape==='circle')ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);
+  else if(shape==='diamond'){ctx.moveTo(x+w/2,y);ctx.lineTo(x+w,y+h/2);ctx.lineTo(x+w/2,y+h);ctx.lineTo(x,y+h/2);ctx.closePath();}
+  else{ctx.moveTo(x+cut,y);ctx.lineTo(x+w-cut,y);ctx.lineTo(x+w,y+cut);ctx.lineTo(x+w,y+h-cut);ctx.lineTo(x+w-cut,y+h);ctx.lineTo(x+cut,y+h);ctx.lineTo(x,y+h-cut);ctx.lineTo(x,y+cut);ctx.closePath();}ctx.save();ctx.clip();
+  if(civs.length)civs.forEach((c,i)=>{ctx.fillStyle=TOKEN_STYLES[c].fill;ctx.fillRect(x+i*w/civs.length,y,w/civs.length+1,h);});
+  else{ctx.fillStyle=fallback||'#e6f1f6';ctx.fillRect(x,y,w,h);}ctx.restore();ctx.strokeStyle='#426379';ctx.lineWidth=4;ctx.stroke();ctx.restore();
+}
+
+
+function drawCardInfoBox(info){
+  if(!info.show)return;const rows=[['RARE',info.rarity,320,1736,145],['EXP',info.expansion,320,1770,145],['NO',info.number,810,1736,300],['MAKE',info.author,810,1770,300]].filter(row=>row[1]);
+  ctx.save();ctx.textAlign='left';ctx.textBaseline='middle';
+  rows.forEach(([label,value,x,y,maxWidth])=>{ctx.font='bold 14px sans-serif';ctx.fillStyle='#86a3b6';ctx.fillText(label,x,y);const size=fitSingleLineText(value,maxWidth,22,12,'bold');ctx.font=`bold ${size}px "Yu Gothic", "Hiragino Sans", sans-serif`;ctx.fillStyle='#eaf3f8';ctx.fillText(value,x+56,y);});ctx.restore();
+}
+
+
+function getTypePillMetrics(text) {
+  const x = 50;
+  const y = getFrameGeometry().type.y;
+  const minW = 224;
+  const maxW = 620;
+  const h = 49;
+  const padding = 28;
+  const probeSize = 31;
+
+  ctx.font = `bold ${probeSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  const measured = ctx.measureText(text).width;
+  const w = Math.min(maxW, Math.max(minW, Math.ceil(measured + padding * 2)));
+  return { x, y, w, h, padding };
+}
+
+function drawTypeBarWithText(text){
+  const m=getTypePillMetrics(text),p=framePalette();
+  if(typeBarImage){if(inputs.typeBarImageMode?.value==='caps')drawCappedBar(typeBarImage,m.x,m.y,m.w,m.h,Number(inputs.typeBarCapPercent.value));else ctx.drawImage(typeBarImage,m.x,m.y,m.w,m.h);drawCenterText(text,m.x+m.w/2,m.y+m.h/2,m.w-m.padding*2,31,12,inputs.typeBarTextColor?.value||'#000','bold');}
+  else{cutPanel(m.x,m.y,m.w,m.h,12,'#172f41',p.accent,2);drawCenterText(text,m.x+m.w/2,m.y+m.h/2,m.w-m.padding*2,31,12,'#f0f8fc','bold');}
+}
+
+
+const imageLoadTokens = new WeakMap();
+let pendingImageLoads = 0;
+function invalidateImage(input) { imageLoadTokens.set(input, (imageLoadTokens.get(input)||0)+1); }
+function loadImageFromFileInput(input, callback) {
+  invalidateImage(input); const token=imageLoadTokens.get(input), file=input.files[0];
+  if (!file) { callback(null); return; }
+  pendingImageLoads++; if(historyRenderHook)historyRenderHook(); setMessage("画像を読み込んでいます…");
+  const reader=new FileReader();
+  let settled=false;
+  const done=(error,img)=>{
+    if(settled)return; settled=true; pendingImageLoads--; if(historyRenderHook)historyRenderHook();
+    if(imageLoadTokens.get(input)!==token)return;
+    if(error) { input.value=""; setMessage("画像を読み込めませんでした。PNG・JPEGなどの画像を選び直してください。",true); }
+    else { callback(img); setMessage("画像を読み込みました。"); queueDraftSave(); }
+  };
+  reader.onerror=()=>done(true); reader.onabort=()=>done(true);
+  reader.onload=()=>{if(typeof reader.result!=="string" || !/^data:image\/(png|jpeg|jpg|webp|gif|bmp|avif|x-icon|vnd.microsoft.icon);base64,/i.test(reader.result)){done(true);return;}const img=new Image();img.onload=()=>done(false,img);img.onerror=()=>done(true);img.src=reader.result;};
+  reader.readAsDataURL(file);
+}
+
+function drawTappedPower(text) {
+  ctx.save();
+  ctx.translate(1162, 1602);
+  ctx.rotate(Math.PI / 2);
+  const size = fitSingleLineText(text, 220, 64, 24, "bold");
+  ctx.font = `bold ${size}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.lineJoin = "round";
+  ctx.miterLimit = 2;
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = "#000";
+  ctx.strokeText(text, 0, 0);
+  ctx.fillStyle = "#fff";
+  ctx.fillText(text, 0, 0);
+  ctx.restore();
+}
+
+let batchExportBusy=false;
+let historyRenderHook=null;
+let shelfRenderHook=null;
+let renderWarnings = [];
+function updateLayoutWarnings() {
+  syncFullArtReadabilityControls();
+  if(inputs.cardPreset && typeof updateCardReview === "function")updateCardReview();
+  const issues=[...new Set(renderWarnings)];
+  if(document.getElementById("abilityFitStatus")?.classList.contains("warn")) issues.unshift("能力文の一部が枠からはみ出しています。");
+  const raw=visibleValue("abilityText");
+  for(const line of raw.split("\n")) if((line.match(/\*/g)||[]).length%2) {issues.push("能力文の太字記法（*）が閉じていません。");break;}
+  const box=document.getElementById("layoutStatus");
+  if(box){box.className="status-box "+(issues.length?"warn":"ok");box.textContent=issues.length?issues.join("\n"):"表示中の文字は枠内に収まっています。";box.style.whiteSpace="pre-line";}
+}
+function visibleValue(key) { return inputs["show_" + key]?.checked === false ? "" : inputs[key].value; }
+function renderCard() {
+  if(typeof twinReady!=="undefined"&&twinReady){syncCardDimensions();if(isLandscapeCard()){renderLandscapeCard();return;}}
+  if(typeof twinReady!=="undefined"&&twinReady&&twinMode==='twinpact'){renderTwinCard();return;}
+  renderWarnings = [];
+  const cardName = visibleValue("cardName");
+  const cardNameFontSize = Number(inputs.cardNameFontSize.value);
+  cardNameFontSizeValue.textContent = String(cardNameFontSize);
+  const costText = visibleValue("costText");
+  const bottomIconText = visibleValue("bottomIconText");
+  const species = visibleValue("species");
+  const typeLabel = visibleValue("typeLabel");
+  const abilityText = visibleValue("abilityText");
+  const flavorText = visibleValue("flavorText");
+  const leftPower = visibleValue("leftPower");
+  const rightPower = visibleValue("rightPower");
+  const cardInfo = {
+    show: inputs.showCardInfo.checked,
+    rarity: inputs.rarityText.value.trim(),
+    expansion: inputs.expansionText.value.trim(),
+    number: inputs.cardNumberText.value.trim(),
+    author: inputs.authorText.value.trim()
+  };
+  const abilityFontSize = Number(inputs.abilityFontSize.value);
+  const autoFitAbility = inputs.autoFitAbility.checked;
+  abilityFontSizeValue.textContent = String(abilityFontSize);
+  const artZoom = Number(inputs.artZoom.value) / 100;
+  const artOffsetX = Number(inputs.artOffsetX.value);
+  const artOffsetY = Number(inputs.artOffsetY.value);
+  artZoomValue.textContent = String(Math.round(artZoom * 100));
+  artOffsetXValue.textContent = String(artOffsetX);
+  artOffsetYValue.textContent = String(artOffsetY);
+
+  ctx.clearRect(0, 0, 1300, 1816);
+  drawVectorFrame();
+  drawVectorArt();
+
+  // コスト円・マナ円
+  if(inputs.showCostBadge?.checked!==false){
+    if(costCircleImage)drawStretchImage(costCircleImage,48,76,164,164);
+    else drawFallbackCircle(48,76,164,164,inputs.costBadgeShape?.value,inputs.costBadgeColor?.value,inputs.costUseCivilizations?.checked!==false);
+  }
+  if(inputs.showManaBadge?.checked!==false){
+    const image=inputs.linkManaToCost?.checked===false?manaCircleImage:costCircleImage,angle=Number(inputs.manaRotation?.value||180)*Math.PI/180;
+    if(image)drawStretchImageRotated(image,587,1688,126,126,angle);
+    else drawFallbackCircle(587,1688,126,126,inputs.manaBadgeShape?.value,inputs.manaBadgeColor?.value,inputs.manaUseCivilizations?.checked!==false);
+  }
+
+  if(typeof drawCivilizationAccent === "function")drawCivilizationAccent();
+
+  // 文字
+  drawCardName(cardName, cardNameFontSize);
+  drawOutlinedCenterText(costText, 130, 158, 130, 78, 32, "#fff", "#000", "bold", 7);
+  drawCenterText(species, 650, 239, 1050, 40, 18, "#d4e8f3", "bold");
+  if (inputs.show_typeLabel?.checked !== false) drawTypeBarWithText(typeLabel);
+
+  const geometry=getFrameGeometry();
+  const abilityLayout = drawParagraphExact(
+    abilityText, geometry.ability.x, geometry.ability.y, geometry.ability.w, geometry.ability.h, abilityFontSize, Number(inputs.abilityLineHeight?.value||135)/100, "#000",
+    autoFitAbility, Number(inputs.abilityFontSize.min)
+  );
+  abilityActualFontSizeValue.textContent = String(abilityLayout.fontSize);
+  abilityFitStatus.classList.toggle("warn", !abilityLayout.fits);
+  abilityFitStatus.classList.toggle("ok", abilityLayout.fits);
+  if (abilityLayout.fits) {
+    abilityFitStatus.textContent = abilityLayout.fontSize < abilityFontSize
+      ? `能力テキストは ${abilityLayout.fontSize}px まで自動縮小して枠内に収めています。`
+      : "能力テキストは枠内に収まっています。";
+  } else {
+    abilityFitStatus.textContent = `能力テキストが枠からはみ出しています。文字サイズを下げるか、文章を短くしてください。`;
+  }
+
+  // フレーバーテキスト
+  drawFlavorText(flavorText, FLAVOR_BOX.x, FLAVOR_BOX.y, FLAVOR_BOX.w, FLAVOR_BOX.h, 26, 14, 1.25, "#000");
+
+  // カード情報欄
+  drawCardInfoBox(cardInfo);
+
+  // アンタップパワー
+  const leftSize = fitSingleLineText(leftPower, 220, 70, 24, "bold");
+  ctx.font = `bold ${leftSize}px "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#fff";
+  ctx.fillText(leftPower, 178, 1678);
+
+  drawTappedPower(rightPower);
+
+  // マナ円テキスト
+  drawOutlinedRotatedCenterText(bottomIconText, 650, 1750, 75, 48, 22, Number(inputs.manaRotation?.value||180)*Math.PI/180, "#fff", "#000", "bold", 6);
+  if(document.getElementById("frameLineWidthValue"))document.getElementById("frameLineWidthValue").textContent=inputs.frameLineWidth.value;
+  if(typeof syncArtControls === "function" && document.getElementById("artZoomNumber"))syncArtControls();
+  if(typeof syncPartControls==="function")syncPartControls();
+  updateLayoutWarnings();
+  if(shelfRenderHook)shelfRenderHook();
+  if(historyRenderHook)historyRenderHook();
+  if(document.getElementById('abilityLineHeightValue'))document.getElementById('abilityLineHeightValue').textContent=(Number(inputs.abilityLineHeight.value)/100).toFixed(2);
+  if(document.getElementById('previewTextStatus')){const source=document.getElementById('layoutStatus'),target=document.getElementById('previewTextStatus');target.className=source.classList.contains('warn')?'warn':'ok';}
+}
+
+let renderQueued = false;
+function scheduleRender() {
+  if (renderQueued) return;
+  renderQueued = true;
+  requestAnimationFrame(() => {
+    renderQueued = false;
+    renderCard();
+  });
+}
+
+function resetForm() {
+  [inputs.artUpload,inputs.costCircleUpload,inputs.typeBarUpload].forEach(invalidateImage);
+  inputs.cardName.value = "カード名";
+  inputs.cardNameFontSize.value = "80";
+  inputs.costText.value = "X";
+  inputs.bottomIconText.value = "L";
+  inputs.species.value = "種族名";
+  inputs.typeLabel.value = "カードタイプ";
+  inputs.abilityText.value = "■能力テキスト";
+  inputs.flavorText.value = "フレーバーテキスト";
+  inputs.rarityText.value = "R";
+  inputs.expansionText.value = "EA-01";
+  inputs.cardNumberText.value = "001/100";
+  inputs.authorText.value = "名無し";
+  inputs.showCardInfo.checked = true;
+  inputs.leftPower.value = "4000";
+  inputs.rightPower.value = "4000";
+  inputs.abilityFontSize.value = "48";
+  inputs.autoFitAbility.checked = true;
+  inputs.artUpload.value = "";
+  inputs.artZoom.value = "100";
+  inputs.artOffsetX.value = "0";
+  inputs.artOffsetY.value = "0";
+  inputs.costCircleUpload.value = "";
+  inputs.typeBarUpload.value = "";
+  artImage = null;
+  costCircleImage = null;
+  manaCircleImage=null;if(inputs.manaCircleUpload){invalidateImage(inputs.manaCircleUpload);inputs.manaCircleUpload.value="";}
+  typeBarImage = null;
+  renderCard();
+}
+
+Object.values(inputs).forEach((el) => {
+  if (el.type !== "file") el.addEventListener("input", scheduleRender);
+});
+
+inputs.artUpload.addEventListener("change", (e) => {
+  loadImageFromFileInput(inputs.artUpload, (img) => {
+    artImage = img;
+    renderCard();
+  });
+});
+
+inputs.costCircleUpload.addEventListener("change", () => {
+  loadImageFromFileInput(inputs.costCircleUpload, (img) => {
+    costCircleImage = img;
+    renderCard();
+  });
+});
+
+
+inputs.typeBarUpload.addEventListener("change", () => {
+  loadImageFromFileInput(inputs.typeBarUpload, (img) => {
+    typeBarImage = img;
+    renderCard();
+  });
+});
+
+
+
+
+
+
+
+artResetBtn.addEventListener("click", () => {
+  invalidateImage(inputs.artUpload);
+  inputs.artUpload.value = "";
+  inputs.artZoom.value = "100";
+  inputs.artOffsetX.value = "0";
+  inputs.artOffsetY.value = "0";
+  artImage = null;
+  renderCard();
+});
+
+
+costCircleResetBtn.addEventListener("click", () => {
+  invalidateImage(inputs.costCircleUpload);
+  inputs.costCircleUpload.value = "";
+  costCircleImage = null;
+  renderCard();
+});
+
+
+typeBarResetBtn.addEventListener("click", () => {
+  invalidateImage(inputs.typeBarUpload);
+  inputs.typeBarUpload.value = "";
+  typeBarImage = null;
+  renderCard();
+});
+
+
+
+downloadBtn.addEventListener("click", () => {
+  if(pendingImageLoads || stateApplying || batchExportBusy) {setMessage("画像の読込が終わってから保存してください。",true);return;}
+  renderCard();
+  const safeName = (inputs.exportName?.value.trim() || projectTitle(captureProject())).replace(/[\/:*?"<>|]/g, "_");
+  pngExportCanvas().toBlob((blob) => {
+    if (!blob) {
+      setMessage("PNGの生成に失敗しました。",true);
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${safeName}.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, "image/png");
+});
+
+cardNameMinusBtn.addEventListener("click", () => {
+  const current = Number(inputs.cardNameFontSize.value);
+  inputs.cardNameFontSize.value = String(Math.max(Number(inputs.cardNameFontSize.min), current - 1));
+  renderCard();
+});
+
+cardNamePlusBtn.addEventListener("click", () => {
+  const current = Number(inputs.cardNameFontSize.value);
+  inputs.cardNameFontSize.value = String(Math.min(Number(inputs.cardNameFontSize.max), current + 1));
+  renderCard();
+});
+
+abilityMinusBtn.addEventListener("click", () => {
+  const current = Number(inputs.abilityFontSize.value);
+  inputs.abilityFontSize.value = String(Math.max(Number(inputs.abilityFontSize.min), current - 1));
+  renderCard();
+});
+
+abilityPlusBtn.addEventListener("click", () => {
+  const current = Number(inputs.abilityFontSize.value);
+  inputs.abilityFontSize.value = String(Math.min(Number(inputs.abilityFontSize.max), current + 1));
+  renderCard();
+});
+
+// v56 installs undoable reset after state controls are ready.
+
+renderCard();
+</script>
+
+<script>
+(() => {
+  const panel = document.querySelector('.panel');
+  const groups = [
+    ['基本情報','BASIC INFORMATION',['cardName','cardNameFontSize','costText','species','typeLabel','leftPower']],
+    ['テキスト','CARD TEXT',['abilityText','abilityFontSize','flavorText']],
+    ['イラスト','ART & FRAME',['artUpload','costCircleUpload','typeBarUpload']],
+    ['詳細','CARD DETAILS',['rarityText']]
+  ];
+  const tabs = document.createElement('div'); tabs.className='editor-tabs'; tabs.setAttribute('role','tablist'); tabs.setAttribute('aria-label','カード編集項目');
+  const actions=panel.querySelector('.buttons');
+  panel.insertBefore(tabs, panel.querySelector('.field'));
+  const panes=[]; const buttons=[];
+  function activate(index, focus=false){panes.forEach((p,i)=>p.hidden=i!==index);buttons.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});if(focus)buttons[index].focus();}
+  groups.forEach(([title,caption,ids],i)=>{
+    const btn=document.createElement('button');btn.type='button';btn.textContent=title;btn.id='tab-'+i;btn.setAttribute('role','tab');btn.setAttribute('aria-controls','pane-'+i);tabs.append(btn);buttons.push(btn);
+    const pane=document.createElement('section');pane.id='pane-'+i;pane.setAttribute('role','tabpanel');pane.setAttribute('aria-labelledby',btn.id);pane.tabIndex=0;
+    const label=document.createElement('div');label.className='section-caption';label.textContent=caption;pane.append(label);
+    ids.forEach(id=>{let field=document.getElementById(id).closest('.field');if(field) pane.append(field);});
+    panel.insertBefore(pane,actions);panes.push(pane);btn.addEventListener('click',()=>activate(i));
+    btn.addEventListener('keydown',e=>{let n=i;if(e.key==='ArrowRight')n=(i+1)%groups.length;else if(e.key==='ArrowLeft')n=(i+groups.length-1)%groups.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=groups.length-1;else return;e.preventDefault();activate(n,true);});
+  });
+  activate(0);
+  const help=document.querySelector('#abilityText').parentElement.querySelector('.note');
+  const details=document.createElement('details');details.className='syntax-help';const summary=document.createElement('summary');summary.textContent='太字・文明円・能力アイコンの書き方';details.append(summary);help.before(details);details.append(help);
+  const jump=document.createElement('a');jump.href='#preview';jump.className='jump-preview';jump.textContent='カードプレビューを見る ↓';panel.append(jump);
+  [['cardNameMinusBtn','カード名の文字を小さくする'],['cardNamePlusBtn','カード名の文字を大きくする'],['abilityMinusBtn','能力の文字を小さくする'],['abilityPlusBtn','能力の文字を大きくする']].forEach(([id,label])=>document.getElementById(id).setAttribute('aria-label',label));
+  ['cardNameFontSize','abilityFontSize','artZoom','artOffsetX','artOffsetY'].forEach(id=>{const input=document.getElementById(id);const sync=()=>input.setAttribute('aria-valuetext',input.value);sync();input.addEventListener('input',sync);});
+})();
+</script>
+<script>
+// Editing state is deliberately separate from exported PNG pixels.
+const PROJECT_FORMAT="element-act-card-project", PROJECT_VERSION=1;
+let stateApplying=false, undoResetState=null, draftTimer=null, draftSerial=Promise.resolve(), draftEpoch=0;
+const $=id=>document.getElementById(id);
+[inputs.artUpload,inputs.costCircleUpload,inputs.typeBarUpload].forEach(input=>input.accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif");
+function setMessage(message,error=false){const el=$("projectStatus");if(el){el.className="status-box "+(error?"warn":"ok");el.textContent=message;}}
+function addVisibility(key,label){
+  const row=document.createElement("label");row.className="check-row visibility-toggle";
+  const cb=document.createElement("input");cb.type="checkbox";cb.id="show_"+key;cb.checked=true;
+  row.append(cb,document.createTextNode(label+"を表示")); $(key).parentElement.append(row);inputs[cb.id]=cb;
+  cb.addEventListener("input",scheduleRender);
+}
+[["cardName","カード名"],["species","種族"],["typeLabel","カードタイプ"],["costText","コスト文字"],["bottomIconText","マナ文字"],["leftPower","アンタップパワー"],["rightPower","タップパワー"],["abilityText","能力文"],["flavorText","フレーバー"]].forEach(([key,label])=>addVisibility(key,label));
+$("costText").previousElementSibling.textContent="コスト（左上）";
+$("bottomIconText").previousElementSibling.textContent="マナ文字（下中央）";
+const projectTools=document.createElement("div");projectTools.className="project-tools";
+projectTools.innerHTML=`<div class="section-caption">編集データの保存・復元</div><div class="note">画像・文章・位置・表示設定をまとめて保存します。PNGは完成画像、編集データは再編集用です。</div><div class="buttons"><button id="saveProjectBtn" type="button">編集データを保存</button><button id="loadProjectBtn" type="button">編集データを読込</button><button id="undoResetBtn" type="button" disabled>初期化を取り消す</button></div><input id="projectUpload" type="file" accept="application/json,.json" hidden><div id="projectStatus" class="status-box ok" role="status" aria-live="polite">自動保存を準備しています…</div>`;
+document.querySelector(".panel").append(projectTools);
+const exportField=document.createElement("div");exportField.className="field";exportField.innerHTML='<label for="exportName">PNGのファイル名（省略するとカード名）</label><input type="text" id="exportName" placeholder="拡張子は不要">';$("pane-3").append(exportField);inputs.exportName=$("exportName");
+const scaleField=document.createElement("div");scaleField.className="v56-row";
+scaleField.innerHTML='<label for="previewScale">表示サイズ <span id="previewScaleValue">100</span>%</label><input type="range" id="previewScale" min="40" max="200" value="100"><button id="previewFitBtn" type="button">全体表示</button>';
+document.querySelector(".preview-heading").after(scaleField);inputs.previewScale=$("previewScale");
+function updatePreviewScale(){const value=Number(inputs.previewScale.value);$("previewScaleValue").textContent=value;canvas.style.width=value+"%";canvas.style.maxWidth="none";canvas.style.maxHeight="none";canvas.style.flexShrink="0";document.querySelector(".canvas-wrap").style.justifyContent=value>100?"flex-start":"center";}
+inputs.previewScale.addEventListener("input",updatePreviewScale);$("previewFitBtn").onclick=()=>{inputs.previewScale.value="100";updatePreviewScale();queueDraftSave();};updatePreviewScale();
+const toolbar=document.createElement("div");toolbar.className="v56-row";toolbar.setAttribute("aria-label","能力文の入力補助");
+function insertAbility(text,wrap=false){const ta=inputs.abilityText,start=ta.selectionStart,end=ta.selectionEnd;const selected=ta.value.slice(start,end);ta.setRangeText(wrap?"*"+selected+"*":text,start,end,"end");ta.focus();ta.dispatchEvent(new Event("input",{bubbles:true}));}
+[["■","■"],["▶","▶"],["太字",""],["火","{火}"],["水","{水}"],["自然","{自然}"],["光","{光}"],["闇","{闇}"],["無","{無}"]].forEach(([label,value])=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.onclick=()=>insertAbility(value,label==="太字");toolbar.append(b);});
+const keywords=document.createElement("select");keywords.setAttribute("aria-label","挿入する能力名");keywords.innerHTML='<option value="">能力名を挿入…</option>';
+["ブロッカー","G・ストライク","S・トリガー","S・バック","A・トリガー","ウルトラ・A・トリガー","スピードアタッカー","W・ブレイカー","T・ブレイカー"].forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;keywords.append(o);});
+keywords.onchange=()=>{if(keywords.value)insertAbility(SPECIAL_KEYWORDS[keywords.value]?"{"+keywords.value+"}":"*"+keywords.value+"*");keywords.value="";};toolbar.append(keywords);inputs.abilityText.before(toolbar);
+function captureProject(){
+  const fields={};for(const [key,input] of Object.entries(inputs)) if(input.type!=="file")fields[key]=input.type==="checkbox"?input.checked:input.value;
+  return {format:PROJECT_FORMAT,schemaVersion:PROJECT_VERSION,appVersion:"v57",savedAt:new Date().toISOString(),fields,images:{art:artImage?.src||null,costCircle:costCircleImage?.src||null,typeBar:typeBarImage?.src||null,manaCircle:manaCircleImage?.src||null}};
+}
+function validateProject(project){
+  if(!project||project.format!==PROJECT_FORMAT||project.schemaVersion!==PROJECT_VERSION||!project.fields||typeof project.fields!=="object"||Array.isArray(project.fields)||!project.images||typeof project.images!=="object")throw Error("対応するエレアク編集データではありません。");
+  for(const [key,input] of Object.entries(inputs)){
+    if(input.type==="file")continue;const value=project.fields[key];
+    if(value===undefined)continue;
+    if(typeof value!==(input.type==="checkbox"?"boolean":"string"))throw Error("入力項目の形式が不正です。");
+    if(value.length>200000)throw Error("入力テキストが長すぎます。");
+    if(input.type==="range"&&(!Number.isFinite(Number(value))||Number(value)<Number(input.min)||Number(value)>Number(input.max)))throw Error("調整値が範囲外です。");
+  }
+  for(const key of PROJECT_IMAGE_KEYS){const value=project.images[key];if(value!=null&&(typeof value!=="string"||!/^data:image\/(png|jpeg|jpg|webp|gif|bmp|avif|x-icon|vnd.microsoft.icon);base64,[A-Za-z0-9+/=]+$/i.test(value)))throw Error("画像データの形式が不正です。");}
+  if(project.fields.cardNameLayout!==undefined&&!['auto','single','two'].includes(project.fields.cardNameLayout))throw Error('カード名の行数設定が不正です。');
+  validatePartFields(project);
+  validateVectorFrameFields(project);
+  if(typeof validatePhase3Fields === "function")validatePhase3Fields(project);
+  return project;
+}
+function decodeProjectImage(src){return new Promise((resolve,reject)=>{if(!src){resolve(null);return;}const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error("保存された画像を読み込めません。"));img.src=src;});}
+async function applyProject(project){
+  if(stateApplying||pendingImageLoads)throw Error("画像の読込が終わってから操作してください。");
+  if(historyRenderHook&&typeof commitHistory==="function")commitHistory();
+  validateProject(project);stateApplying=true;document.querySelector(".panel").inert=true;
+  try {
+    // Decode every image before touching the existing edit state.
+    const images=await Promise.all(PROJECT_IMAGE_KEYS.map(k=>decodeProjectImage(project.images[k])));
+    const lower=await decodeLower(project);
+    if(typeof clearArtGesture === "function" && inputs.dragArtEnabled)clearArtGesture();
+    resetVectorFrameFields();
+    if(typeof resetPhase3Fields === "function")resetPhase3Fields();
+    for(const [key,input]of Object.entries(inputs)){if(input.type==="file"){input.value="";invalidateImage(input);continue;}const value=project.fields[key];if(value!==undefined){if(input.type==="checkbox")input.checked=value;else input.value=value;}}
+    for(const [key,value] of Object.entries(TYPOGRAPHY_DEFAULTS))if(project.fields[key]===undefined)inputs[key].value=value;
+    for(const [key,value]of Object.entries(PART_DEFAULTS))if(project.fields[key]===undefined){if(inputs[key].type==='checkbox')inputs[key].checked=value;else inputs[key].value=value;}
+    if(project.fields.typeBarImageMode===undefined&&!/^v(?:5[6-9]|[6-9]\d|\d{3,})$/.test(project.appVersion||''))inputs.typeBarImageMode.value='stretch';
+    [artImage,costCircleImage,manaCircleImage,typeBarImage]=images;
+    if(artImage && /^v4[123]$/.test(project.appVersion||'')){
+      const g=singleGeometry().art,p=getArtPlacement(artImage,g.x,g.y,g.w,g.h,Number(inputs.artZoom.value)/100);
+      const oldX=Number(inputs.artOffsetX.value)/100*g.w*0.45,oldY=Number(inputs.artOffsetY.value)/100*g.h*0.45;
+      inputs.artOffsetX.value=String(p.travelX>0?Math.round(clamp(oldX/p.travelX*100,-100,100)):0);
+      inputs.artOffsetY.value=String(p.travelY>0?Math.round(clamp(oldY/p.travelY*100,-100,100)):0);
+    }
+    installTwinProject(project,lower);updatePreviewScale();renderCard();
+    if(typeof shelfReady!=='undefined'&&shelfReady){activeCardId=null;renderShelf();}
+  }finally{stateApplying=false;document.querySelector(".panel").inert=batchExportBusy;if(historyRenderHook)historyRenderHook();}
+}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+function safeFilename(name){return(name.trim()||"カード名").replace(/[\\/:*?"<>|\x00-\x1f]/g,"_").slice(0,150);}
+$("saveProjectBtn").onclick=()=>{if(pendingImageLoads||stateApplying){setMessage("画像の読込が終わってから保存してください。",true);return;}downloadBlob(new Blob([JSON.stringify(captureProject(),null,2)],{type:"application/json"}),safeFilename(projectTitle(captureProject()))+".ea.json");setMessage("編集データを書き出しました。画像も含まれています。");};
+$("loadProjectBtn").onclick=()=>$("projectUpload").click();
+$("projectUpload").onchange=async()=>{const file=$("projectUpload").files[0];if(!file)return;try{if(file.size>50*1024*1024)throw Error("編集データは50MB以下にしてください。");const data=JSON.parse(await file.text());await applyProject(data);queueDraftSave();setMessage("編集データを読み込みました。");}catch(e){setMessage("読込失敗："+e.message,true);}finally{$("projectUpload").value="";}};
+resetBtn.addEventListener("click",()=>{
+  if(pendingImageLoads||stateApplying){setMessage("画像の読込が終わってから初期化してください。",true);return;}
+  undoResetState=captureProject();resetForm();
+  Object.keys(inputs).filter(k=>k.startsWith("show_")).forEach(k=>inputs[k].checked=true);
+  resetVectorFrameFields();resetPhase3Fields();resetTypographyFields();resetPartFields();inputs.exportName.value="";inputs.previewScale.value="100";updatePreviewScale();renderCard();$("undoResetBtn").disabled=false;queueDraftSave();setMessage("初期化しました。「初期化を取り消す」で直前に戻せます。");
+});
+$("undoResetBtn").onclick=async()=>{if(!undoResetState)return;try{await applyProject(undoResetState);undoResetState=null;$("undoResetBtn").disabled=true;queueDraftSave();setMessage("初期化前の内容を復元しました。");}catch(e){setMessage(e.message,true);}};
+// IndexedDB stores image-inclusive drafts; localStorage is a guarded fallback.
+const DRAFT_KEY="ea-card-maker-v41-draft";
+let dbPromise=null,storageMode="indexedDB",draftReady=false;
+function openDraftDB(){if(!dbPromise)dbPromise=new Promise((resolve,reject)=>{try{const req=indexedDB.open("ea-card-maker",1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains("drafts"))req.result.createObjectStore("drafts");};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);req.onblocked=()=>reject(Error("保存領域が使用中です。"));}catch(e){reject(e);}});return dbPromise;}
+async function draftOperation(mode,data,key=DRAFT_KEY){
+  if(storageMode==="localStorage"){if(mode==="get")return JSON.parse(localStorage.getItem(key)||"null");localStorage.setItem(key,JSON.stringify(data));return;}
+  const db=await openDraftDB();return new Promise((resolve,reject)=>{const tx=db.transaction("drafts",mode==="get"?"readonly":"readwrite"),store=tx.objectStore("drafts"),req=mode==="get"?store.get(key):store.put(data,key);let result;req.onsuccess=()=>result=req.result;tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error||Error("保存に失敗しました。"));tx.onabort=()=>reject(tx.error||Error("保存に失敗しました。"));});
+}
+function queueDraftSave(){
+  if(!draftReady||stateApplying||batchExportBusy)return;draftEpoch++;clearTimeout(draftTimer);setMessage("変更あり・自動保存待ち…");draftTimer=setTimeout(flushDraft,500);
+}
+function flushDraft(){
+  if(!draftReady||stateApplying||batchExportBusy)return;if(pendingImageLoads){clearTimeout(draftTimer);draftTimer=setTimeout(flushDraft,500);return;}
+  const epoch=draftEpoch,data=captureProject();
+  draftSerial=draftSerial.catch(()=>{}).then(async()=>{try{await draftOperation("put",data);if(epoch===draftEpoch)setMessage("自動保存済み（"+new Date().toLocaleTimeString("ja-JP")+"）。再度開くと復元します。");}catch(e){setMessage("自動保存できませんでした。「編集データを保存」でファイルに保存してください。",true);}});
+  return draftSerial;
+}
+document.querySelector(".panel").addEventListener("input",e=>{if(e.target.type!=="file"&&!e.target.closest(".card-shelf"))queueDraftSave();});
+[cardNameMinusBtn,cardNamePlusBtn,abilityMinusBtn,abilityPlusBtn,artResetBtn,costCircleResetBtn,typeBarResetBtn].forEach(b=>b.addEventListener("click",queueDraftSave));
+inputs.previewScale.addEventListener("input",queueDraftSave);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){clearTimeout(draftTimer);flushDraft();}});
+async function initDraft(){
+  document.querySelector(".panel").inert=true;
+  try{
+    let draft;try{draft=await draftOperation("get");}catch(e){storageMode="localStorage";draft=await draftOperation("get");}
+    if(draft){document.querySelector(".panel").inert=false;await applyProject(draft);setMessage("前回の編集内容を復元しました。");}
+    else setMessage("自動保存が有効です。編集内容はこのブラウザに保存します。");
+  }catch(e){setMessage("前回の編集内容を復元できませんでした。編集データのファイルを読み込むこともできます。",true);}
+  finally{document.querySelector(".panel").inert=false;draftReady=true;}
+}
+
+
+</script>
+<script>
+// v56: configurable type presets and civilization metadata, without enforcing card design.
+const TYPE_PRESETS={
+ 'クリーチャー':{group:'エレメント',zone:'バトルゾーン',execute:'召喚',power:true,set:'バトルゾーンにタップでセット可能',note:'アンタップ／タップの2種類のパワーを持ちます。',source:'01クリーチャーについて.txt'},
+ '進化クリーチャー':{group:'エレメント',zone:'バトルゾーン',execute:'召喚',power:true,evolution:true,set:'進化条件・個別能力も確認',note:'進化元の条件を能力文に記入してください。',source:'01クリーチャーについて.txt／進化条件は個別能力文'},
+ '呪文':{group:'アクト',zone:'アクトゾーン',execute:'唱える',power:false,set:'アクトゾーンにアンタップでセット可能',note:'実行した後は墓地に置きます。',source:'02呪文について.txt'},
+ 'クロスギア':{group:'エレメント',zone:'装備・クロスゾーン',execute:'ジェネレート',power:false,set:'セット不可',note:'隣接先へ自動クロス。クロス先不在でも残ります。',source:'03クロスギアについて.txt'},
+ 'ウェポン':{group:'エレメント',zone:'装備・クロスゾーン',execute:'使う',power:false,set:'セット不可',note:'隣接先へ自動装備。装備先不在なら即座に破壊されます。',source:'04ウェポンについて.txt'},
+ 'フィールド':{group:'エレメント',zone:'フィールドゾーン',execute:'展開',power:false,set:'セット不可',note:'旧フィールドがある場合、一時的にバトルゾーンへ出して登場時能力を解決してから入れ替えます。',source:'05フィールドについて.txt'},
+ 'タマシード':{group:'エレメント',zone:'バトルゾーン',execute:'使う',power:false,set:'バトルゾーンにタップでセット可能',note:'セット中に攻撃された場合、表向きにしてから破壊します。',source:'06タマシードについて.txt'},
+ '城':{group:'エレメント',zone:'シールドゾーン',execute:'要塞化',power:false,set:'セット不可',note:'シールドに重ねます。ブレイク後のシールドチェック後、城は墓地へ置きます。',source:'07城について.txt'},
+ 'フォートレス':{group:'エレメント',zone:'装備・クロスゾーン',execute:'設置',power:false,set:'セット不可',note:'加護は正面奥とその左右の位置に作用します。対象不在でも残ります。',source:'08フォートレスについて.txt'},
+ 'オーラ':{group:'エレメント',zone:'バトルゾーンのクリーチャーの上',execute:'使う',power:false,set:'セット不可',note:'T字に重ねて能力を付与し、重なったクリーチャーの移動に追従します。',source:'09オーラ.txt'},
+ 'フラッグ':{group:'エレメント／アクトのどちらでもない',zone:'通常の配置先：エクストラゾーン',execute:'実行名なし',power:false,set:'セット不可',note:'ゲーム内に存在する限り、どのゾーンでもフラッグ能力が有効。同名複数状態は未想定です。',source:'10フラッグについて.txt／第97・99〜100問（2026-10-10）'}
+};
+const CIVILIZATIONS=['火','水','自然','光','闇','無'];
+const PHASE3_DEFAULTS={cardPreset:'',showCivilizations:true,colorCivilizations:true,colorCivilizationCircles:true,evolutionCondition:'',civ_火:false,civ_水:false,civ_自然:false,civ_光:false,civ_闇:false,civ_無:false};
+const presetField=document.createElement('div');presetField.className='field';
+presetField.innerHTML='<label for="cardPreset">カードタイプのプリセット</label><select id="cardPreset"><option value="">自由入力</option></select><div class="note">タイプ欄とパワー・コスト・マナ文字の表示を設定します。文章・数値・種族・画像は残します。各表示は後から変更できます。</div><div id="typeGuide" class="status-box ok" role="status">独自タイプも自由に入力できます。</div>';
+$('pane-0').insertBefore(presetField,$('pane-0').querySelector('.field'));inputs.cardPreset=$('cardPreset');
+Object.keys(TYPE_PRESETS).forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;inputs.cardPreset.append(option);});
+function applyTypePreset(name){
+  if(stateApplying)return;
+  const preset=Object.hasOwn(TYPE_PRESETS,name)?TYPE_PRESETS[name]:null;inputs.cardPreset.value=preset?name:'';
+  if(preset){inputs.typeLabel.value=name;inputs.show_typeLabel.checked=true;inputs.show_leftPower.checked=preset.power;inputs.show_rightPower.checked=preset.power;inputs.show_costText.checked=name!=='フラッグ';inputs.show_bottomIconText.checked=name!=='フラッグ';}
+  updateTypeGuide();renderCard();queueDraftSave();
+}
+function updateTypeGuide(){
+  if(!inputs.cardPreset)return;
+  const preset=TYPE_PRESETS[inputs.cardPreset.value];
+  $('typeGuide').textContent=preset?`${preset.group}｜${preset.zone}\n実行：${preset.execute}｜${preset.set}\n${preset.note}\n参照：${preset.source}`:'自由入力：独自タイプや複合タイプを作れます。表示項目も任意に変更できます。';
+  $('typeGuide').style.whiteSpace='pre-line';$('evolutionHelper').hidden=!preset?.evolution;
+}
+inputs.cardPreset.addEventListener('change',()=>applyTypePreset(inputs.cardPreset.value));
+inputs.typeLabel.addEventListener('input',()=>{if(inputs.cardPreset.value!==inputs.typeLabel.value)inputs.cardPreset.value='';updateTypeGuide();});
+const civField=document.createElement('div');civField.className='field';
+const civTitle=document.createElement('label');civTitle.textContent='カードの文明';civField.append(civTitle);
+const civRow=document.createElement('div');civRow.className='civilization-options';
+for(const civ of CIVILIZATIONS){const label=document.createElement('label');label.className='civilization-option';const cb=document.createElement('input');cb.type='checkbox';cb.id='civ_'+civ;inputs[cb.id]=cb;label.append(cb,document.createTextNode(civ==='無'?'無色':civ));civRow.append(label);cb.addEventListener('input',()=>{if(cb.checked){if(civ==='無')CIVILIZATIONS.filter(c=>c!=='無').forEach(c=>inputs['civ_'+c].checked=false);else inputs.civ_無.checked=false;}updateCivilizationSummary();renderCard();});}
+civField.append(civRow);const civSummary=document.createElement('div');civSummary.id='civilizationSummary';civSummary.className='note';civField.append(civSummary);
+for(const [key,labelText]of [['showCivilizations','文明名をカードに表示'],['colorCivilizations','外枠に文明色を表示'],['colorCivilizationCircles','標準のコスト円・マナ円に文明色を表示']]){const row=document.createElement('label');row.className='check-row';const cb=document.createElement('input');cb.type='checkbox';cb.id=key;cb.checked=true;inputs[key]=cb;row.append(cb,document.createTextNode(labelText));civField.append(row);cb.addEventListener('input',scheduleRender);}
+const civNote=document.createElement('div');civNote.className='note';civNote.textContent='複数選択で多色。未選択は未設定で、無色とは別です。差し替えた円画像はそのまま使用します。コスト・マナの文字や数値は変更しません。';civField.append(civNote);presetField.after(civField);
+function selectedCivilizations(){if(!inputs.civ_火)return [];return CIVILIZATIONS.filter(c=>inputs['civ_'+c]?.checked);}
+function updateCivilizationSummary(){const civs=selectedCivilizations();$('civilizationSummary').textContent=civs.length===0?'文明：未設定':civs[0]==='無'?'文明：無色':`文明：${civs.join('／')}（${civs.length>1?'多色':'単色'}）`;}
+function drawCivilizationCircle(x,y,w,h){
+  if(!inputs.colorCivilizationCircles?.checked)return false;
+  const civs=selectedCivilizations();if(!civs.length)return false;
+  ctx.save();ctx.beginPath();ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);ctx.clip();
+  civs.forEach((c,i)=>{ctx.fillStyle=TOKEN_STYLES[c].fill;ctx.fillRect(x+i*w/civs.length,y,w/civs.length+1,h);});
+  ctx.restore();ctx.save();ctx.lineWidth=4;ctx.strokeStyle='#000';ctx.beginPath();ctx.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,Math.PI*2);ctx.stroke();ctx.restore();return true;
+}
+function drawCivilizationAccent(){
+  if(!inputs.showCivilizations)return;const civs=selectedCivilizations();if(!civs.length)return;
+  if(inputs.colorCivilizations.checked){ctx.save();civs.forEach((c,i)=>{ctx.fillStyle=TOKEN_STYLES[c].fill;ctx.fillRect(52+i*1188/civs.length,278,1188/civs.length,5);});ctx.restore();}
+  if(inputs.showCivilizations.checked){ctx.save();civs.forEach((c,i)=>{const x=1034+(i%3)*53,y=126+Math.floor(i/3)*35;cutPanel(x,y,45,29,7,TOKEN_STYLES[c].fill,null);ctx.fillStyle=TOKEN_STYLES[c].text;ctx.font='bold 17px "Yu Gothic", sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c==='無'?'無色':c,x+22.5,y+14.5);});ctx.restore();}
+}
+
+
+const evolutionHelper=document.createElement('div');evolutionHelper.id='evolutionHelper';evolutionHelper.className='field';evolutionHelper.hidden=true;
+evolutionHelper.innerHTML='<label for="evolutionCondition">進化元の条件（入力補助）</label><input type="text" id="evolutionCondition" placeholder="例：水のクリーチャー"><button id="insertEvolutionBtn" type="button">進化条件を能力文に追加</button><div class="note">この補助欄自体はカードに描画しません。追加した能力文を直接編集できます。</div>';
+$('pane-1').insertBefore(evolutionHelper,$('pane-1').querySelector('.field'));inputs.evolutionCondition=$('evolutionCondition');
+$('insertEvolutionBtn').onclick=()=>{const condition=inputs.evolutionCondition.value.trim();if(!condition){setMessage('進化元の条件を入力してください。',true);return;}if(/(?:究極)?進化\s*[:：]/u.test(inputs.abilityText.value.replace(/\*/g,''))){setMessage('進化条件が既にあります。能力文を直接編集してください。',true);return;}inputs.abilityText.value='■*進化*：'+condition+(inputs.abilityText.value?'\n'+inputs.abilityText.value:'');inputs.abilityText.dispatchEvent(new Event('input',{bubbles:true}));setMessage('進化条件を能力文に追加しました。');};
+const review=document.createElement('details');review.className='syntax-help';review.open=true;
+review.innerHTML='<summary>カード内容の確認補助</summary><div id="cardReview" class="note" role="status" aria-live="polite"></div><div class="note">単語・表示項目を確認する補助です。能力の強さや処理の適法性を自動判定するものではありません。独自の設計もそのまま保存できます。</div>';
+$('pane-1').append(review);
+function cardReviewMessages(){
+  if(!inputs.cardPreset)return [];
+  const messages=[],text=inputs.abilityText.value.replace(/\*/g,''),preset=TYPE_PRESETS[inputs.cardPreset.value];
+  const shownLeft=inputs.show_leftPower.checked&&inputs.leftPower.value.trim(),shownRight=inputs.show_rightPower.checked&&inputs.rightPower.value.trim();
+  if(preset?.power){if(!shownLeft||!shownRight)messages.push('クリーチャーの2種類のパワーが両方表示されていません。独自の意図がなければ確認してください。');}
+  else if(preset&&(shownLeft||shownRight))messages.push('このタイプの原文ではパワーなしです。数値表示が意図したものか確認してください。');
+  if(preset?.evolution&&!/(?:究極)?進化\s*[:：]\s*\S/u.test(text))messages.push('進化元の条件が能力文に見つかりません。条件が分かる文章を記入してください。');
+  if(text.trim()&&inputs.show_abilityText.checked===false)messages.push('能力文が入力されていますが、カード上では非表示です。');
+  if(/召還/u.test(text))messages.push('「召還」があります。「召喚」の誤記か確認してください。');
+  if(/出す|実行/u.test(text))messages.push('「出す」は非正規で実行扱いにならず、「実行する」は正規の処理です。意図した方を使っているか確認してください。');
+  if(/そうしたら/u.test(text))messages.push('「そうしたら」は前の任意の処理を行った場合の追加処理です。「N枚まで」で0枚を選んだ場合は続きません。');
+  if(/これ/u.test(text))messages.push('「これ」がカード1枚を指すのか、重なりを含むエレメントを指すのか、移動後も参照できるのか確認してください。');
+  if(/選ぶ|すべて/u.test(text))messages.push('「選ぶ」は対象を指定し、「すべて」は選ばずに対象とします。意図に合っているか確認してください。');
+  if(/見る|表向き/u.test(text))messages.push('「見る」は指定プレイヤーだけ、「表向きにする」は全員への公開です。');
+  if(/かわりに/u.test(text))messages.push('「かわりに」は置き換えです。元の処理を行わず、1処理に適用できる置き換えは1つです。');
+  if(!selectedCivilizations().length)messages.push('文明は未設定です。無色カードなら「無色」を選べます。');
+  return messages;
+}
+function updateCardReview(){if(!$('cardReview'))return;updateTypeGuide();updateCivilizationSummary();const messages=cardReviewMessages();$('cardReview').textContent=messages.length?messages.map(m=>'・'+m).join('\n'):'この補助機能で挙げる確認事項はありません。';$('cardReview').style.whiteSpace='pre-line';}
+function resetPhase3Fields(){for(const [key,value]of Object.entries(PHASE3_DEFAULTS)){const input=inputs[key];if(input.type==='checkbox')input.checked=value;else input.value=value;}updateCardReview();}
+// Extend the existing image-inclusive format; old v41 JSON remains readable.
+function validatePhase3Fields(project){
+  const f=project.fields;
+  if(f.cardPreset!==undefined&&f.cardPreset!==''&&!Object.hasOwn(TYPE_PRESETS,f.cardPreset))throw Error('カードタイプのプリセットが不正です。');
+  if(f.civ_無===true&&CIVILIZATIONS.filter(c=>c!=='無').some(c=>f['civ_'+c]===true))throw Error('無色と有色文明が同時に指定されています。');
+}
+updateCardReview();renderCard();
+
+const frameField=document.createElement('div');frameField.className='field vector-frame-settings';
+frameField.innerHTML='<div class="section-caption">カードフレーム</div><label for="frameStyle">フレームのスタイル</label><select id="frameStyle"><option value="classic">アクト・ライン</option><option value="flat">ミニマル</option><option value="metal">ノード</option></select><label for="layoutPreset" style="margin-top:12px">絵と能力欄の配分</label><select id="layoutPreset"><option value="standard">標準</option><option value="text">能力欄を広く</option><option value="art">イラストを大きく</option><option value="full">フルサイズ：四辺の縁を残してイラスト</option></select><label for="frameLineWidth" style="margin-top:12px">外枠の太さ：<span id="frameLineWidthValue">10</span></label><input type="range" id="frameLineWidth" min="4" max="20" value="10"><label class="check-row"><input id="showFrameLabels" type="checkbox" checked>フレームの補助表記を表示</label><section id="fullArtReadability" class="syntax-help" hidden aria-label="フルフレームの文字の見やすさ"><label for="fullArtAbilityOutline">能力文字の黒縁：<span id="fullArtAbilityOutlineValue">18%</span></label><input type="range" id="fullArtAbilityOutline" min="12" max="28" value="18"><label class="check-row"><input type="checkbox" id="fullArtAbilityBackdrop" checked>能力欄に薄い半透明背景を表示</label><label for="fullArtAbilityOpacity">背景の濃さ：<span id="fullArtAbilityOpacityValue">22%</span></label><input type="range" id="fullArtAbilityOpacity" min="0" max="65" value="22"><div class="note">白文字と黒縁で表示します。背景はイラストを透かす暗色です。0%またはチェックOFFで透明になります。ツインパクトは上下それぞれに保存できます。</div></section><div class="note">フレームと標準アイコンは図形で描画します。イラストや差し替え画像だけを画像データとして保存します。</div>';
+$('pane-2').insertBefore(frameField,$('pane-2').querySelector('.field'));
+for(const key of Object.keys(FRAME_DEFAULTS)){inputs[key]=$(key);inputs[key].addEventListener('input',()=>{if(key==='frameLineWidth')$('frameLineWidthValue').textContent=inputs.frameLineWidth.value;syncFullArtReadabilityControls();renderCard();queueDraftSave();});inputs[key].addEventListener('change',()=>{renderCard();queueDraftSave();});}
+renderCard();
+
+const mobileBar=document.createElement('nav');mobileBar.className='mobile-workbar';mobileBar.setAttribute('aria-label','編集とプレビューの切替');
+mobileBar.innerHTML='<button id="mobileEditBtn" type="button" aria-pressed="true">編集</button><button id="mobilePreviewBtn" type="button" aria-pressed="false">プレビュー</button><button id="mobilePngBtn" type="button">PNG保存</button>';
+document.querySelector('.studio-header').after(mobileBar);
+function setMobileView(view){document.body.classList.toggle('view-preview',view==='preview');document.body.classList.toggle('view-edit',view==='edit');$('mobileEditBtn').setAttribute('aria-pressed',String(view==='edit'));$('mobilePreviewBtn').setAttribute('aria-pressed',String(view==='preview'));if(typeof window!=='undefined')window.scrollTo({top:0,behavior:'instant'});}
+$('mobileEditBtn').onclick=()=>setMobileView('edit');$('mobilePreviewBtn').onclick=()=>setMobileView('preview');$('mobilePngBtn').onclick=()=>downloadBtn.click();setMobileView('edit');
+const oldJump=document.querySelector('.jump-preview');if(oldJump)oldJump.onclick=e=>{e.preventDefault();setMobileView('preview');};
+const artToggleRow=document.createElement('label');artToggleRow.className='check-row art-drag-toggle';artToggleRow.innerHTML='<input type="checkbox" id="dragArtEnabled">プレビューで画像の位置・拡大を編集';document.querySelector('.preview-heading').after(artToggleRow);inputs.dragArtEnabled=$('dragArtEnabled');
+const dragHelp=document.createElement('div');dragHelp.className='note';dragHelp.textContent='画像編集をONにすると、画像部分をドラッグして位置を調整できます。スマホでは2本指で拡大できます。';artToggleRow.after(dragHelp);
+inputs.dragArtEnabled.addEventListener('input',()=>{clearArtGesture();syncArtControls();queueDraftSave();});
+const numberRow=document.createElement('div');numberRow.className='art-number-grid';
+for(const [key,label]of [['artZoom','拡大％'],['artOffsetX','左右'],['artOffsetY','上下']]){const field=document.createElement('div'),lab=document.createElement('label'),number=document.createElement('input');lab.textContent=label;lab.setAttribute('for',key+'Number');number.type='number';number.id=key+'Number';number.min=inputs[key].min;number.max=inputs[key].max;number.step='1';number.value=inputs[key].value;field.append(lab,number);numberRow.append(field);number.addEventListener('change',()=>{const value=Number(number.value);if(!Number.isFinite(value)||number.value===''){syncArtControls();return;}inputs[key].value=String(clamp(Math.round(value),Number(inputs[key].min),Number(inputs[key].max)));renderCard();queueDraftSave();});}
+inputs.artUpload.closest('.field').append(numberRow);
+const centerArt=document.createElement('button');centerArt.type='button';centerArt.id='centerArtBtn';centerArt.textContent='画像の位置を中央に戻す';centerArt.onclick=()=>{inputs.artOffsetX.value='0';inputs.artOffsetY.value='0';renderCard();queueDraftSave();};numberRow.after(centerArt);
+function syncArtControls(){for(const key of ['artZoom','artOffsetX','artOffsetY']){const number=document.getElementById(key+'Number');if(number)number.value=inputs[key].value;}canvas.style.touchAction=inputs.dragArtEnabled?.checked&&artImage?'none':'pan-y';canvas.style.cursor=inputs.dragArtEnabled?.checked&&artImage?'grab':'default';}
+const artPointers=new Map();let dragStart=null,pinchStart=null;
+function clearArtGesture(){artPointers.clear();dragStart=null;pinchStart=null;}
+function canvasPoint(event){const rect=canvas.getBoundingClientRect();return {x:(event.clientX-rect.left)*canvas.width/rect.width,y:(event.clientY-rect.top)*canvas.height/rect.height};}
+function pointerDistance(){const points=[...artPointers.values()];return points.length<2?0:Math.hypot(points[0].x-points[1].x,points[0].y-points[1].y);}
+canvas.addEventListener('pointerdown',event=>{
+  if(!artImage||!inputs.dragArtEnabled.checked||stateApplying)return;
+  const point=canvasPoint(event),box=getFrameGeometry().art;if(point.x<box.x||point.x>box.x+box.w||point.y<box.y||point.y>box.y+box.h)return;
+  event.preventDefault();canvas.setPointerCapture?.(event.pointerId);artPointers.set(event.pointerId,point);
+  if(artPointers.size===1)dragStart={point,x:Number(inputs.artOffsetX.value),y:Number(inputs.artOffsetY.value)};
+  if(artPointers.size===2)pinchStart={distance:pointerDistance(),zoom:Number(inputs.artZoom.value)};
+});
+canvas.addEventListener('pointermove',event=>{
+  if(!artPointers.has(event.pointerId)||!artImage)return;event.preventDefault();const point=canvasPoint(event);artPointers.set(event.pointerId,point);
+  if(artPointers.size>=2&&pinchStart&&pinchStart.distance>0)inputs.artZoom.value=String(clamp(Math.round(pinchStart.zoom*pointerDistance()/pinchStart.distance),100,400));
+  else if(dragStart){const g=getFrameGeometry().art,p=getArtPlacement(artImage,g.x,g.y,g.w,g.h,Number(inputs.artZoom.value)/100);inputs.artOffsetX.value=String(p.travelX>0?clamp(Math.round(dragStart.x+(point.x-dragStart.point.x)/p.travelX*100),-100,100):0);inputs.artOffsetY.value=String(p.travelY>0?clamp(Math.round(dragStart.y+(point.y-dragStart.point.y)/p.travelY*100),-100,100):0);}
+  scheduleRender();
+});
+function endArtPointer(event){if(!artPointers.has(event.pointerId))return;artPointers.delete(event.pointerId);canvas.releasePointerCapture?.(event.pointerId);pinchStart=null;
+  if(artPointers.size===1){const point=[...artPointers.values()][0];dragStart={point,x:Number(inputs.artOffsetX.value),y:Number(inputs.artOffsetY.value)};}else dragStart=null;renderCard();queueDraftSave();}
+canvas.addEventListener('pointerup',endArtPointer);canvas.addEventListener('pointercancel',endArtPointer);
+syncArtControls();
+
+
+const TYPOGRAPHY_DEFAULTS={cardNameLayout:'auto',abilityLineHeight:'135'};
+function resetTypographyFields(){for(const [key,value]of Object.entries(TYPOGRAPHY_DEFAULTS))inputs[key].value=value;}
+const nameSettings=document.createElement('div');nameSettings.className='field';
+nameSettings.innerHTML='<label for="cardNameLayout">カード名の行数</label><select id="cardNameLayout"><option value="auto">自動：長い名前は2行</option><option value="single">1行</option><option value="two">2行まで</option></select><div class="note">描画サイズ：<b id="cardNameActual"></b>。入力した名前は省略せずに描画します。</div>';
+inputs.cardNameFontSize.closest('.field').after(nameSettings);inputs.cardNameLayout=$('cardNameLayout');
+const lineSettings=document.createElement('div');lineSettings.className='field';
+lineSettings.innerHTML='<label for="abilityLineHeight">能力文の行間：<span id="abilityLineHeightValue">1.35</span>倍</label><input type="range" id="abilityLineHeight" min="115" max="160" value="135"><div class="v56-row"><button type="button" id="widenAbilityBtn">能力欄を広げる</button><button type="button" id="resetTypographyBtn">文字設定を標準に</button></div><div class="note">能力欄を広げるとイラスト部分が小さくなります。文章と画像は残ります。</div>';
+inputs.abilityFontSize.closest('.field').after(lineSettings);inputs.abilityLineHeight=$('abilityLineHeight');
+for(const key of Object.keys(TYPOGRAPHY_DEFAULTS))inputs[key].addEventListener('input',()=>{renderCard();queueDraftSave();});
+$('widenAbilityBtn').onclick=()=>{inputs.layoutPreset.value='text';renderCard();queueDraftSave();};
+$('resetTypographyBtn').onclick=()=>{resetTypographyFields();inputs.cardNameFontSize.value='80';inputs.abilityFontSize.value='48';inputs.autoFitAbility.checked=true;renderCard();queueDraftSave();};
+const previewStatus=document.createElement('div');previewStatus.id='previewTextStatus';const existingLayoutStatus=$('layoutStatus');existingLayoutStatus.before(previewStatus);previewStatus.append(existingLayoutStatus);
+renderCard();
+
+// Card shelf uses a separate storage key; draft autosave remains independent.
+const SHELF_KEY='ea-card-maker-v46-shelf',SHELF_FORMAT='element-act-card-shelf',SHELF_LIMIT=100;
+let shelfCards=[],activeCardId=null,shelfRecovery=null,shelfRemoved=null,shelfReady=false,shelfBusy=false;
+const shelfPanel=document.createElement('details');shelfPanel.className='card-shelf';
+shelfPanel.innerHTML='<summary>カード棚 <span id="shelfCount">0枚</span></summary><div class="note">画像・文章・配置ごとに、このブラウザへ最大100枚保存できます。編集内容の自動保存と、カード棚への保存は別です。</div><div id="shelfEditing" class="note">新しいカードを編集中</div><div class="v56-row"><button type="button" id="shelfSaveBtn">棚に保存</button><button type="button" id="shelfCopyBtn">別カードとして複製</button><button type="button" id="shelfRecoverBtn" disabled>切替前の編集に戻る</button></div><label for="shelfSearch">カード棚を検索</label><input type="text" id="shelfSearch" placeholder="名前・種族・タイプ・能力文"><div id="shelfList" class="shelf-list"></div><div class="v56-row"><button type="button" id="shelfBackupBtn">棚をバックアップ</button><button type="button" id="shelfImportBtn">バックアップを追加</button><button type="button" id="shelfUndoDeleteBtn" disabled>削除を取り消す</button></div><input id="shelfUpload" type="file" accept="application/json,.json" hidden><div id="shelfStatus" class="status-box ok" role="status" aria-live="polite">カード棚を準備しています…</div><div class="note">バックアップにはイラストも含みます。読込は現在の棚に追加し、同じ内容は重複させません。</div>';
+document.querySelector('.editor-tabs').before(shelfPanel);
+function shelfMessage(message,error=false){$('shelfStatus').textContent=message;$('shelfStatus').className='status-box '+(error?'warn':'ok');}
+function shelfContentKey(project){const ordered=value=>Object.fromEntries(Object.keys(value).sort().map(key=>[key,value[key]]));return JSON.stringify({fields:ordered(project.fields),images:ordered(project.images)});}
+function shelfId(){return typeof crypto.randomUUID==='function'?crypto.randomUUID():Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);}
+function shelfSnapshot(){return {format:SHELF_FORMAT,schemaVersion:1,cards:shelfCards,recovery:shelfRecovery,removed:shelfRemoved};}
+function validateShelf(value){
+  if(!value||value.format!==SHELF_FORMAT||value.schemaVersion!==1||!Array.isArray(value.cards)||value.cards.length>SHELF_LIMIT)throw Error('対応するカード棚データではありません（最大100枚）。');
+  const ids=new Set();
+  for(const card of value.cards){if(!card||typeof card.id!=='string'||card.id.length>120||!card.id||ids.has(card.id))throw Error('カードの識別情報が不正です。');ids.add(card.id);validateProject(card.project);if(card.thumbnail!=null&&(typeof card.thumbnail!=='string'||card.thumbnail.length>500000||!/^data:image\/png;base64,[A-Za-z0-9+/=]+$/u.test(card.thumbnail)))throw Error('サムネイルの形式が不正です。');}
+  if(value.recovery!=null)validateProject(value.recovery);
+  if(value.removed!=null){const removed=value.removed;if(!removed.card||!Number.isInteger(removed.index)||removed.index<0||removed.index>SHELF_LIMIT)throw Error('削除履歴の形式が不正です。');validateShelf({format:SHELF_FORMAT,schemaVersion:1,cards:[removed.card]});}
+  return value;
+}
+async function persistShelf(next){validateShelf(next);await draftOperation('put',next,SHELF_KEY);shelfCards=next.cards;shelfRecovery=next.recovery||null;shelfRemoved=next.removed||null;}
+function shelfThumbnail(){renderCard();const image=document.createElement('canvas');image.width=Math.round(canvas.width/10);image.height=Math.round(canvas.height/10);image.getContext('2d').drawImage(canvas,0,0,image.width,image.height);return image.toDataURL('image/png');}
+function renderShelf(refresh=true){
+  $('shelfCount').textContent=shelfCards.length+'枚';const active=shelfCards.find(c=>c.id===activeCardId);const dirty=active&&shelfContentKey(active.project)!==shelfContentKey(captureProject());
+  $('shelfEditing').textContent=active?`編集中：${projectTitle(active.project)}${dirty?'（棚への変更は未保存）':'（棚に保存済み）'}`:'新しいカードを編集中';
+  $('shelfSaveBtn').textContent=active?'このカードを更新':'棚に保存';$('shelfRecoverBtn').disabled=!shelfRecovery||shelfBusy||!shelfReady;$('shelfUndoDeleteBtn').disabled=!shelfRemoved||shelfBusy||!shelfReady;
+  for(const id of ['shelfSaveBtn','shelfCopyBtn','shelfBackupBtn','shelfImportBtn'])$(id).disabled=shelfBusy||!shelfReady;
+  if(typeof updateBatchControls==='function'&&document.getElementById('batchZipBtn'))updateBatchControls();
+  if(!refresh)return;
+  const list=$('shelfList');list.replaceChildren();const query=$('shelfSearch').value.trim().toLocaleLowerCase('ja');
+  const cards=shelfCards.filter(card=>projectSearch(card.project,query));
+  for(const card of cards){const row=document.createElement('article');row.className='shelf-card';row.dataset.cardId=card.id;
+    if(card.thumbnail){const img=document.createElement('img');img.src=card.thumbnail;img.alt='';img.width=65;img.height=91;row.append(img);}
+    if(typeof appendShelfSelection==='function'&&document.getElementById('batchZipBtn'))appendShelfSelection(row,card);
+    const body=document.createElement('div');body.className='shelf-card-body';const title=document.createElement('strong');title.textContent=projectTitle(card.project);body.append(title);
+    const note=document.createElement('div');note.className='note';note.textContent=[card.project.fields.typeLabel,card.project.fields.species].filter(Boolean).join('｜');body.append(note);
+    const buttons=document.createElement('div');buttons.className='v56-row';
+    const open=document.createElement('button');open.type='button';open.textContent=activeCardId===card.id?'開き直す':'開く';open.disabled=shelfBusy;open.onclick=()=>shelfAction(()=>openShelfCard(card.id));buttons.append(open);
+    const remove=document.createElement('button');remove.type='button';remove.textContent='削除';remove.className='danger';remove.disabled=shelfBusy;remove.onclick=()=>shelfAction(async()=>{const index=shelfCards.findIndex(c=>c.id===card.id);if(index<0)return;const next=shelfSnapshot();next.cards=next.cards.filter(c=>c.id!==card.id);next.removed={card:shelfCards[index],index};await persistShelf(next);if(activeCardId===card.id)activeCardId=null;shelfMessage('棚から削除しました。「削除を取り消す」で戻せます。');});buttons.append(remove);body.append(buttons);row.append(body);list.append(row);
+  }
+  if(!cards.length){const empty=document.createElement('div');empty.className='note';empty.textContent=query?'一致するカードはありません。':'まだカードがありません。「棚に保存」で追加できます。';list.append(empty);}
+}
+async function shelfAction(action){if(shelfBusy||!shelfReady)return;if(historyRenderHook)commitHistory();if(pendingImageLoads||stateApplying){shelfMessage('画像の読込が終わってから操作してください。',true);return;}shelfBusy=true;renderShelf();try{await action();}catch(e){shelfMessage('操作できませんでした：'+e.message,true);}finally{shelfBusy=false;renderShelf();if(historyRenderHook)notifyHistory();}}
+async function saveShelfCard(copy=false){
+  const project=captureProject(),index=copy?-1:shelfCards.findIndex(c=>c.id===activeCardId);
+  if(index<0&&shelfCards.length>=SHELF_LIMIT)throw Error('棚は100枚までです。バックアップ後、不要なカードを削除してください。');
+  if(copy){project.fields.cardName=(project.fields.cardName||'名前なし')+'（複製）';project.fields.exportName='';}
+  const card={id:index<0?shelfId():activeCardId,project,thumbnail:shelfThumbnail()};
+  if(copy){const before=captureProject(),beforeId=activeCardId;await applyProject(project);card.thumbnail=shelfThumbnail();await applyProject(before);activeCardId=beforeId;}
+  const next=shelfSnapshot();next.cards=[...shelfCards];if(index<0)next.cards.push(card);else next.cards[index]=card;
+  await persistShelf(next);if(copy){await applyProject(project);queueDraftSave();}activeCardId=card.id;shelfMessage(copy?'複製を作成し、編集中のカードにしました。':'カードを棚に保存しました。');
+}
+async function openShelfCard(id){const card=shelfCards.find(c=>c.id===id);if(!card)return;const next=shelfSnapshot();next.recovery=captureProject();await persistShelf(next);await applyProject(card.project);activeCardId=id;queueDraftSave();shelfMessage('カードを開きました。切替前の編集は戻せます。');}
+$('shelfSaveBtn').onclick=()=>shelfAction(()=>saveShelfCard());$('shelfCopyBtn').onclick=()=>shelfAction(()=>saveShelfCard(true));
+$('shelfRecoverBtn').onclick=()=>shelfAction(async()=>{const recovery=shelfRecovery,next=shelfSnapshot();next.recovery=captureProject();await persistShelf(next);await applyProject(recovery);activeCardId=null;queueDraftSave();shelfMessage('切替前の編集を復元しました。');});
+$('shelfUndoDeleteBtn').onclick=()=>shelfAction(async()=>{if(shelfCards.length>=SHELF_LIMIT)throw Error('棚がいっぱいです。');const next=shelfSnapshot();next.cards=[...shelfCards];const card={...shelfRemoved.card};if(next.cards.some(c=>c.id===card.id))card.id=shelfId();next.cards.splice(Math.min(shelfRemoved.index,next.cards.length),0,card);next.removed=null;await persistShelf(next);shelfMessage('削除したカードを棚に戻しました。');});
+$('shelfSearch').oninput=renderShelf;
+$('shelfBackupBtn').onclick=()=>shelfAction(async()=>{downloadBlob(new Blob([JSON.stringify(shelfSnapshot())],{type:'application/json'}),'エレアクカード棚-'+new Date().toLocaleDateString('sv-SE')+'.ea-shelf.json');shelfMessage('棚のバックアップを書き出しました。編集中の変更は先に「棚に保存」で反映できます。');});
+$('shelfImportBtn').onclick=()=>$('shelfUpload').click();$('shelfUpload').onchange=()=>shelfAction(async()=>{
+  try{const file=$('shelfUpload').files[0];if(!file)return;if(file.size>100*1024*1024)throw Error('バックアップは100MB以下にしてください。');const data=validateShelf(JSON.parse(await file.text()));
+    const known=new Set(shelfCards.map(c=>shelfContentKey(c.project))),added=[];
+    for(const card of data.cards){const key=shelfContentKey(card.project);if(known.has(key))continue;known.add(key);added.push({...card,id:shelfId()});}
+    if(shelfCards.length+added.length>SHELF_LIMIT)throw Error('追加すると100枚を超えます。現在の棚は変更していません。');
+    // Decode first so corrupt image payloads cannot enter the shelf.
+    for(const card of added)await Promise.all(allProjectImages(card.project).map(src=>decodeProjectImage(src)));
+    const next=shelfSnapshot();next.cards=[...shelfCards,...added];await persistShelf(next);shelfMessage(`${added.length}枚追加しました。${data.cards.length-added.length}枚は同じ内容のため省略しました。`);
+  }finally{$('shelfUpload').value='';}
+});
+shelfRenderHook=()=>{if(shelfReady)renderShelf(false);};
+resetBtn.addEventListener('click',()=>{activeCardId=null;if(shelfReady)renderShelf();});
+async function initShelf(){try{const saved=await draftOperation('get',null,SHELF_KEY);if(saved){validateShelf(saved);shelfCards=saved.cards;shelfRecovery=saved.recovery||null;shelfRemoved=saved.removed||null;}shelfReady=true;shelfMessage('カード棚を使えます。大切なカードはバックアップも保存してください。');}catch(e){shelfMessage('棚を復元できませんでした：'+e.message,true);}renderShelf();}
+
+// Offline batch PNG/print exports: no remote libraries or image services.
+const selectedShelfCards=new Set();
+const batchSettings=document.createElement('div');batchSettings.className='batch-settings';
+batchSettings.innerHTML='<div class="section-caption">まとめて出力</div><div id="batchSelectionLabel" class="note">未選択：棚の全カードを出力します。</div><div class="v56-row"><button type="button" id="batchSelectAllBtn">全て選択</button><button type="button" id="batchClearSelectionBtn">選択解除</button></div><div class="two"><div><label for="printCardWidth">印刷する短辺（mm）</label><input type="number" id="printCardWidth" min="50" max="80" step="0.5" value="63"></div><div><label for="printCopies">印刷時の各カードの枚数</label><input type="number" id="printCopies" min="1" max="12" step="1" value="1"></div></div><div class="note">縦横比は維持します。標準は約63×88mm、A4縦に9枚。横向きカードはシート内で90度回転し、同じ裁断サイズに揃えます。印刷時は倍率100%・余白なしで指定してください。</div><div class="v56-row"><button type="button" id="batchZipBtn">PNGをZIPにまとめる</button><button type="button" id="batchPrintBtn">A4印刷用HTMLを保存</button></div><div class="note">棚に保存した内容を出力します。編集中の変更は、先に「このカードを更新」で保存してください。</div>';
+$('shelfList').after(batchSettings);
+const batchProgress=document.createElement('div');batchProgress.id='batchProgress';batchProgress.hidden=true;batchProgress.innerHTML='<div role="status" aria-live="polite" id="batchProgressText"></div><button type="button" id="batchCancelBtn">中止</button>';document.body.append(batchProgress);
+let batchCancelled=false;$('batchCancelBtn').onclick=()=>{batchCancelled=true;$('batchCancelBtn').disabled=true;};
+function updateBatchControls(){
+  for(const id of [...selectedShelfCards])if(!shelfCards.some(card=>card.id===id))selectedShelfCards.delete(id);
+  $('batchSelectionLabel').textContent=selectedShelfCards.size?`${selectedShelfCards.size}枚を選択中。検索で非表示の選択カードも含みます。`:`未選択：棚の全${shelfCards.length}枚を出力します。`;
+  for(const id of ['batchSelectAllBtn','batchClearSelectionBtn','batchZipBtn','batchPrintBtn'])$(id).disabled=!shelfReady||shelfBusy||!shelfCards.length;
+}
+function appendShelfSelection(row,card){const label=document.createElement('label');label.className='shelf-select';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=selectedShelfCards.has(card.id);checkbox.disabled=shelfBusy;checkbox.setAttribute('aria-label',(projectTitle(card.project))+'を出力対象に選択');checkbox.onchange=()=>{if(checkbox.checked)selectedShelfCards.add(card.id);else selectedShelfCards.delete(card.id);updateBatchControls();};label.append(checkbox);row.prepend(label);}
+$('batchSelectAllBtn').onclick=()=>{shelfCards.forEach(card=>selectedShelfCards.add(card.id));renderShelf();};$('batchClearSelectionBtn').onclick=()=>{selectedShelfCards.clear();renderShelf();};
+function batchTargetCards(){return shelfCards.filter(card=>!selectedShelfCards.size||selectedShelfCards.has(card.id));}
+const zipCrcTable=Uint32Array.from({length:256},(_,i)=>{let n=i;for(let bit=0;bit<8;bit++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
+function zipCrc(bytes){let crc=0xffffffff;for(const byte of bytes)crc=zipCrcTable[(crc^byte)&255]^(crc>>>8);return(crc^0xffffffff)>>>0;}
+function makeStoredZip(entries){
+  const encoder=new TextEncoder(),chunks=[],central=[];let offset=0,centralSize=0;const now=new Date();const time=(now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1),date=((now.getFullYear()-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+  for(const entry of entries){const name=encoder.encode(entry.name),bytes=entry.bytes,crc=zipCrc(bytes),local=new Uint8Array(30+name.length),view=new DataView(local.buffer);view.setUint32(0,0x04034b50,true);view.setUint16(4,20,true);view.setUint16(6,0x0800,true);view.setUint16(10,time,true);view.setUint16(12,date,true);view.setUint32(14,crc,true);view.setUint32(18,bytes.length,true);view.setUint32(22,bytes.length,true);view.setUint16(26,name.length,true);local.set(name,30);chunks.push(local,bytes);
+    const record=new Uint8Array(46+name.length),cv=new DataView(record.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(12,time,true);cv.setUint16(14,date,true);cv.setUint32(16,crc,true);cv.setUint32(20,bytes.length,true);cv.setUint32(24,bytes.length,true);cv.setUint16(28,name.length,true);cv.setUint32(42,offset,true);record.set(name,46);central.push(record);centralSize+=record.length;offset+=local.length+bytes.length;
+  }
+  const end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(8,entries.length,true);ev.setUint16(10,entries.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);return new Blob([...chunks,...central,end],{type:'application/zip'});
+}
+function canvasPngBlob(){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(Error('PNGを書き出せませんでした。')),'image/png'));}
+function printExportSettings(){const width=Number($('printCardWidth').value),copies=Number($('printCopies').value);if(!Number.isFinite(width)||width<50||width>80||!Number.isInteger(copies)||copies<1||copies>12)throw Error('印刷幅は50〜80mm、枚数は1〜12枚で指定してください。');return {width,copies,height:width*1816/1300};}
+function makePrintDocument(cards,settings,warnings){
+  const payload=JSON.stringify({cards,settings,warnings}).replace(/</g,'\\u003c');
+  return `<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>エレアク A4印刷シート</title><style>*{box-sizing:border-box}body{margin:0;background:#dce3e9;font-family:Meiryo,sans-serif;color:#183044}.print-help{padding:20px;max-width:850px;margin:auto}.print-help button{padding:12px 20px;background:#173d53;color:white;border:0;border-radius:8px;font-size:16px}.print-help p{line-height:1.6}.print-sheet{width:210mm;height:297mm;padding:10mm 7.5mm;margin:16px auto;background:white;display:grid;gap:3mm;align-content:start;justify-content:center;break-after:page;page-break-after:always}.print-sheet:last-child{break-after:auto;page-break-after:auto}.print-card{outline:0.2mm dashed #aab5ba;position:relative;overflow:hidden}.print-card img{display:block;width:100%;height:100%;object-fit:contain}@page{size:A4 portrait;margin:0}@media print{body{background:white}.print-help{display:none}.print-sheet{margin:0;box-shadow:none}.print-card{-webkit-print-color-adjust:exact;print-color-adjust:exact}}@media screen and (max-width:850px){.print-pages{overflow:auto}.print-sheet{margin:16px 0}} 
+.batch-settings{border-top:1px solid #416174;margin-top:16px;padding-top:18px}.batch-settings input[type="number"]{width:100%;padding:10px;border-radius:8px;border:1px solid #416174;background:#142d40;color:#edf6fb;font:inherit}.shelf-select{margin:0;flex-shrink:0;display:flex;align-items:center;min-height:44px}.shelf-card{gap:8px}.shelf-card img{width:55px;height:77px;object-fit:contain}#batchProgress{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:100;background:#123047;border:1px solid #86d3ed;box-shadow:0 10px 40px #0008;color:#eaf8fc;border-radius:12px;padding:16px;display:flex;gap:18px;align-items:center;max-width:calc(100vw - 24px);width:380px}#batchProgressText{flex:1;font-size:14px}
+
+.history-bar{position:sticky;top:0;z-index:18;max-width:1440px;margin:0 auto;display:flex;gap:8px;align-items:center;padding:8px 28px;background:#0c1725;border-bottom:1px solid #31465c}.history-bar button{min-height:40px;padding:8px 12px;font-size:12px}.history-bar button:disabled{opacity:.45;cursor:default}.history-bar span{font-size:11px;color:#a6c0d1}.history-shortcuts{margin-left:auto}@media(max-width:720px){.history-bar{top:61px;padding:7px 14px;gap:6px}.history-bar .history-shortcuts{display:none}.history-bar span{font-size:10px}.history-bar button{padding:8px 10px;font-size:12px}}
+
+.part-settings{border:1px solid #3b596d;border-radius:10px;padding:14px;margin-bottom:20px}.part-settings input[type="color"],#typeBarTextColor{width:100%;height:44px;background:#132a3c;border:1px solid #416174;border-radius:8px;padding:4px}.part-settings .field{margin-bottom:12px}
+</style><div class="print-help"><h1>エレアク A4印刷シート</h1><p id="printSummary"></p><p>このHTMLをブラウザで開き、倍率100%・余白なし・A4縦で印刷してください。ヘッダーとフッターはOFF。点線は切り取り位置です。</p><button id="printButton" disabled>画像を準備中…</button><div id="printWarnings"></div></div><main class="print-pages" id="printPages"></main><script>const data=${payload};const {width,height,copies}=data.settings,columns=Math.floor(198/(width+3)),rows=Math.floor(280/(height+3)),perPage=columns*rows;const summary=document.getElementById('printSummary');const all=data.cards.flatMap(card=>Array.from({length:copies},()=>card));summary.textContent=width+'×'+height.toFixed(2)+'mm｜'+all.length+'枚｜A4 '+Math.ceil(all.length/perPage)+'ページ';let page=null;const ready=[];for(let i=0;i<all.length;i++){if(i%perPage===0){page=document.createElement('section');page.className='print-sheet';page.style.gridTemplateColumns='repeat('+columns+','+width+'mm)';page.style.gridAutoRows=height+'mm';document.getElementById('printPages').append(page);}const card=document.createElement('div');card.className='print-card';card.style.width=width+'mm';card.style.height=height+'mm';const img=new Image();img.alt=all[i].name;ready.push(new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;}));img.src=all[i].png;if(all[i].landscape){img.style.width=(height/width*100)+'%';img.style.height=(width/height*100)+'%';img.style.position='absolute';img.style.left='50%';img.style.top='50%';img.style.transform='translate(-50%,-50%) rotate(90deg)';}card.append(img);page.append(card);}if(data.warnings.length){const details=document.createElement('details');const title=document.createElement('summary');title.textContent='文字の表示に関する確認事項';details.append(title);const text=document.createElement('p');text.style.whiteSpace='pre-line';text.textContent=data.warnings.join('\\n');details.append(text);document.getElementById('printWarnings').append(details);}Promise.all(ready).then(()=>{const button=document.getElementById('printButton');button.disabled=false;button.textContent='印刷する／PDFに保存';button.onclick=()=>window.print();}).catch(()=>summary.textContent+='｜画像の読込に失敗しました。');<\/script></html>`;
+}
+async function exportShelfBatch(kind){
+  const targets=batchTargetCards();if(!targets.length)throw Error('出力するカードがありません。');const settings=kind==='print'?printExportSettings():null;
+  const before=captureProject(),beforeId=activeCardId,scroll={x:window.scrollX,y:window.scrollY},warnings=[],entries=[],printCards=[];
+  batchExportBusy=true;batchCancelled=false;clearTimeout(draftTimer);document.querySelector('.panel').inert=true;document.querySelector('.preview').inert=true;mobileBar.inert=true;batchProgress.hidden=false;$('batchCancelBtn').disabled=false;
+  try{
+    for(let i=0;i<targets.length;i++){
+      if(batchCancelled)throw Error('出力を中止しました。');const card=targets[i];$('batchProgressText').textContent=`${i+1} / ${targets.length}枚を作成中…`;
+      await applyProject(card.project);const issues=$('layoutStatus').classList.contains('warn')?$('layoutStatus').textContent:'';if(issues)warnings.push((projectTitle(card.project))+'：'+issues);
+      if(kind==='zip'){const png=await canvasPngBlob();entries.push({name:String(i+1).padStart(3,'0')+'_'+safeFilename(projectTitle(card.project))+'.png',bytes:new Uint8Array(await png.arrayBuffer())});}
+      else printCards.push({name:projectTitle(card.project),png:canvas.toDataURL('image/png'),landscape:canvas.width>canvas.height});
+      await new Promise(resolve=>requestAnimationFrame(resolve));
+    }
+    if(batchCancelled)throw Error('出力を中止しました。');
+    if(kind==='zip'){if(warnings.length)entries.push({name:'出力メモ.txt',bytes:new TextEncoder().encode(warnings.join('\n\n'))});downloadBlob(makeStoredZip(entries),'エレアクカード-'+targets.length+'枚.zip');}
+    else downloadBlob(new Blob([makePrintDocument(printCards,settings,warnings)],{type:'text/html;charset=utf-8'}),'エレアクA4印刷-'+targets.length+'種.html');
+    shelfMessage(`${targets.length}枚の${kind==='zip'?'PNGをZIP':'カードを印刷用HTML'}に書き出しました。${warnings.length?'文字の確認事項は出力ファイル内にも記載しています。':''}`);
+  }finally{
+    try{await applyProject(before);activeCardId=beforeId;}finally{batchExportBusy=false;batchProgress.hidden=true;document.querySelector('.panel').inert=false;document.querySelector('.preview').inert=false;mobileBar.inert=false;renderShelf();queueDraftSave();window.scrollTo(scroll.x,scroll.y);}
+  }
+}
+$('batchZipBtn').onclick=()=>shelfAction(()=>exportShelfBatch('zip'));$('batchPrintBtn').onclick=()=>shelfAction(()=>exportShelfBatch('print'));
+updateBatchControls();
+
+// Editing history stays in memory; autosaved drafts and shelf backups keep their existing formats.
+const HISTORY_LIMIT=30,HISTORY_IMAGE_BUDGET=32*1024*1024;
+const historyGesturePointers=new Set();
+let historyReady=false,historyMoving=false,historyTimer=null,historyStates=[],historyIndex=-1;
+const historyBar=document.createElement('div');historyBar.className='history-bar';historyBar.setAttribute('aria-label','編集履歴');
+historyBar.innerHTML='<button type="button" id="historyUndoBtn" disabled>元に戻す</button><button type="button" id="historyRedoBtn" disabled>やり直す</button><span id="historyCount" role="status" aria-live="polite">履歴を準備中…</span><span class="history-shortcuts">Ctrl＋Z／Ctrl＋Shift＋Z</span>';
+mobileBar.after(historyBar);
+const historyHelp=document.createElement('div');historyHelp.className='note';historyHelp.textContent='編集履歴は最大30操作。大きな画像を使うと保持件数を調整します。履歴はページを閉じるとリセットされます。棚の保存・削除はカード棚で管理できます。';projectTools.append(historyHelp);
+function historySnapshot(){return {project:captureProject(),cardId:activeCardId};}
+function historyFieldsKey(project){const fields={...project.fields};delete fields.previewScale;delete fields.dragArtEnabled;return JSON.stringify(Object.keys(fields).sort().map(key=>[key,fields[key]]));}
+function sameHistoryState(a,b){return !!a&&!!b&&historyFieldsKey(a.project)===historyFieldsKey(b.project)&&PROJECT_IMAGE_KEYS.every(key=>a.project.images[key]===b.project.images[key]);}
+function historyBlocked(){return !historyReady||historyMoving||stateApplying||pendingImageLoads||batchExportBusy||shelfBusy||historyGesturePointers.size>0;}
+function updateHistoryControls(){if(!historyReady)return;const dirty=!sameHistoryState(historyStates[historyIndex],historySnapshot()),undoCount=historyIndex+(dirty?1:0),redoCount=dirty?0:historyStates.length-historyIndex-1,blocked=historyMoving||stateApplying||pendingImageLoads||batchExportBusy||shelfBusy||historyGesturePointers.size>0;
+  $('historyUndoBtn').disabled=blocked||undoCount<=0;$('historyRedoBtn').disabled=blocked||redoCount<=0;$('historyCount').textContent=`戻す ${undoCount}件／やり直す ${redoCount}件`;
+}
+function trimHistory(){
+  while(historyStates.length>HISTORY_LIMIT+1){historyStates.shift();historyIndex--;}
+  while(historyStates.length>2){const images=new Set(historyStates.flatMap(state=>allProjectImages(state.project)));const size=[...images].reduce((total,src)=>total+src.length,0);if(size<=HISTORY_IMAGE_BUDGET)break;historyStates.shift();historyIndex--;}
+}
+function commitHistory(){clearTimeout(historyTimer);historyTimer=null;if(historyBlocked())return;const state=historySnapshot();if(sameHistoryState(historyStates[historyIndex],state)){historyStates[historyIndex].cardId=state.cardId;updateHistoryControls();return;}
+  historyStates.splice(historyIndex+1);historyStates.push(state);historyIndex=historyStates.length-1;trimHistory();updateHistoryControls();
+}
+function notifyHistory(){if(historyBlocked()){if(historyReady)updateHistoryControls();return;}updateHistoryControls();if(sameHistoryState(historyStates[historyIndex],historySnapshot()))return;clearTimeout(historyTimer);historyTimer=setTimeout(commitHistory,450);}
+historyRenderHook=notifyHistory;
+async function moveHistory(direction){
+  if(historyBlocked())return;commitHistory();const next=historyIndex+direction;if(next<0||next>=historyStates.length)return;
+  const focused=document.activeElement,focusId=focused?.id,selection=focused?.selectionStart!=null?[focused.selectionStart,focused.selectionEnd]:null;
+  const view={previewScale:inputs.previewScale.value,dragArtEnabled:inputs.dragArtEnabled.checked},target=historyStates[next],project={...target.project,fields:{...target.project.fields,...view}};
+  historyMoving=true;updateHistoryControls();clearTimeout(draftTimer);
+  try{await applyProject(project);activeCardId=shelfCards.some(card=>card.id===target.cardId)?target.cardId:null;historyIndex=next;renderShelf();queueDraftSave();setMessage(direction<0?'編集を1操作戻しました。':'編集を1操作やり直しました。');}
+  catch(e){setMessage('履歴を復元できませんでした：'+e.message,true);}
+  finally{historyMoving=false;updateHistoryControls();const input=focusId?$(focusId):null;if(input&&!input.disabled&&input.getClientRects().length){input.focus({preventScroll:true});if(selection&&typeof input.setSelectionRange==='function')try{input.setSelectionRange(Math.min(selection[0],input.value.length),Math.min(selection[1],input.value.length));}catch(e){}}}
+}
+$('historyUndoBtn').onclick=()=>moveHistory(-1);$('historyRedoBtn').onclick=()=>moveHistory(1);
+// Commit before another control starts; a drag or continuous typing forms one operation.
+document.addEventListener('pointerdown',event=>{if(!historyReady||historyBar.contains(event.target))return;commitHistory();if(event.target.type==='range'||(event.target===canvas&&inputs.dragArtEnabled.checked))historyGesturePointers.add(event.pointerId);},true);
+document.addEventListener('focusin',event=>{if(event.target!==document.activeElement||historyBar.contains(event.target))return;commitHistory();});
+document.addEventListener('change',event=>{if(!shelfPanel.contains(event.target)&&!historyBar.contains(event.target))commitHistory();});
+document.addEventListener('click',event=>{if(event.target.closest('button')&&!historyBar.contains(event.target))commitHistory();});
+function finishHistoryGesture(event){if(historyGesturePointers.delete(event.pointerId)&&!historyGesturePointers.size)commitHistory();}
+document.addEventListener('pointerup',finishHistoryGesture);document.addEventListener('pointercancel',finishHistoryGesture);
+document.addEventListener('keydown',event=>{if(!(event.ctrlKey||event.metaKey)||event.altKey)return;const key=event.key.toLowerCase(),back=key==='z'&&!event.shiftKey,forward=(key==='z'&&event.shiftKey)||key==='y';if(!back&&!forward)return;if(['shelfSearch','printCardWidth','printCopies'].includes(document.activeElement?.id))return;event.preventDefault();moveHistory(back?-1:1);});
+function initHistory(){historyReady=true;historyStates=[historySnapshot()];historyIndex=0;updateHistoryControls();}
+
+// Complete the original phase 4 controls while preserving legacy shared-image projects.
+const PART_DEFAULTS={linkManaToCost:true,costBadgeShape:'octagon',manaBadgeShape:'octagon',costBadgeColor:'#e6f1f6',manaBadgeColor:'#e6f1f6',costUseCivilizations:true,manaUseCivilizations:true,showCostBadge:true,showManaBadge:true,manaRotation:'180',typeBarImageMode:'caps',typeBarCapPercent:'20',typeBarTextColor:'#000000',exportResolution:'full'};
+function resetPartFields(){for(const [key,value]of Object.entries(PART_DEFAULTS)){const input=inputs[key];if(input.type==='checkbox')input.checked=value;else input.value=value;}}
+function validatePartFields(project){const f=project.fields;for(const key of ['costBadgeShape','manaBadgeShape'])if(f[key]!==undefined&&!['octagon','circle','diamond'].includes(f[key]))throw Error('コスト・マナの形が不正です。');for(const key of ['costBadgeColor','manaBadgeColor','typeBarTextColor'])if(f[key]!==undefined&&!/^#[0-9a-f]{6}$/i.test(f[key]))throw Error('色指定の形式が不正です。');if(f.manaRotation!==undefined&&!['0','180'].includes(f.manaRotation))throw Error('マナの向きが不正です。');if(f.typeBarImageMode!==undefined&&!['caps','stretch'].includes(f.typeBarImageMode))throw Error('タイプバーの描画方式が不正です。');if(f.exportResolution!==undefined&&!['full','half','quarter'].includes(f.exportResolution))throw Error('PNGの出力サイズが不正です。');}
+function badgeOptions(key,title){return `<div class="field"><label for="${key}BadgeShape">${title}の形</label><select id="${key}BadgeShape"><option value="octagon">八角形</option><option value="circle">円</option><option value="diamond">ひし形</option></select><label for="${key}BadgeColor" style="margin-top:10px">${title}の基本色</label><input type="color" id="${key}BadgeColor" value="#e6f1f6"><label class="check-row"><input type="checkbox" id="${key}UseCivilizations" checked>文明色を使う</label><label class="check-row"><input type="checkbox" id="show${key==='cost'?'Cost':'Mana'}Badge" checked>${title}の図形・画像を表示</label></div>`;}
+const badgeSettings=document.createElement('div');badgeSettings.className='part-settings';badgeSettings.innerHTML='<div class="section-caption">コストとマナの独立設定</div><div class="two">'+badgeOptions('cost','コスト')+badgeOptions('mana','マナ')+'</div><label for="manaRotation">マナ画像・文字の向き</label><select id="manaRotation"><option value="180">180度回転</option><option value="0">正位置</option></select><div class="note">基本色・形は標準図形に適用します。文字の表示は基本情報の表示チェックで設定できます。</div>';
+inputs.costCircleUpload.closest('.field').before(badgeSettings);
+inputs.costCircleUpload.closest('.field').querySelector('label').textContent='コストの差し替え画像';inputs.costCircleUpload.closest('.field').querySelector('.note').textContent='マナと共通にする場合は、下の「コストと同じ画像を使う」をONにしてください。';
+const manaField=document.createElement('div');manaField.className='field';manaField.innerHTML='<label class="check-row"><input type="checkbox" id="linkManaToCost" checked>マナにもコストと同じ画像を使う</label><label for="manaCircleUpload">マナ専用の差し替え画像</label><div class="part-row"><input type="file" id="manaCircleUpload" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif"><button type="button" id="manaCircleResetBtn">解除</button></div><div class="note">専用画像を選ぶと共通設定をOFFにします。画像は編集データにも含めて保存します。</div>';
+inputs.costCircleUpload.closest('.field').after(manaField);inputs.manaCircleUpload=$('manaCircleUpload');
+inputs.manaCircleUpload.addEventListener('change',()=>loadImageFromFileInput(inputs.manaCircleUpload,img=>{manaCircleImage=img;inputs.linkManaToCost.checked=false;renderCard();}));$('manaCircleResetBtn').onclick=()=>{invalidateImage(inputs.manaCircleUpload);inputs.manaCircleUpload.value='';manaCircleImage=null;renderCard();queueDraftSave();};
+const barSettings=document.createElement('div');barSettings.className='field';barSettings.innerHTML='<label for="typeBarImageMode">差し替えタイプバーの描画</label><select id="typeBarImageMode"><option value="caps">左右の端を保ち、中央を伸縮</option><option value="stretch">画像全体を伸縮</option></select><label for="typeBarCapPercent" style="margin-top:10px">端として残す幅：左右それぞれ <span id="typeBarCapValue">20</span>%</label><input type="range" id="typeBarCapPercent" min="0" max="45" value="20"><label for="typeBarTextColor">差し替えタイプバーの文字色</label><input type="color" id="typeBarTextColor" value="#000000"><div class="note">画像を左右と中央に分けて描画します。端の幅を絵柄に合わせて調整してください。</div>';
+inputs.typeBarUpload.closest('.field').after(barSettings);inputs.typeBarUpload.closest('.field').querySelector('.note').textContent='文字数に合わせてバーの幅を調整します。下の設定で、画像の端を保つ描画にも対応します。';
+const resolutionField=document.createElement('div');resolutionField.className='field';resolutionField.innerHTML='<label for="exportResolution">単体PNGの出力サイズ</label><select id="exportResolution"><option value="full">標準：1300 × 1816 px</option><option value="half">軽量：650 × 908 px</option><option value="quarter">確認用：325 × 454 px</option></select><div class="note">プレビューの表示倍率とは別に設定します。一括ZIP・印刷は標準サイズで出力します。</div>';$('pane-3').append(resolutionField);
+for(const key of Object.keys(PART_DEFAULTS)){inputs[key]=$(key);inputs[key].addEventListener('input',()=>{renderCard();queueDraftSave();});inputs[key].addEventListener('change',()=>{renderCard();queueDraftSave();});}
+function syncPartControls(){if(!$('typeBarCapValue'))return;$('typeBarCapValue').textContent=inputs.typeBarCapPercent.value;const [w,h]=pngExportDimensions();$('pngOutputSize').textContent=`${w} × ${h} px · PNG`;}
+function pngExportDimensions(){const scale=inputs.exportResolution?.value==='half'?.5:inputs.exportResolution?.value==='quarter'?.25:1;return [Math.round(canvas.width*scale),Math.round(canvas.height*scale)];}
+function pngExportCanvas(){const [width,height]=pngExportDimensions();if(width===canvas.width&&height===canvas.height)return canvas;const output=document.createElement('canvas');output.width=width;output.height=height;const context=output.getContext('2d');context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';context.drawImage(canvas,0,0,width,height);return output;}
+function drawCappedBar(img,x,y,w,h,percent){
+  const cap=img.width*percent/100;if(cap<=0){ctx.drawImage(img,x,y,w,h);return;}const destCap=Math.min(cap*h/img.height,(w-1)/2),sourceCenter=img.width-cap*2,destCenter=w-destCap*2;
+  ctx.drawImage(img,0,0,cap,img.height,x,y,destCap,h);ctx.drawImage(img,cap,0,sourceCenter,img.height,x+destCap,y,destCenter,h);ctx.drawImage(img,img.width-cap,0,cap,img.height,x+w-destCap,y,destCap,h);
+}
+renderCard();
+
+// Twinpact: one physical card, independently editable upper/lower parts.
+const TWIN_SHARED=new Set(['rarityText','expansionText','cardNumberText','authorText','showCardInfo','bottomIconText','show_bottomIconText','showManaBadge','manaBadgeShape','manaBadgeColor','manaUseCivilizations','manaRotation','linkManaToCost','previewScale','dragArtEnabled','exportResolution','exportName','frameStyle','frameLineWidth','showFrameLabels']);
+var twinReady=false;let twinMode='single',twinEditing='upper',twinUpper=null,twinLower=null;
+const singleCapture=captureProject,singleValidate=validateProject,singleGeometry=getFrameGeometry;
+function rawFace(){const p=singleCapture();return {fields:p.fields,images:p.images,decoded:[artImage,costCircleImage,manaCircleImage,typeBarImage]};}
+const twinDefaults=rawFace();
+function lowerDefaults(){const f={...twinDefaults.fields,cardName:'呪文名',cardPreset:'呪文',typeLabel:'呪文',species:'',abilityText:'■呪文の能力',flavorText:'',leftPower:'',rightPower:'',show_leftPower:false,show_rightPower:false,artZoom:'100',artOffsetX:'0',artOffsetY:'0'};return {fields:f,images:Object.fromEntries(PROJECT_IMAGE_KEYS.map(k=>[k,null])),decoded:PROJECT_IMAGE_KEYS.map(()=>null)};}
+function loadFace(face){for(const [key,input]of Object.entries(inputs)){if(input.type==='file')continue;if(TWIN_SHARED.has(key))continue;const v=face.fields[key]??twinDefaults.fields[key];if(input.type==='checkbox')input.checked=v;else input.value=v;}[artImage,costCircleImage,,typeBarImage]=face.decoded;}
+function twinFaces(){const live=rawFace(),shared=sharedFields(),u=twinEditing==='upper'?live:twinUpper,l=twinEditing==='lower'?live:twinLower;const merge=f=>f?{...f,fields:{...f.fields,...shared},images:{...f.images,manaCircle:live.images.manaCircle},decoded:[f.decoded[0],f.decoded[1],live.decoded[2],f.decoded[3]]}:null;const upper=merge(u),lower=merge(l);if(lower)lower.fields={...lower.fields,leftPower:'',rightPower:'',show_leftPower:false,show_rightPower:false};return {upper,lower};}
+function sharedFields(){return Object.fromEntries([...TWIN_SHARED].map(key=>[key,inputs[key].type==='checkbox'?inputs[key].checked:inputs[key].value]));}
+function serializedFace(face){return {fields:{...face.fields},images:{...face.images}};}
+captureProject=function(){const live=singleCapture();if(!twinReady)return live;const {upper,lower}=twinFaces(),shared=sharedFields();return {...live,fields:{...upper.fields,...shared},images:{...upper.images},cardMode:twinMode,...(lower?{twinpact:{editing:twinEditing,lower:serializedFace(lower)}}:{})};};
+validateProject=function(project){singleValidate(project);if(project.cardMode!==undefined&&!['single','twinpact','field','aura'].includes(project.cardMode))throw Error('カード形式が不正です。');if(project.twinpact!==undefined){const t=project.twinpact;if(!t||typeof t!=='object'||!['upper','lower'].includes(t.editing)||!t.lower||t.lower.twinpact!==undefined)throw Error('ツインパクトの編集データが不正です。');singleValidate({format:PROJECT_FORMAT,schemaVersion:PROJECT_VERSION,...t.lower});}if(project.cardMode==='twinpact'&&!project.twinpact)throw Error('ツインパクトの下側データがありません。');return project;};
+async function decodeLower(project){if(!project.twinpact)return null;const face=project.twinpact.lower;return {fields:{...twinDefaults.fields,...face.fields,leftPower:'',rightPower:'',show_leftPower:false,show_rightPower:false},images:{...face.images},decoded:await Promise.all(PROJECT_IMAGE_KEYS.map(k=>decodeProjectImage(face.images[k])))};}
+function installTwinProject(project,lower){twinMode=project.cardMode||'single';twinEditing='upper';twinUpper=rawFace();twinLower=lower;if(twinMode==='twinpact'&&project.twinpact.editing==='lower'){twinEditing='lower';loadFace(twinLower);}syncTwinControls();}
+const twinControls=document.createElement('section');twinControls.className='twin-controls';twinControls.innerHTML='<label for="cardMode">カード形式</label><select id="cardMode"><option value="single">単面カード</option><option value="twinpact">ツインパクト</option><option value="field">横向き：フィールド</option><option value="aura">横向き：オーラ</option></select><div id="twinEditControls" hidden><div class="twin-buttons"><button type="button" id="twinUpperBtn" aria-pressed="true">上側を編集</button><button type="button" id="twinLowerBtn" aria-pressed="false">下側を編集</button></div><div id="twinEditingStatus" class="note" role="status"></div><div class="note">パワーは上側の値を、カード下端の従来の位置に表示。マナ・カード情報・外枠・出力設定は1枚で共通です。下側のイラストは画像を選んだ場合だけ表示します。</div></div>';
+document.querySelector('.editor-tabs').before(twinControls);
+const twinStyle=document.createElement('style');twinStyle.textContent='.twin-controls{padding:14px;border:1px solid #416174;border-radius:10px;margin-bottom:16px}.twin-buttons{display:flex;gap:8px;margin:12px 0}.twin-buttons button{flex:1;min-height:44px}.twin-buttons button[aria-pressed="true"]{background:#18576d;border-color:#68d4e8}.twin-controls [hidden]{display:none!important}';document.head.append(twinStyle);
+function syncTwinControls(){if(!twinReady)return;$('cardMode').value=twinMode;$('twinEditControls').hidden=twinMode!=='twinpact';const lower=twinMode==='twinpact'&&twinEditing==='lower';$('twinUpperBtn').setAttribute('aria-pressed',String(!lower));$('twinLowerBtn').setAttribute('aria-pressed',String(lower));$('twinEditingStatus').textContent=lower?'編集中：下側（基本は呪文／パワーなし）':'編集中：上側（パワーの設定はこちら）';for(const key of ['leftPower','rightPower']){inputs[key].closest('.field').hidden=lower||isLandscapeCard();inputs['show_'+key].closest('label').hidden=lower||isLandscapeCard();}inputs.layoutPreset.closest('div.vector-frame-settings').querySelector('label[for="layoutPreset"]').textContent=lower?'下側の絵と能力欄の配分':'絵と能力欄の配分';}
+function twinBlocked(){return stateApplying||pendingImageLoads||historyMoving||batchExportBusy||shelfBusy||historyGesturePointers.size>0;}
+function switchTwinSide(side){if(twinBlocked()||twinMode!=='twinpact'||twinEditing===side)return;commitHistory();clearArtGesture();for(const input of Object.values(inputs))if(input.type==='file'){input.value='';invalidateImage(input);}if(twinEditing==='upper')twinUpper=rawFace();else twinLower=rawFace();twinEditing=side;loadFace(side==='upper'?twinUpper:twinLower);syncTwinControls();renderCard();queueDraftSave();}
+$('twinUpperBtn').onclick=()=>switchTwinSide('upper');$('twinLowerBtn').onclick=()=>switchTwinSide('lower');
+$('cardMode').onchange=()=>{if(twinBlocked()){$('cardMode').value=twinMode;setMessage('画像の読込や処理が終わってから切り替えてください。',true);return;}commitHistory();clearArtGesture();for(const input of Object.values(inputs))if(input.type==='file'){input.value='';invalidateImage(input);}if(twinEditing==='lower'){twinLower=rawFace();loadFace(twinUpper);twinEditing='upper';}twinMode=$('cardMode').value;twinUpper=rawFace();if(twinMode==='twinpact'&&!twinLower)twinLower=lowerDefaults();if(isLandscapeCard()){const preset=twinMode==='field'?'フィールド':'オーラ';inputs.cardPreset.value=preset;inputs.typeLabel.value=preset;inputs.show_typeLabel.checked=true;inputs.show_leftPower.checked=false;inputs.show_rightPower.checked=false;}syncTwinControls();renderCard();queueDraftSave();};
+const singleReset=resetForm;resetForm=function(){twinMode='single';twinEditing='upper';twinUpper=null;twinLower=null;singleReset();syncTwinControls();};
+function projectTitle(p){return p.cardMode==='twinpact'?(p.fields.cardName||'名前なし')+'／'+(p.twinpact.lower.fields.cardName||'名前なし'):(p.fields.cardName||'名前なし');}
+function projectSearch(p,q){return [p.fields,...(p.cardMode==='twinpact'?[p.twinpact.lower.fields]:[])].some(f=>['cardName','species','typeLabel','abilityText'].some(k=>String(f[k]||'').toLocaleLowerCase('ja').includes(q)));}
+function twinContent(p){const sorted=o=>Object.fromEntries(Object.keys(o).sort().map(k=>[k,o[k]])),l=p.twinpact?.lower;return JSON.stringify({mode:p.cardMode||'single',lower:l?{fields:sorted(Object.fromEntries(Object.entries(l.fields).filter(([k])=>!['previewScale','dragArtEnabled'].includes(k)))),images:sorted(l.images)}:null});}
+const singleShelfKey=shelfContentKey;shelfContentKey=function(p){return singleShelfKey(p)+twinContent(p);};
+const singleHistoryCompare=sameHistoryState;sameHistoryState=function(a,b){return singleHistoryCompare(a,b)&&twinContent(a.project)===twinContent(b.project);};
+function allProjectImages(p){return PROJECT_IMAGE_KEYS.flatMap(k=>[p.images[k],p.twinpact?.lower.images[k]]).filter(Boolean);}
+getFrameGeometry=function(){if(twinReady&&isLandscapeCard())return landscapeGeometry();if(!twinReady||twinMode!=='twinpact')return singleGeometry();return {art:twinArtBox(twinEditing)};};
+function twinArtBox(side){if(isFullArt())return side==='upper'?{x:64,y:64,w:1172,h:1048}:{x:64,y:1112,w:1172,h:640};if(side==='upper'){const layout=inputs.layoutPreset.value;return {x:65,y:296,w:1170,h:layout==='text'?370:layout==='art'?560:460};}return {x:80,y:1345,w:345,h:inputs.layoutPreset.value==='art'?225:inputs.layoutPreset.value==='text'?140:190};}
+function withTwinFace(face,fn){const refs={...inputs},images=[artImage,costCircleImage,manaCircleImage,typeBarImage];try{for(const [key,input]of Object.entries(refs)){if(input.type==='file'||TWIN_SHARED.has(key))continue;const v=face.fields[key]??twinDefaults.fields[key];inputs[key]={value:input.type==='checkbox'?input.value:v,checked:input.type==='checkbox'?v:input.checked,type:input.type,min:input.min,max:input.max};}[artImage,costCircleImage,,typeBarImage]=face.decoded;return fn();}finally{Object.assign(inputs,refs);[artImage,costCircleImage,manaCircleImage,typeBarImage]=images;}}
+function twinType(text,x,y,maxW=1050){if(inputs.show_typeLabel.checked===false)return;ctx.font='bold 29px "Yu Gothic",sans-serif';const w=Math.min(maxW,Math.max(200,ctx.measureText(text).width+50));if(typeBarImage){if(inputs.typeBarImageMode.value==='caps')drawCappedBar(typeBarImage,x,y,w,47,Number(inputs.typeBarCapPercent.value));else drawStretchImage(typeBarImage,x,y,w,47);}else cutPanel(x,y,w,47,10,'#172f41',framePalette().accent,2);drawCenterText(text,x+w/2,y+23.5,w-50,29,12,typeBarImage?inputs.typeBarTextColor.value:'#f0f8fc');}
+function twinCivs(y){const civs=selectedCivilizations();if(inputs.colorCivilizations.checked)civs.forEach((c,i)=>{ctx.fillStyle=TOKEN_STYLES[c].fill;ctx.fillRect(52+i*1188/civs.length,y,1188/civs.length,5);});if(inputs.showCivilizations.checked)civs.forEach((c,i)=>{const x=1034+(i%3)*53,cy=y-152+Math.floor(i/3)*35;cutPanel(x,cy,45,29,7,TOKEN_STYLES[c].fill,null);drawCenterText(c==='無'?'無色':c,x+22.5,cy+14.5,42,17,12,TOKEN_STYLES[c].text);});}
+function twinName(text,y){const name=getCardNameLayout(text,Number(inputs.cardNameFontSize.value),inputs.cardNameLayout.value);ctx.save();ctx.beginPath();ctx.rect(250,y-48,750,96);ctx.clip();ctx.font=name.font;ctx.fillStyle='#f1f8fb';ctx.textAlign='center';ctx.textBaseline='middle';name.lines.forEach((line,i)=>{const cy=y+(i-(name.lines.length-1)/2)*name.lineHeight;if(isFullArt())fullArtText(line,625,cy,name.size);else ctx.fillText(line,625,cy);});ctx.restore();if(!name.fits)renderWarnings.push('カード名が枠を超えています。');return name;}
+function twinCost(y){if(inputs.showCostBadge.checked){if(costCircleImage)drawStretchImage(costCircleImage,48,y,164,164);else drawFallbackCircle(48,y,164,164,inputs.costBadgeShape.value,inputs.costBadgeColor.value,inputs.costUseCivilizations.checked);}drawOutlinedCenterText(visibleValue('costText'),130,y+82,130,78,32,'#fff','#000','bold',7);}
+function twinArt(g){ctx.save();ctx.beginPath();ctx.rect(g.x,g.y,g.w,g.h);ctx.clip();if(artImage)drawCoverImage(artImage,g.x,g.y,g.w,g.h,Number(inputs.artZoom.value)/100,Number(inputs.artOffsetX.value),Number(inputs.artOffsetY.value));else{ctx.fillStyle='#203342';ctx.fillRect(g.x,g.y,g.w,g.h);ctx.strokeStyle='#2d475a';ctx.lineWidth=2;for(let i=-g.h;i<g.w;i+=180){ctx.beginPath();ctx.moveTo(g.x+i,g.y);ctx.lineTo(g.x+i+g.h,g.y+g.h);ctx.stroke();}drawCenterText('A / E',g.x+g.w/2,g.y+g.h/2,g.w*.8,96,30,'#3e6075');}ctx.restore();ctx.strokeStyle=framePalette().edge;ctx.lineWidth=3;ctx.strokeRect(g.x,g.y,g.w,g.h);}
+function twinManaCivilizations(upper,lower){return CIVILIZATIONS.filter(c=>upper?.fields['civ_'+c]||lower?.fields['civ_'+c]);}
+function renderTwinCard(){
+  const {upper,lower}=twinFaces(),layouts={},names={};renderWarnings=[];ctx.clearRect(0,0,1300,1816);const p=framePalette();ctx.fillStyle=p.base;ctx.fillRect(0,0,1300,1816);cutPanel(20,20,1260,1776,p.style==='flat'?12:38,p.base,p.edge,Number(inputs.frameLineWidth.value));
+  for(const [side,face]of [['upper',upper],['lower',lower]])withTwinFace(face,()=>{const start=renderWarnings.length,fp=framePalette(),isUpper=side==='upper',hy=isUpper?70:1112,full=isFullArt();if(full)drawFullArtBackground(twinArtBox(side));
+    ctx.fillStyle=full?'#13263799':fp.header;ctx.fillRect(49,hy,1188,201);ctx.fillStyle=full?'#223b4e66':'#223b4e';ctx.fillRect(230,hy+126,1007,75);ctx.fillStyle=fp.accent;ctx.fillRect(232,hy+114,727,4);
+    names[side]=twinName(visibleValue('cardName'),hy+64);twinCost(hy+6);drawCenterText(visibleValue('species'),650,hy+169,1050,40,18,'#d4e8f3');twinCivs(hy+208);
+    if(isUpper){const g=twinArtBox('upper');if(!full)twinArt(g);const ty=full?736:g.y+g.h-20;if(!full)cutPanel(50,ty+24,1186,1108-ty-24,18,fp.paper,fp.edge,3);twinType(visibleValue('typeLabel'),50,ty);layouts[side]=drawParagraphExact(visibleValue('abilityText'),80,ty+64,1130,1060-ty-64,Number(inputs.abilityFontSize.value),Number(inputs.abilityLineHeight.value)/100,'#000',inputs.autoFitAbility.checked,22);drawFlavorText(visibleValue('flavorText'),80,1064,1130,40,23,14,1.2,'#30485a');}
+    else{if(full){ctx.fillStyle='#101d2a99';ctx.fillRect(50,1718,1186,78);}if(!full)cutPanel(50,1324,1186,394,18,fp.paper,fp.edge,3);twinType(visibleValue('typeLabel'),50,1302,1050);const g=twinArtBox('lower');if(artImage&&!full)twinArt(g);const ax=artImage&&!full?455:80,aw=artImage&&!full?625:1000;layouts[side]=drawParagraphExact(visibleValue('abilityText'),ax,1358,aw,222,Number(inputs.abilityFontSize.value),Number(inputs.abilityLineHeight.value)/100,'#000',inputs.autoFitAbility.checked,22);drawFlavorText(visibleValue('flavorText'),329,1608,761,76,26,14,1.25,'#000');ctx.strokeStyle='#bdccd6';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(329,1595);ctx.lineTo(1090,1595);ctx.stroke();}
+    if(!layouts[side].fits)renderWarnings.push('能力文が枠からはみ出しています。');if((visibleValue('abilityText').match(/\*/g)||[]).length%2)renderWarnings.push('能力文の太字記法（*）が閉じていません。');for(let i=start;i<renderWarnings.length;i++)renderWarnings[i]=(isUpper?'上側：':'下側：')+renderWarnings[i];
+  });
+  if(upper.fields.layoutPreset==='full'||lower.fields.layoutPreset==='full')cutPanel(20,20,1260,1776,p.style==='flat'?12:38,'#00000000',p.edge,Number(inputs.frameLineWidth.value));
+  // The upper part owns both power values. Their physical positions match single cards.
+  withTwinFace(upper,()=>{const p=framePalette(),left=visibleValue('leftPower'),right=visibleValue('rightPower');if(left){cutPanel(48,1618,260,102,18,'#153345',null);ctx.fillStyle=p.accent;ctx.fillRect(48,1636,5,64);}if(right){cutPanel(1123,1477,113,241,17,'#27324b',null);ctx.fillStyle=p.secondary;ctx.fillRect(1231,1494,5,207);}if(inputs.showFrameLabels.checked){ctx.font='bold 15px sans-serif';ctx.fillStyle='#b1d4e3';ctx.textAlign='center';ctx.textBaseline='middle';if(left)ctx.fillText('UNTAP POWER',178,1638);if(right){ctx.save();ctx.translate(1210,1602);ctx.rotate(Math.PI/2);ctx.fillText('TAP POWER',0,0);ctx.restore();}}drawCenterText(left,178,1678,220,70,24,'#fff');drawTappedPower(right);
+    if(inputs.showManaBadge.checked){const image=inputs.linkManaToCost.checked?costCircleImage:manaCircleImage,angle=Number(inputs.manaRotation.value)*Math.PI/180;if(image)drawStretchImageRotated(image,587,1688,126,126,angle);else drawFallbackCircle(587,1688,126,126,inputs.manaBadgeShape.value,inputs.manaBadgeColor.value,inputs.manaUseCivilizations.checked,twinManaCivilizations(upper,lower));}drawOutlinedRotatedCenterText(visibleValue('bottomIconText'),650,1750,75,48,22,Number(inputs.manaRotation.value)*Math.PI/180,'#fff','#000','bold',6);drawCardInfoBox({show:inputs.showCardInfo.checked,rarity:inputs.rarityText.value.trim(),expansion:inputs.expansionText.value.trim(),number:inputs.cardNumberText.value.trim(),author:inputs.authorText.value.trim()});
+  });
+  const layout=layouts[twinEditing],name=names[twinEditing];abilityFontSizeValue.textContent=inputs.abilityFontSize.value;cardNameFontSizeValue.textContent=inputs.cardNameFontSize.value;abilityActualFontSizeValue.textContent=String(layout.fontSize);abilityFitStatus.classList.toggle('warn',!layout.fits);abilityFitStatus.textContent=layout.fits?`編集中の${twinEditing==='upper'?'上側':'下側'}：${layout.fontSize}pxで枠内に表示。`:'編集中の能力文が枠を超えています。';$('cardNameActual').textContent=`${name.size}px・${name.lines.length}行`;
+  artZoomValue.textContent=inputs.artZoom.value;artOffsetXValue.textContent=inputs.artOffsetX.value;artOffsetYValue.textContent=inputs.artOffsetY.value;$('abilityLineHeightValue').textContent=(Number(inputs.abilityLineHeight.value)/100).toFixed(2);$('frameLineWidthValue').textContent=inputs.frameLineWidth.value;syncArtControls();syncPartControls();updateLayoutWarnings();if(shelfRenderHook)shelfRenderHook();if(historyRenderHook)historyRenderHook();$('previewTextStatus').className=$('layoutStatus').classList.contains('warn')?'warn':'ok';
+}
+function isLandscapeCard(){return twinMode==='field'||twinMode==='aura';}
+function syncCardDimensions(){const landscape=isLandscapeCard(),w=landscape?1816:1300,h=landscape?1300:1816;if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}for(const [value,scale,label]of [['full',1,'標準'],['half',.5,'軽量'],['quarter',.25,'確認用']]){const option=inputs.exportResolution.querySelector(`option[value="${value}"]`);option.textContent=`${label}：${Math.round(w*scale)} × ${Math.round(h*scale)} px`;}}
+function landscapeGeometry(){const layout=inputs.layoutPreset.value,artH=layout==='text'?480:layout==='art'?710:620,ty=layout==='full'?862:240+artH-20;return {art:layout==='full'?{x:64,y:64,w:1688,h:1172}:{x:64,y:240,w:1688,h:artH},type:{x:50,y:ty,h:49},ability:{x:80,y:ty+66,w:1510,h:1162-ty-66},flavor:{x:80,y:1170,w:1480,h:42},cost:{x:48,y:60,w:164,h:164},mana:{x:1688,y:587,w:126,h:126}};}
+function renderLandscapeCard(){
+  renderWarnings=[];ctx.lineJoin='round';ctx.lineCap='butt';ctx.miterLimit=2;const g=landscapeGeometry(),p=framePalette(),full=isFullArt();ctx.clearRect(0,0,1816,1300);ctx.fillStyle=p.base;ctx.fillRect(0,0,1816,1300);cutPanel(20,20,1776,1260,p.style==='flat'?12:38,p.base,p.edge,Number(inputs.frameLineWidth.value));
+  if(full)drawFullArtBackground(g.art);else twinArt(g.art);
+  if(!full)cutPanel(50,g.type.y+24,1716,1222-g.type.y-24,18,p.paper,p.edge,3);
+  ctx.fillStyle=full?'#13263799':p.header;ctx.fillRect(49,55,1718,169);ctx.fillStyle=full?'#223b4e66':'#223b4e';ctx.fillRect(230,160,1537,64);ctx.fillStyle=p.accent;ctx.fillRect(232,148,1210,4);
+  const name=getCardNameLayout(visibleValue('cardName'),Number(inputs.cardNameFontSize.value),inputs.cardNameLayout.value,1250,94);ctx.save();ctx.beginPath();ctx.rect(250,64,1250,94);ctx.clip();ctx.font=name.font;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f1f8fb';name.lines.forEach((line,i)=>{const y=110+(i-(name.lines.length-1)/2)*name.lineHeight;if(full)fullArtText(line,875,y,name.size);else ctx.fillText(line,875,y);});ctx.restore();if(!name.fits)renderWarnings.push('カード名が枠を超えています。');drawCenterText(visibleValue('species'),1000,192,1460,36,18,'#d4e8f3');
+  if(inputs.showCostBadge.checked){if(costCircleImage)drawStretchImage(costCircleImage,48,60,164,164);else drawFallbackCircle(48,60,164,164,inputs.costBadgeShape.value,inputs.costBadgeColor.value,inputs.costUseCivilizations.checked);}drawOutlinedCenterText(visibleValue('costText'),130,142,130,78,32,'#fff','#000','bold',7);
+  const civs=selectedCivilizations();if(inputs.colorCivilizations.checked)civs.forEach((c,i)=>{ctx.fillStyle=TOKEN_STYLES[c].fill;ctx.fillRect(52+i*1712/civs.length,230,1712/civs.length,5);});if(inputs.showCivilizations.checked)civs.forEach((c,i)=>{const x=1550+i%3*57,y=88+Math.floor(i/3)*36;cutPanel(x,y,49,29,7,TOKEN_STYLES[c].fill,null);drawCenterText(c==='無'?'無色':c,x+24.5,y+14.5,45,17,12,TOKEN_STYLES[c].text);});
+  twinType(visibleValue('typeLabel'),g.type.x,g.type.y,1400);
+  const ability=drawParagraphExact(visibleValue('abilityText'),g.ability.x,g.ability.y,g.ability.w,g.ability.h,Number(inputs.abilityFontSize.value),Number(inputs.abilityLineHeight.value)/100,'#000',inputs.autoFitAbility.checked,22);drawFlavorText(visibleValue('flavorText'),g.flavor.x,g.flavor.y,g.flavor.w,g.flavor.h,23,14,1.2,'#30485a');
+  cutPanel(20,20,1776,1260,p.style==='flat'?12:38,'#00000000',p.edge,Number(inputs.frameLineWidth.value));
+  if(inputs.showManaBadge.checked){const image=inputs.linkManaToCost.checked?costCircleImage:manaCircleImage,angle=(Number(inputs.manaRotation.value)-90)*Math.PI/180;if(image)drawStretchImageRotated(image,g.mana.x,g.mana.y,g.mana.w,g.mana.h,angle);else {ctx.save();ctx.translate(g.mana.x+g.mana.w/2,g.mana.y+g.mana.h/2);ctx.rotate(-Math.PI/2);drawFallbackCircle(-g.mana.w/2,-g.mana.h/2,g.mana.w,g.mana.h,inputs.manaBadgeShape.value,inputs.manaBadgeColor.value,inputs.manaUseCivilizations.checked);ctx.restore();}}drawOutlinedRotatedCenterText(visibleValue('bottomIconText'),1750,650,75,48,22,(Number(inputs.manaRotation.value)-90)*Math.PI/180,'#fff','#000','bold',6);
+  ctx.fillStyle=p.base;ctx.fillRect(50,1236,1716,44);if(inputs.showCardInfo.checked){let x=80;for(const [label,key,width]of [['RARE','rarityText',140],['EXP','expansionText',250],['NO','cardNumberText',320],['MAKE','authorText',530]]){const value=inputs[key].value.trim();if(value){ctx.font='bold 14px sans-serif';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#86a3b6';ctx.fillText(label,x,1257);const size=fitSingleLineText(value,width,22,12);ctx.font=`bold ${size}px "Yu Gothic",sans-serif`;ctx.fillStyle='#eaf3f8';ctx.fillText(value,x+56,1257);}x+=width+90;}}
+  abilityFontSizeValue.textContent=inputs.abilityFontSize.value;cardNameFontSizeValue.textContent=inputs.cardNameFontSize.value;abilityActualFontSizeValue.textContent=String(ability.fontSize);abilityFitStatus.classList.toggle('warn',!ability.fits);abilityFitStatus.textContent=ability.fits?`横向き：${ability.fontSize}pxで枠内に表示。`:'能力文が枠からはみ出しています。';$('cardNameActual').textContent=`${name.size}px・${name.lines.length}行`;artZoomValue.textContent=inputs.artZoom.value;artOffsetXValue.textContent=inputs.artOffsetX.value;artOffsetYValue.textContent=inputs.artOffsetY.value;$('abilityLineHeightValue').textContent=(Number(inputs.abilityLineHeight.value)/100).toFixed(2);$('frameLineWidthValue').textContent=inputs.frameLineWidth.value;syncArtControls();syncPartControls();updateLayoutWarnings();if(shelfRenderHook)shelfRenderHook();if(historyRenderHook)historyRenderHook();$('previewTextStatus').className=$('layoutStatus').classList.contains('warn')?'warn':'ok';
+}
+
+twinReady=true;twinUpper=rawFace();syncTwinControls();
+
+renderCard();
+// Explicit return controls for the printed layout and the resizable editor.
+const layoutStandardBtn=document.createElement('button');layoutStandardBtn.type='button';layoutStandardBtn.id='layoutStandardBtn';layoutStandardBtn.textContent='カードの配分を標準に戻す';
+inputs.layoutPreset.after(layoutStandardBtn);const fullArtHelp=document.createElement('div');fullArtHelp.className='note';fullArtHelp.textContent='フルサイズでは四辺に64pxの縁を残してイラストを表示し、能力文は白文字・強めの黒縁で重ねます。下の設定で縁の太さと半透明背景を調整できます。ツインパクトは編集中の側に適用します。画像の位置・拡大は通常と同じ操作で調整できます。';layoutStandardBtn.after(fullArtHelp);
+layoutStandardBtn.onclick=()=>{if(stateApplying||pendingImageLoads||batchExportBusy||historyMoving)return;commitHistory();inputs.layoutPreset.value='standard';renderCard();queueDraftSave();commitHistory();setMessage(twinMode==='twinpact'?'編集中の'+(twinEditing==='upper'?'上側':'下側')+'のカード配分を標準に戻しました。':'カードの配分を標準に戻しました。');};
+const abilityEditorResetBtn=document.createElement('button');abilityEditorResetBtn.type='button';abilityEditorResetBtn.id='abilityEditorResetBtn';abilityEditorResetBtn.textContent='入力欄の高さを戻す';
+inputs.abilityText.after(abilityEditorResetBtn);
+abilityEditorResetBtn.onclick=()=>{inputs.abilityText.style.removeProperty('height');setMessage('能力の入力欄の高さを戻しました。文章とカードの配置はそのままです。');};
+
+initDraft().then(initShelf).then(initHistory);
+</script>
+</body>
+</html>
