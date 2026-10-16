@@ -62,7 +62,7 @@ add('effects','movement','深淵送り・特殊帰還・トークン',take(4,'�
 add('effects','state','状況起因処理・再構築・ミスセット',take(4,'即時処理の分類','再構築・ミスセット'));
 add('effects','seal','封印と封印解除',take(5,'封印'),{lead:'封印はカードタイプではなく、エレメントに置かれる裏向きカードです。クリーチャーと非クリーチャーの違いに注意してください。',related:['types/equipment.html','effects/waiting.html']});
 add('keywords','corpse-armament','屍武装化',take(5,'屍武装化（第104問の最新エラッタ）'),{related:['effects/replacement.html','execution/events.html']});
-for(const [i,s] of all(8).entries())add('keywords',({'スピリット':'spirit','スピリット・Ω':'spirit-omega','サモン・ドラグハート':'summon-dragheart','サモン・ドラグハート・Ω':'summon-dragheart-omega','スマッシュ・バースト':'smash-burst','ラスト・ワード':'last-word','ラスト・ワード・Ω':'last-word-omega'}[s.title]||`ability-${String(i+1).padStart(2,'0')}`),s.title,[s]);
+for(const [i,s] of all(8).entries())add('keywords',({'スピリット':'spirit','スピリット・Ω':'spirit-omega','サモン・ドラグハート':'summon-dragheart','サモン・ドラグハート・Ω':'summon-dragheart-omega','スマッシュ・バースト':'smash-burst','ラスト・ワード':'last-word','ラスト・ワード・Ω':'last-word-omega',"侵略":"invasion","S級侵略":"s-class-invasion","S級侵略<原始>":"s-class-invasion-primitive","S級侵略<宇宙>":"s-class-invasion-space","S級侵略<不死>":"s-class-invasion-undead","S級侵略<轟速>":"s-class-invasion-speed","S級侵略<厄災>":"s-class-invasion-calamity"}[s.title]||`ability-${String(i+1).padStart(2,'0')}`),s.title,[s]);
 add('writing','targets','ゾーン・対象・カードの指定',take(9,'ゾーン指定','これ','選ぶ・対象・すべて','持ち主','見る・山札の上からX枚表向きにする'));
 add('writing','wording','能力文の読み方',take(9,'出す・実行','任意と強制','かわりに（2026-10-14改訂）','まで','参照する数値','能力消去と独立した移動','「直前に出た」の参照（2026-10-15チューバイ・トラップ確認）'));
 add('writing','design','命名条件・能力指定・制作',take(9,'名前条件と能力指定','制作・レビュー'));
