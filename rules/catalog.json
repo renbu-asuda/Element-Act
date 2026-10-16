@@ -595,6 +595,14 @@
       ]
     },
     {
+      "title": "スピリット・Ω",
+      "url": "keywords/spirit-omega.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-38"
+      ]
+    },
+    {
       "title": "ゾーン・対象・カードの指定",
       "url": "writing/targets.html",
       "group": "writing",
@@ -1004,7 +1012,8 @@
         "keywords/ability-34.html",
         "keywords/ability-35.html",
         "keywords/ability-36.html",
-        "keywords/spirit.html"
+        "keywords/spirit.html",
+        "keywords/spirit-omega.html"
       ]
     },
     {
@@ -1161,6 +1170,7 @@
     "chapter-8-section-35": "keywords/ability-35.html#chapter-8-section-35",
     "chapter-8-section-36": "keywords/ability-36.html#chapter-8-section-36",
     "chapter-8-section-37": "keywords/spirit.html#chapter-8-section-37",
+    "chapter-8-section-38": "keywords/spirit-omega.html#chapter-8-section-38",
     "chapter-9-section-1": "writing/targets.html#chapter-9-section-1",
     "chapter-9-section-2": "writing/targets.html#chapter-9-section-2",
     "chapter-9-section-3": "writing/targets.html#chapter-9-section-3",
