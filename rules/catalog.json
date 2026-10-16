@@ -603,6 +603,46 @@
       ]
     },
     {
+      "title": "サモン・ドラグハート",
+      "url": "keywords/summon-dragheart.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-39"
+      ]
+    },
+    {
+      "title": "サモン・ドラグハート・Ω",
+      "url": "keywords/summon-dragheart-omega.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-40"
+      ]
+    },
+    {
+      "title": "スマッシュ・バースト",
+      "url": "keywords/smash-burst.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-41"
+      ]
+    },
+    {
+      "title": "ラスト・ワード",
+      "url": "keywords/last-word.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-42"
+      ]
+    },
+    {
+      "title": "ラスト・ワード・Ω",
+      "url": "keywords/last-word-omega.html",
+      "group": "keywords",
+      "sections": [
+        "chapter-8-section-43"
+      ]
+    },
+    {
       "title": "ゾーン・対象・カードの指定",
       "url": "writing/targets.html",
       "group": "writing",
@@ -1013,7 +1053,12 @@
         "keywords/ability-35.html",
         "keywords/ability-36.html",
         "keywords/spirit.html",
-        "keywords/spirit-omega.html"
+        "keywords/spirit-omega.html",
+        "keywords/summon-dragheart.html",
+        "keywords/summon-dragheart-omega.html",
+        "keywords/smash-burst.html",
+        "keywords/last-word.html",
+        "keywords/last-word-omega.html"
       ]
     },
     {
@@ -1171,6 +1216,11 @@
     "chapter-8-section-36": "keywords/ability-36.html#chapter-8-section-36",
     "chapter-8-section-37": "keywords/spirit.html#chapter-8-section-37",
     "chapter-8-section-38": "keywords/spirit-omega.html#chapter-8-section-38",
+    "chapter-8-section-39": "keywords/summon-dragheart.html#chapter-8-section-39",
+    "chapter-8-section-40": "keywords/summon-dragheart-omega.html#chapter-8-section-40",
+    "chapter-8-section-41": "keywords/smash-burst.html#chapter-8-section-41",
+    "chapter-8-section-42": "keywords/last-word.html#chapter-8-section-42",
+    "chapter-8-section-43": "keywords/last-word-omega.html#chapter-8-section-43",
     "chapter-9-section-1": "writing/targets.html#chapter-9-section-1",
     "chapter-9-section-2": "writing/targets.html#chapter-9-section-2",
     "chapter-9-section-3": "writing/targets.html#chapter-9-section-3",

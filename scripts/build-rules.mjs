@@ -62,7 +62,7 @@ add('effects','movement','深淵送り・特殊帰還・トークン',take(4,'�
 add('effects','state','状況起因処理・再構築・ミスセット',take(4,'即時処理の分類','再構築・ミスセット'));
 add('effects','seal','封印と封印解除',take(5,'封印'),{lead:'封印はカードタイプではなく、エレメントに置かれる裏向きカードです。クリーチャーと非クリーチャーの違いに注意してください。',related:['types/equipment.html','effects/waiting.html']});
 add('keywords','corpse-armament','屍武装化',take(5,'屍武装化（第104問の最新エラッタ）'),{related:['effects/replacement.html','execution/events.html']});
-for(const [i,s] of all(8).entries())add('keywords',s.title==='スピリット'?'spirit':s.title==='スピリット・Ω'?'spirit-omega':`ability-${String(i+1).padStart(2,'0')}`,s.title,[s]);
+for(const [i,s] of all(8).entries())add('keywords',({'スピリット':'spirit','スピリット・Ω':'spirit-omega','サモン・ドラグハート':'summon-dragheart','サモン・ドラグハート・Ω':'summon-dragheart-omega','スマッシュ・バースト':'smash-burst','ラスト・ワード':'last-word','ラスト・ワード・Ω':'last-word-omega'}[s.title]||`ability-${String(i+1).padStart(2,'0')}`),s.title,[s]);
 add('writing','targets','ゾーン・対象・カードの指定',take(9,'ゾーン指定','これ','選ぶ・対象・すべて','持ち主','見る・山札の上からX枚表向きにする'));
 add('writing','wording','能力文の読み方',take(9,'出す・実行','任意と強制','かわりに（2026-10-14改訂）','まで','参照する数値','能力消去と独立した移動','「直前に出た」の参照（2026-10-15チューバイ・トラップ確認）'));
 add('writing','design','命名条件・能力指定・制作',take(9,'名前条件と能力指定','制作・レビュー'));
@@ -105,7 +105,7 @@ function md(body,from){
 function sourceNote(p){
  const nums=[...new Set(p.sections.map(s=>Number(s.old.match(/^chapter-(\d+)/)[1])))];
  if(p.url==='types/overview.html')nums.push(5);if(p.url==='guide/unsettled.html'&&!nums.includes(12))nums.push(12);
- return `<details class="sources"><summary>出典・裁定の位置づけ</summary><p>収録基準：2026年10月16日。基本資料は10月15日までの統合版で、新行動2種、スピリット系の追加、エターナル系の再登録は10月16日の提案者指定を反映しています。提案者の推奨基準を整理した資料であり、発言の逐語記録ではありません。</p>${nums.map(n=>`<div>${md(sourceByDoc[n-1],p.url)}</div>`).join('')}</details>`;
+ return `<details class="sources"><summary>出典・裁定の位置づけ</summary><p>収録基準：2026年10月16日。基本資料は10月15日までの統合版で、新行動および能力の追加・再登録は10月16日の提案者指定を反映しています。提案者の推奨基準を整理した資料であり、発言の逐語記録ではありません。</p>${nums.map(n=>`<div>${md(sourceByDoc[n-1],p.url)}</div>`).join('')}</details>`;
 }
 function shell(url,title,body,group='',extra=''){
  const active=groups.find(g=>g.id===group);
