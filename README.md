@@ -53,7 +53,7 @@
 
 | 調べたいこと | おすすめの章 |
 | --- | --- |
-| コスト・ジャッジやルーティングの手順を知りたい | [行動](https://renbu-asuda.github.io/Element-Act/rules/actions/index.html) |
+| コスト・ジャッジ、ルーティング、リクルートなどの手順を知りたい | [行動](https://renbu-asuda.github.io/Element-Act/rules/actions/index.html) |
 | 能力名の意味を知りたい | [能力辞典](https://renbu-asuda.github.io/Element-Act/rules/keywords/index.html) |
 | 能力の解決順や、破壊・移動の処理を確認したい | [能力処理と移動](https://renbu-asuda.github.io/Element-Act/rules/effects/index.html) |
 | フラッグやバイチュイの使い方を知りたい | [フラッグ](https://renbu-asuda.github.io/Element-Act/rules/types/flag.html) ／ [バイチュイ](https://renbu-asuda.github.io/Element-Act/rules/zones/baichui.html) |
@@ -63,7 +63,7 @@
 
 検索欄に能力名や用語を入力すると、該当する項目を探せます。複数の言葉を空白で区切ると、すべての言葉を含む項目に絞り込めます。章ごとの絞り込みや、項目へのリンクの共有、表示中のページの印刷・PDF保存もできます。
 
-**収録基準：2026年10月16日。** 確定裁定と暫定解釈・未確定事項を区別して掲載しています。各章に記載した出典や日付も併せて確認してください。
+**収録基準：2026年10月17日。** 確定裁定と暫定解釈・未確定事項を区別して掲載しています。各章に記載した出典や日付も併せて確認してください。
 
 ## 自由に作って、相談しながら遊ぶために
 

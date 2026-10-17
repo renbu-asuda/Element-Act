@@ -197,6 +197,38 @@
       ]
     },
     {
+      "title": "リクルートX:Y",
+      "url": "actions/recruit.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-15"
+      ]
+    },
+    {
+      "title": "リアニメイトX:Y",
+      "url": "actions/reanimate.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-16"
+      ]
+    },
+    {
+      "title": "サルベージX:Y",
+      "url": "actions/salvage.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-17"
+      ]
+    },
+    {
+      "title": "サーチX:Y",
+      "url": "actions/search-deck.html",
+      "group": "actions",
+      "sections": [
+        "chapter-4-section-18"
+      ]
+    },
+    {
       "title": "攻撃の手順と攻撃先",
       "url": "combat/attack.html",
       "group": "combat",
@@ -1042,7 +1074,11 @@
       "title": "行動",
       "pages": [
         "actions/cost-judge.html",
-        "actions/routing.html"
+        "actions/routing.html",
+        "actions/recruit.html",
+        "actions/reanimate.html",
+        "actions/salvage.html",
+        "actions/search-deck.html"
       ]
     },
     {
@@ -1216,6 +1252,10 @@
     "chapter-2-section-14": "execution/events.html#chapter-2-section-14",
     "chapter-4-section-13": "actions/cost-judge.html#chapter-4-section-13",
     "chapter-4-section-14": "actions/routing.html#chapter-4-section-14",
+    "chapter-4-section-15": "actions/recruit.html#chapter-4-section-15",
+    "chapter-4-section-16": "actions/reanimate.html#chapter-4-section-16",
+    "chapter-4-section-17": "actions/salvage.html#chapter-4-section-17",
+    "chapter-4-section-18": "actions/search-deck.html#chapter-4-section-18",
     "chapter-3-section-1": "combat/attack.html#chapter-3-section-1",
     "chapter-3-section-2": "combat/attack.html#chapter-3-section-2",
     "chapter-3-section-8": "combat/attack.html#chapter-3-section-8",
